@@ -118,20 +118,20 @@ GRAbstractToggle : GRView {
 		^valuesPressed.size
 	}
 
-	numValuesX {
-		^numCols div: thumbWidth
-	}
-
-	numValuesY {
-		^numRows div: thumbHeight
-	}
-
 	maximumValue {
 		^this.numValues-1
 	}
 
 	numValues {
 		^this.numValuesX*this.numValuesY
+	}
+
+	numValuesX {
+		^numCols div: thumbWidth
+	}
+
+	numValuesY {
+		^numRows div: thumbHeight
 	}
 
 	valueAt { |point|
