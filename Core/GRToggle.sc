@@ -35,7 +35,7 @@ GRToggle : GRAbstractToggle {
 			var affectedValue = this.valueAt(point);
 			if (this.prViewButtonStateChangeAffectedValuesPressed) {
 				if (pressed) {
-					valuesPressed.add(affectedValue);
+					valuesPressed = valuesPressed.add(affectedValue);
 					localNumValuesPressed = this.numValuesPressed;
 		
 					if (this.isCoupled) {

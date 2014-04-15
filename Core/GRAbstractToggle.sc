@@ -29,7 +29,7 @@ GRAbstractToggle : GRView {
 				thumbHeight = numRows;
 			};
 
-		valuesPressed = Array.new(this.numViewButtons);
+		valuesPressed = Array.new;
 	}
 
 	isCoupled {
