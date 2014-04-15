@@ -75,7 +75,7 @@ GRMultiToggleView : GRContainerView {
 	}
 
 	nillable_ { |argNillable|
-		toggles.each { |toggle| toggle.nillable = argNillable };
+		toggles.do { |toggle| toggle.nillable = argNillable };
 		nillable = argNillable;
 	}
 
