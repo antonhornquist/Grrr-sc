@@ -119,11 +119,11 @@ GRAbstractToggle : GRView {
 	}
 
 	numValuesX {
-		^numCols / thumbWidth
+		^numCols div: thumbWidth
 	}
 
 	numValuesY {
-		^numRows / thumbHeight
+		^numRows div: thumbHeight
 	}
 
 	maximumValue {
@@ -131,7 +131,7 @@ GRAbstractToggle : GRView {
 	}
 
 	numValues {
-		^(numCols / thumbWidth * numRows / thumbHeight).asInteger
+		^this.numValuesX*this.numValuesY
 	}
 
 	valueAt { |point|
