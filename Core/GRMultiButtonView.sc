@@ -120,6 +120,10 @@ GRMultiButtonView : GRContainerView {
 		^buttons[x][y].value
 	}
 
+	flashButton { |x, y, delay|
+		buttons[x][y].flash(delay)
+	}
+
 	setButtonValue { |x, y, val|
 		buttons[x][y].value = val
 	}
