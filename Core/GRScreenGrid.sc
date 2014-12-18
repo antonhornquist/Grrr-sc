@@ -92,7 +92,7 @@ GRScreenGrid : GRController {
 				/*
 					backspaceKeycode=22
 				*/
-			]
+			],
 			swedish_win7: #[
 				49, 50, 51, 52, 53, 54, 55, 56,
 				81, 87, 69, 82, 84, 89, 85, 73,
