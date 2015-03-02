@@ -157,6 +157,10 @@ GRMultiToggleView : GRContainerView {
 		^toggles[i].value
 	}
 
+	flashToggle { |i, delay|
+		toggles[i].flash(delay)
+	}
+
 	setToggleValue { |i, val|
 		toggles[i].value = val
 	}
