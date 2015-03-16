@@ -41,33 +41,33 @@ a.view.removeAllChildren;
 
 ## Classes
 
-* View - Abstract superclass. Represents a 2D grid of backlit buttons.
-	* Button - A button that may span over several rows and columns.
-	* AbstractToggle
-		* Toggle
-			* VToggle
-			* HToggle
-		(* AbstractRangeToggle (rename to RangeToggleBase?))
-			(* VRangeToggle)
-			(* HRangeToggle)
-		(* SliderBase)
-			(* VSlider)
-			(* HSlider)
-	(* Keyboard)
-	* ContainerView - Abstract class for views that may contain other views.
-		* TopView - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
-		* MultiButtonView - A grid of buttons of the same size.
+* GRView - Abstract superclass. Represents a 2D grid of backlit buttons.
+	* GRButton - A button that may span over several rows and columns.
+	* GRAbstractToggle
+		* GRToggle
+			* GRVToggle
+			* GRHToggle
+		(* GRAbstractRangeToggle (rename to GRRangeToggleBase?))
+			(* GRVRangeToggle)
+			(* GRHRangeToggle)
+		(* GRSliderBase)
+			(* GRVSlider)
+			(* GRHSlider)
+	(* GRKeyboard)
+	* GRContainerView - Abstract class for views that may contain other views.
+		* GRTopView - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
+		* GRMultiButtonView - A grid of buttons of the same size.
 
-		* MultiToggleView - An array of vertical or horizontal toggles of the same size.
-		* Switcher - A container that only have one child view active at any given time. Has convenience methods for changing which child view is active.
-* Controller - Abstract superclass. Represents a device that may attach to and control part of or an entire view.
-	* ScreenGrid - An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
-	(* AbstractMonome - Superclass for all monomes.)
-		(* Monome40h - monome 40h.)
-		(* Monome64 - monome 64.)
-		(* Monome128 - monome 128.)
-		(* Monome256 - monome 256.)
-	(* MPC500 - An Akai MPC 500.)
+		* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
+		* GRSwitcher - A container that only have one child view active at any given time. Has convenience methods for changing which child view is active.
+* GRController - Abstract superclass. Represents a device that may attach to and control part of or an entire view.
+	* GRScreenGrid - An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
+	(* GRAbstractMonome - Superclass for all monomes.)
+		(* GRMonome40h - monome 40h.)
+		(* GRMonome64 - monome 64.)
+		(* GRMonome128 - monome 128.)
+		(* GRMonome256 - monome 256.)
+	(* GRMPC500 - An Akai MPC 500.)
 
 ## Extending Grrr
 
@@ -115,7 +115,7 @@ MyView : GRView {
 ### Controller Subclass Example
 
 ``` supercollider
-MyController : GRController
+MyController : GRController {
 	*new { |arg1, arg2, view, origin, createTopViewIfNoneIsSupplied=true|
  		// pass numCols, numRows view and origin to superclass and basic bounds will be set up aswell as attachment to view (if view is supplied)
 		^super.new(7, 8, view, origin, createTopViewIfNoneIsSupplied).initMyController(arg1, arg2);
