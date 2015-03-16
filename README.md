@@ -39,6 +39,36 @@ b.buttonReleasedAction = { "the first button was released!".postln };
 a.view.removeAllChildren;
 ```
 
+### Example 2
+
+``` supercollider
+// post note names pressed
+(
+	var table = (), keyboard, screenGrid;
+	// build a table of note names (nicked from Literals helpfile)
+	value {
+		var semitones = [0, 2, 4, 5, 7, 9, 11];
+		var naturalNoteNames = ["C", "D", "E", "F", "G", "A", "B"];
+	
+		(0..9).do {|o|
+			naturalNoteNames.do {|c, i|
+				var n = (o + 1) * 12 + semitones[i];
+				table[n] = (c ++ o).asSymbol;
+				if ((c != "B") and: (c != "E")) {
+					table[n+1] = (c ++ "#"  ++ o).asSymbol;
+				};
+			};
+		};
+	};
+
+	keyboard = GRKeyboard.newDetached(7, 8)
+		.notePressedAction_({ |kbd, note| "note % was pressed".format(table[note]).postln })
+		.noteReleasedAction_({ |kbd, note| "note % was released".format(table[note]).postln });
+
+	screenGrid = GRScreenGrid.newView(keyboard).enableKeyControl;
+)
+```
+
 ## Classes
 
 * GRView - Abstract superclass. Represents a 2D grid of backlit buttons.
