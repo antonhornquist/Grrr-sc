@@ -47,13 +47,13 @@ a.view.removeAllChildren;
 		* GRToggle
 			* GRVToggle
 			* GRHToggle
-		(* GRAbstractRangeToggle (rename to GRRangeToggleBase?))
-			(* GRVRangeToggle)
-			(* GRHRangeToggle)
-		(* GRSliderBase)
-			(* GRVSlider)
-			(* GRHSlider)
-	(* GRKeyboard)
+		* (GRAbstractRangeToggle (rename to GRRangeToggleBase?))
+			* (GRVRangeToggle)
+			* (GRHRangeToggle)
+		* (GRSliderBase)
+			* (GRVSlider)
+			* (GRHSlider)
+	* GRKeyboard
 	* GRContainerView - Abstract class for views that may contain other views.
 		* GRTopView - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
 		* GRMultiButtonView - A grid of buttons of the same size.
@@ -62,12 +62,12 @@ a.view.removeAllChildren;
 		* GRSwitcher - A container that only have one child view active at any given time. Has convenience methods for changing which child view is active.
 * GRController - Abstract superclass. Represents a device that may attach to and control part of or an entire view.
 	* GRScreenGrid - An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
-	(* GRAbstractMonome - Superclass for all monomes.)
-		(* GRMonome40h - monome 40h.)
-		(* GRMonome64 - monome 64.)
-		(* GRMonome128 - monome 128.)
-		(* GRMonome256 - monome 256.)
-	(* GRMPC500 - An Akai MPC 500.)
+	* (GRAbstractMonome - Superclass for all monomes.)
+		* (GRMonome40h - monome 40h.)
+		* (GRMonome64 - monome 64.)
+		* (GRMonome128 - monome 128.)
+		* (GRMonome256 - monome 256.)
+	* (GRMPC500 - An Akai MPC 500.)
 
 ## Extending Grrr
 
