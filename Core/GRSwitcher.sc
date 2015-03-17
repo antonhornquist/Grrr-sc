@@ -18,14 +18,20 @@ GRSwitcher : GRContainerView {
 	}
 
 	removeChild { |view|
-		super.removeChild(view);
 		if (view == currentView) {
-			if (children.isEmpty) {
+			if (children.size == 1) {
 				currentView = nil;
 			} {
-				currentView = children.first;
+				var currentValue;
+				currentValue = this.value;
+				if (currentValue == 0) {
+					this.value_(1);
+				} {
+					this.value_(currentValue-1);
+				}
 			};
 		}
+		super.removeChild(view);
 	}
 
 	validateOkToEnableChild { |child|
@@ -70,7 +76,7 @@ GRSwitcher : GRContainerView {
 		var prevCurrentView, newCurrentView;
 
 		if (index.isNil) {
-			Error("it is not allowed to set switcher value to nil").throw;
+			Error("it is not allowed to set switcher value to nil").throw; // TODO: why? perhaps we should allow?
 		};
 		if ((index < 0) or: (index >= children.size)) {
 			Error("bad child index %. view has % children.".format(index, children.size)).throw;
