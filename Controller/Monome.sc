@@ -1,76 +1,67 @@
-/*
-
-	MonomeSerial settings:
-
-		I/O Protocol: OpenSound Control
-		Host Address: monomeInstance.hostAddress
-		Host Port: NetAddr.langPort (normally 57120)
-		Listen Port: monomeInstance.listenPort
-		Prefix: monomeInstance.prefix
-
-*/
-
 Monome64 : GRController
 {
 	classvar
-		defaultHostAddress="127.0.0.1",
-		defaultListenPort=8080,
-		defaultPrefix="/64"
+		defaultHost="127.0.0.1",
+		defaultHostPort=57120,
+		defaultReceivePort=8080,
+		defaultPrefix="/monome"
 	;
 	var
 		<prefix,
-		<hostAddress,
-		<listenPort,
-		osc,
+		<host,
+		<hostPort,
+		<receivePort,
+		oscFunc,
 		target
 	;
 
-	*new { |prefix=nil, hostAddress=nil, listenPort=nil, view=nil, origin=nil, createTopViewIfNoneIsSupplied=true|
-		^super.new(8, 8, view, origin, createTopViewIfNoneIsSupplied).initMonome64(prefix, hostAddress, listenPort);
+	*new { |prefix=nil, host=nil, hostPort=nil, receivePort=nil, view=nil, origin=nil, createTopViewIfNoneIsSupplied=true|
+		^super.new(8, 8, view, origin, createTopViewIfNoneIsSupplied).initMonome64(prefix, host, hostPort, receivePort);
 	}
 
-	initMonome64 { |argPrefix, argHostAddress, argListenPort|
-		hostAddress = argHostAddress ? defaultHostAddress;
-		listenPort = argListenPort ? defaultListenPort;
+	initMonome64 { |argPrefix, argHost, argHostPort, argReceivePort|
 		prefix = argPrefix ? defaultPrefix;
+		host = argHost ? defaultHost;
+		hostPort = argHostPort ? defaultHostPort;
+		receivePort = argReceivePort ? defaultReceivePort;
 
-		osc = OSCresponder.new(nil, prefix ++ "/press", { |time, resp, msg|
-			this.emitButtonEvent(
-				msg[1] @ msg[2],
-				if (msg[3] == 1, true, false)
-			);
-		});
-		osc.add;
+		oscFunc = OSCFunc.newMatching(
+			{
+				|msg, time, addr, recvPort|
+				this.emitButtonEvent(
+					msg[1] @ msg[2],
+					if (msg[3] == 1, true, false)
+				);
+			},
+			(prefix ++ "/grid/key").asSymbol,
+			recvPort: hostPort
+		);
 
-		target = NetAddr(hostAddress, listenPort);
+		target = NetAddr(host, receivePort);
 
 		this.refresh;
 	}
 
-	*newDetached { |prefix=nil, hostAddress=nil, listenPort=nil|
-		^this.new(prefix, hostAddress, listenPort, nil, nil, false);
+	*newDetached { |prefix=nil, host=nil, receivePort=nil|
+		^this.new(prefix, host, receivePort, nil, nil, false);
 	}
 
 	cleanup {
-		osc.remove;
+		oscFunc.free;
 	}
 
 	// controller info
 	info {
-		^"MonomeSerial settings
-=====================
-
-I/O Protocol: OpenSound Control
-Host Address: %
+		^"Host: %
 Host Port: %
-Listen Port: %
-Prefix: %".format(hostAddress, NetAddr.langPort, listenPort, prefix)
+Receive Port: %
+Prefix: %".format(host, hostPort, receivePort, prefix)
 	}
 
 	// update monome leds
 	handleViewLedRefreshedEvent { |point, on|
 		target.sendMsg(
-			prefix ++ "/led",
+			(prefix ++ "/grid/led/set").asSymbol,
 			point.x.asInteger,
 			point.y.asInteger,
 			if (on, 1, 0).asInteger
@@ -79,7 +70,7 @@ Prefix: %".format(hostAddress, NetAddr.langPort, listenPort, prefix)
 
 	// string representation
 	asString {
-		^super.asString+"(Prefix: \"%\", Host Address: %, Host Port: %, Listen Port: %)".format(prefix, hostAddress, NetAddr.langPort, listenPort)
+		^super.asString+"(Prefix: \"%\", Host: %, Host Port: %, Receive Port: %)".format(prefix, host, hostPort, receivePort)
 	}
 
 	spawnGui {
