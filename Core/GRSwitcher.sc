@@ -3,6 +3,10 @@ GRSwitcher : GRContainerView {
 		<currentView
 	;
 
+	*new { |parent, origin, numCols, numRows, enabled=true, pressThrough=false|
+		^super.new(parent, origin, numCols, numRows, enabled, pressThrough);
+	}
+
 	addChild { |view, origin|
 		if (currentView.notNil) {
 			if (view.isEnabled) {

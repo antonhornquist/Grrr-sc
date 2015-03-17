@@ -223,7 +223,7 @@ GRMultiToggleView : GRContainerView {
 			};
 			if (this.thumbSize != [nil, nil]) { // TODO: what's this?
 				if (toggle.isValidThumbSize(this.thumbSize)) {
-					toggle.thumb_size = this.thumbSize
+					toggle.thumbSize = this.thumbSize
 				} {
 					this.thumbSize_(toggle.thumbSize)
 				}
