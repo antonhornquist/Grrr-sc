@@ -242,19 +242,19 @@ GRMultiToggleView : GRContainerView {
 	}
 
 	prAddActions { |toggle, index|
-		toggle.togglePressedAction = { |toggle|
+		toggle.togglePressedAction = { |view|
 			togglePressedAction !? togglePressedAction.value(this, index)
 		};
-		toggle.toggleReleasedAction = { |toggle|
+		toggle.toggleReleasedAction = { |view|
 			toggleReleasedAction !? toggleReleasedAction.value(this, index)
 		};
-		toggle.toggleValuePressedAction = { |toggle, affectedValue|
+		toggle.toggleValuePressedAction = { |view, affectedValue|
 			toggleValuePressedAction !? toggleValuePressedAction.value(this, index, affectedValue)
 		};
-		toggle.toggleRangePressedAction = { |toggle, range|
+		toggle.toggleRangePressedAction = { |view, range|
 			toggleRangePressedAction !? toggleRangePressedAction.value(this, index, range)
 		};
-		toggle.action = { |toggle, value|
+		toggle.action = { |view, value|
 			toggleValueChangedAction !? toggleValueChangedAction.value(this, index, value);
 			this.doAction;
 		};
