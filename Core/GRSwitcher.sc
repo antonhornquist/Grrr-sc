@@ -34,7 +34,7 @@ GRSwitcher : GRContainerView {
 					this.value_(currentValue-1);
 				}
 			};
-		}
+		};
 		super.removeChild(view);
 	}
 
