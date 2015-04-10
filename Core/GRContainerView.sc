@@ -300,7 +300,7 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 
 	asTree { |includeDetails=false, indentLevel=0|
 		if (actsAsView) {
-			^super(includeDetails, indentLevel)
+			^super.asTree(includeDetails, indentLevel)
 		} {
 			^super.asTree(includeDetails, indentLevel) ++
 				children.collect { |child|
