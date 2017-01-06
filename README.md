@@ -4,51 +4,32 @@ Grid controller UI widget library for SuperCollider
 
 ## Description
 
-High level UI abstractions for grid based controllers. Simplifies interaction with for instance Monome devices.
+Simplifies interaction with for instance a Monome device using higher level UI abstractions
 
 ## Examples
 
 ### Example 1
 
-``` supercollider
-a = GRScreenGrid.new;
+a = ScreenGrid.new
 
-b = GRButton.new(a, 0@0);
-b.action = { |view, value| "the first button's value was changed to %".format(value).postln };
+b = GridButton.new(a, 0@0)
 
-// press top-leftmost screen grid button to test the first button
+b.action = { |value| "the first button's value was changed to #{value}!".postln }
 
-c = GRButton.newMomentary(a, 1@1, 2, 2);
-c.action = { |view, value| "the second button's value was changed to %".format(value).postln };
+c = GridButton.newMomentary(a, 1@1, 2, 2)
 
-// press screen grid button anywhere at 1@1 to 2@2 to test the second button
+c.action = { |value| "the second button's value was changed to #{value}!".postln }
 
-a.view.removeAllChildren;
-```
-
+a.removeAll
 
 ### Example 2
 
-``` supercollider
-b = GRButton.newDecoupled(a, 0@0);
-b.buttonPressedAction = { "the first button was pressed!".postln };
-b.buttonReleasedAction = { "the first button was released!".postln };
+b = GridButton.newDecoupled(a, 0@0)
 
-// press top-leftmost screen grid button to test the button
+b.buttonPressedAction = { "the first button was pressed!".postln }
 
-a.view.removeAllChildren;
-```
-
-## Requirements
-
-This code was developed and have been tested in SuperCollider 3.6.6.
-
-## Installation
-
-Copy the Grrr-sc folder to the user-specific or system-wide extension directory. Recompile the SuperCollider class library.
-
-The user-specific extension directory may be retrieved by evaluating Platform.userExtensionDir in SuperCollider, the system-wide by evaluating Platform.systemExtensionDir.
+b.buttonReleasedAction = { "the first button was released!".postln }
 
 ## License
 
-Copyright (c) Anton HÃ¶rnquist
+Copyright (c) Anton Hörnquist
