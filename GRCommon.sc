@@ -1,4 +1,4 @@
-GR {
+GRCommon {
 	classvar
 		<>indicateAddedRemovedAttachedDetached=false,
 		<>traceButtonEvents=false,

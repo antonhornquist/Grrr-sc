@@ -110,7 +110,7 @@ GRController {
 	attach { |argView, argOrigin|
 		this.prAttach(argView, argOrigin);
 		this.refresh;
-		if (GR.indicateAddedRemovedAttachedDetached) {
+		if (GRCommon.indicateAddedRemovedAttachedDetached) {
 			this.indicateController
 		};
 	}
@@ -167,7 +167,7 @@ GRController {
 
 		this.refresh;
 
-		if (GR.indicateAddedRemovedAttachedDetached) {
+		if (GRCommon.indicateAddedRemovedAttachedDetached) {
 			viewSaved.indicateBounds(originSaved, numCols, numRows);
 		};
 	}

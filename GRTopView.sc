@@ -54,7 +54,7 @@ GRTopView : GRContainerView {
 	handleViewButtonEvent { |source, point, pressed|
 		if (enabled) {
 
-			if (GR.traceButtonEvents) {
+			if (GRCommon.traceButtonEvents) {
 				"in % - button % at % (source: [%]) received.".format(
 					thisMethod,
 					if (pressed, "press", "release"),
@@ -67,7 +67,7 @@ GRTopView : GRContainerView {
 				if (this.isReleasedBySourceAt(source, point)) {
 					pointsPressedBySource[point.x][point.y] = pointsPressedBySource[point.x][point.y].add(source);
 
-					if (GR.traceButtonEvents) {
+					if (GRCommon.traceButtonEvents) {
 						"in % - source [%] not referenced in array - reference was added.".format(thisMethod, source).postln
 					};
 
@@ -79,7 +79,7 @@ GRTopView : GRContainerView {
 				if (this.isPressedBySourceAt(source, point)) {
 					pointsPressedBySource[point.x][point.y].remove(source);
 
-					if (GR.traceButtonEvents) {
+					if (GRCommon.traceButtonEvents) {
 						"in % - source [%] referenced in array - reference was removed.".format(thisMethod, source).postln
 					};
 

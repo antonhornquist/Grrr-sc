@@ -279,7 +279,7 @@ GRView {
 				};
 				viewButtonStateChangedAction !? viewButtonStateChangedAction.value(point, pressed);
 
-				if (GR.traceButtonEvents) {
+				if (GRCommon.traceButtonEvents) {
 					"in % - button % at % (source: [%]) handled in [%]".format(
 						thisMethod,
 						if (pressed, "press", "release"),
@@ -291,7 +291,7 @@ GRView {
 
 				[ (view: this, point: point) ];
 			} {
-				if (GR.traceButtonEvents) {
+				if (GRCommon.traceButtonEvents) {
 					"in % - button state is already % in [%] at % %".format(
 						thisMethod,
 						if (pressed, "pressed", "released"),
@@ -622,7 +622,7 @@ GRView {
 			var reason;
 			if (parent.hasViewLedRefreshedAction and: parent.isEnabled) {
 
-				if (GR.traceLedEvents) {
+				if (GRCommon.traceLedEvents) {
 					"led % at % (source: [%]) forwarded to [%]".format(
 						if (on, "on", "off"),
 						point,
@@ -634,7 +634,7 @@ GRView {
 				parent.viewLedRefreshedAction.value(source, point+origin, on);
 			} {
 
-				if (GR.traceLedEvents) {
+				if (GRCommon.traceLedEvents) {
 					reason = if (parent.hasViewLedRefreshedAction.not) {
 						"parent has no viewLedRefreshedAction"
 					} {

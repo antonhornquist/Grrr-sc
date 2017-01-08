@@ -67,7 +67,7 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 
 		view.setParentReference(this, origin);
 
-		if (preventFlash.not and: GR.indicateAddedRemovedAttachedDetached) {
+		if (preventFlash.not and: GRCommon.indicateAddedRemovedAttachedDetached) {
 			this.indicateBounds(view.origin, view.numCols, view.numRows)
 		} {
 			if (view.isEnabled) {
@@ -103,7 +103,7 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 
 		children.remove(view);
 
-		if (preventFlash.not and: GR.indicateAddedRemovedAttachedDetached) {
+		if (preventFlash.not and: GRCommon.indicateAddedRemovedAttachedDetached) {
 			this.indicateBounds(view.origin, view.numCols, view.numRows)
 		} {
 			if (view.isEnabled) {
@@ -193,7 +193,7 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 			^if (this.hasEnabledChildAt(point)) {
 				view = this.getEnabledChildAt(point);
 
-				if (GR.traceButtonEvents) {
+				if (GRCommon.traceButtonEvents) {
 					"in % - button % at % (source: [%]) forwarded to [%] at %".format(
 						thisMethod,
 						if (pressed, "press", "release"),
@@ -225,7 +225,7 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 			if (hasEnabledChildAtPoint and: refreshChildren) {
 				view = this.getEnabledChildAt(point);
 
-				if (GR.traceLedEvents) {
+				if (GRCommon.traceLedEvents) {
 					"refresh at % forwarded to [%] at %".format(
 						point,
 						view,
@@ -249,7 +249,7 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 		^if (this.hasEnabledChildAt(point)) {
 			view = this.getEnabledChildAt(point);
 
-			if (GR.traceLedEvents) {
+			if (GRCommon.traceLedEvents) {
 				"isLitAt at % forwarded to [%] at %".format(
 					point,
 					view,
