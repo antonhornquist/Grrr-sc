@@ -1,0 +1,919 @@
+TITLE:: GRView
+summary:: The basic visible element of Grrr UI.
+categories:: External Control
+related:: Classes/GRContainerView, Overviews/Grrr
+
+DESCRIPTION::
+
+Abstract superclass representing a 2D grid of backlit buttons. This class defines the internal Grrr event system and exposes a number of helper methods useful when subclassing.
+
+CLASSMETHODS::
+
+METHOD:: new
+
+Creates a new instance of GRView and makes it a child of a link::Classes/GRContainerView:: or link::Classes/GRController::, effectively placing it within the parent's visual space.
+
+NOTE::
+If parent and origin arguments are omitted the view will be created as detached and not connected to a parent. A detached view may be attached to a parent at a later stage.
+::
+
+ARGUMENT:: parent
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRView will become a child of.
+
+ARGUMENT:: origin
+A Point describing the position of the new GRView. Position is measured relative to the parent's top-left corner.
+
+ARGUMENT:: numCols
+An Integer describing the width of the new GRView.
+
+ARGUMENT:: numRows
+An Integer describing the height of the new GRView.
+
+ARGUMENT:: enabled
+A Boolean that determine whether the new GRView is enabled upon creation.
+
+returns:: An instance of GRView
+
+METHOD:: newDetached
+Convenience method used when creating a view not connected to a parent. See link::Reference/Grrr/Basic-Concepts#Detached views::.
+
+ARGUMENT:: numCols
+An Integer describing the width of the new GRView.
+
+ARGUMENT:: numRows
+An Integer describing the height of the new GRView.
+
+ARGUMENT:: enabled
+A Boolean that determine whether the new GRView is enabled upon creation.
+
+returns:: An instance of GRView
+
+METHOD:: newDisabled
+Convenience method used for creating a disabled view. See link::Reference/Grrr/Basic-Concepts#Enabling and disabling views::.
+
+ARGUMENT:: parent
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRView will become a child of.
+
+ARGUMENT:: origin
+A Point describing the position of the new GRView. Position is measured relative to the parent's top-left corner.
+
+ARGUMENT:: numCols
+An Integer describing the width of the new GRView.
+
+ARGUMENT:: numRows
+An Integer describing the height of the new GRView.
+
+returns:: An instance of GRView
+
+METHOD:: defaultFlashDelay
+Returns default delay in milliseconds used when flashing GRViews.
+
+returns:: An Integer
+
+METHOD:: defaultIndicateRepeat
+Returns default number of indication flashes used when indicating GRViews.
+
+returns:: An Integer
+
+METHOD:: defaultIndicateInterval
+Returns the default interval in milliseconds used when indicating GRViews.
+
+returns:: An Integer
+
+METHOD:: defaultNumRows
+The default number of rows set when numRows is omitted when creating a new instance. This value is typically overriden by GRView subclasses.
+
+returns:: An Integer
+
+METHOD:: defaultNumCols
+The default number of columns set when numCols is omitted when creating a new instance. This value is typically overriden by GRView subclasses.
+
+returns:: An Integer
+
+METHOD:: pointsSect
+Returns an Array of Points common to both argPoints1 and argPoints2
+
+ARGUMENT:: argPoints1
+The first Array of Points
+
+ARGUMENT:: argPoints2
+The second Array of Points
+
+returns:: An Array of Points
+
+METHOD:: boundsContainPoint
+Answers whether a 2D grid of a certain size placed at a given location within another 2D grid contains a given point.
+
+ARGUMENT:: origin
+A Point describing the position of the contained 2D grid. Position is measured relative to the container 2D grid's top-left corner.
+
+ARGUMENT:: numCols
+An Integer describing the width of the contained 2D grid.
+
+ARGUMENT:: numRows
+An Integer describing the height of the contained 2D grid.
+
+ARGUMENT:: point
+A Point describing a location on the container 2D grid.
+
+returns:: A Boolean
+
+METHOD:: boundsToPoints
+Returns all points of a 2D grid of a certain size when offset at the given origin.
+
+ARGUMENT:: origin
+A Point describing the offset of the 2D grid.
+
+ARGUMENT:: numCols
+An Integer describing the width of the 2D grid.
+
+ARGUMENT:: numRows
+An Integer describing the height of the 2D grid.
+
+returns:: An Array of Points
+
+
+INSTANCEMETHODS::
+
+SUBSECTION:: Hierarchy and existence
+
+METHOD:: id
+An optional identifier, typically a Symbol. Can be used with link::Classes/GRSwitcher::.
+
+returns:: a Symbol
+
+METHOD:: parent
+Answers the GRView's parent, if any.
+
+returns:: The view's parent view, or nil if the view is detached or is a top view.
+
+METHOD:: hasParent
+
+returns:: A Boolean stating whether the view has a parent.
+
+METHOD:: isDetached
+
+returns:: A Boolean, the opposite of 'hasParent'.
+
+METHOD:: getParents
+
+returns:: An array of all the parents, grandparents, etc., of the view.
+
+METHOD:: remove
+Detaches a view from its parent. The detached view may be added as a child to another view. See link::Reference/Grrr/Basic-Concepts#Detached views::.
+
+METHOD:: setParentReference
+Internal Grrr framework method for setting a parent reference for a GRView. Do not call this directly, use link::Classes/GRContainerView#-addChild:: instead.
+
+ARGUMENT:: argParent
+The instance of GRView or GRController that the new GRView will become a child of.
+
+ARGUMENT:: argOrigin
+A Point describing the position of the new GRView. Position is measured relative to the parent's top-left corner.
+
+METHOD:: removeParentReference
+Internal Grrr framework method for removing a parent reference of a GRView. Do not call this directly, use link::Classes/GRContainerView#-removeChild:: instead.
+
+METHOD:: validateParentOriginAndAddToParent
+Validates specified parent and origin and, if valid, adds the the GRContainerView or GRController specified as parent as parent of the responding GRView. Used internally by the Grrr framework.
+
+ARGUMENT:: argParent
+The instance of GRView or GRController that the new GRView will become a child of.
+
+ARGUMENT:: argOrigin
+A Point describing the position of the GRView. Position is measured relative to the parent's top-left corner.
+
+SUBSECTION:: Common behavior
+
+METHOD:: enable
+Enables a view.
+
+METHOD:: disable
+Disables a view.
+
+METHOD:: enabled
+Sets whether a view is enabled or not.
+
+ARGUMENT:: bool
+True enables view, false disables it.
+
+METHOD:: isEnabled
+
+returns:: A Boolean stating whether a view is enabled.
+
+METHOD:: isDisabled
+
+returns:: A Boolean stating whether a view is disabled.
+
+METHOD:: value
+Sets or returns the value of a view. This makes the view display the state of the new value but does not evaluate the function assigned to action.
+
+ARGUMENT:: argValue
+Subclass dependant value
+
+METHOD:: valueAction
+Sets the view to display the state of a new value and evaluates action, if the value has changed.
+
+ARGUMENT:: argValue
+Subclass dependant value
+
+METHOD:: validateValue
+A method invoked before value is changed. Subclasses can override this method to validate value and throw errors preventing incorrect values to be set.
+
+ARGUMENT:: argValue
+The new value
+
+SUBSECTION:: Size and position
+
+METHOD:: origin
+
+returns:: A Point describing the position of the view. Position is measured relative to the parent's top-left corner.
+
+METHOD:: numCols
+
+returns:: An Integer describing the width of the view.
+
+METHOD:: numRows
+
+returns:: An Integer describing the height of the view.
+
+METHOD:: leftTopPoint
+Returns left top point of view
+
+returns:: 0@0
+
+METHOD:: leftBottomPoint
+Returns left bottom point of view
+
+returns:: A Point
+
+METHOD:: rightTopPoint
+Returns right top point of view.
+
+returns:: A Point
+
+METHOD:: rightBottomPoint
+Returns right bottom point of view
+
+returns:: A Point
+
+METHOD:: topmostRow
+Returns topmost row index.
+
+returns:: 0
+
+METHOD:: bottommostRow
+Returns bottommost row index.
+
+returns:: An Integer
+
+METHOD:: leftmostCol
+Returns leftmost column index.
+
+returns:: 0
+
+METHOD:: rightmostCol
+Returns rightmost column index.
+
+returns:: An Integer
+
+METHOD:: validateContainsBounds
+Throws an error if given 2D grid bounds are not within the bounds of this view.
+
+ARGUMENT:: argOrigin
+A Point describing the position of the 2D grid. Position is measured relative to this view's top-left corner.
+
+ARGUMENT:: argNumCols
+An Integer describing the width of the 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing the height of the 2D grid.
+
+METHOD:: containsBounds
+Answers whether a given 2D grid bounds are within the bounds of this view.
+
+ARGUMENT:: argOrigin
+A Point describing the position of the 2D grid. Position is measured relative to this view's top-left corner.
+
+ARGUMENT:: argNumCols
+An Integer describing the width of the 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing the height of the 2D grid.
+
+returns:: A Boolean
+
+METHOD:: validateContainsPoint
+Throws an error if given point is out of this view's bounds.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid.
+
+METHOD:: containsPoint
+Answers whether given point is within this view's bounds.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid.
+
+returns:: A Boolean
+
+METHOD:: numViewButtons
+Returns number of buttons of the 2D grid of this view.
+
+returns:: An Integer
+
+METHOD:: asPointsFromOrigin
+Returns all points of this view's 2D grid from this view's origin.
+
+returns:: An Array of Points
+
+METHOD:: asPointsFrom
+Returns all points of this view's 2D grid from a given origin.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid.
+
+returns:: An Array of Points
+
+METHOD:: asPoints
+Returns all points of this view's 2D grid.
+
+returns:: An Array of Points
+
+SUBSECTION:: Button event processing
+
+METHOD:: press
+Programmatically press a button on the view. Equivalent to calling code::handleViewButtonEvent(this, point, true)::.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid.
+
+returns:: An Array of Events with information on all views handling the event and the location on each of the views the event pertained to.
+
+METHOD:: release
+Programmatically release a button on the view. Equivalent to calling code::handleViewButtonEvent(this, point, false)::.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid.
+
+returns:: An Array of Events with information on all views handling the event and the location on each of the views the event pertained to.
+
+METHOD:: releaseAll
+Releases all pressed buttons on the view.
+
+METHOD:: releaseAllWithinBounds
+Releases all pressed buttons within specified bounds of the view.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid
+
+ARGUMENT:: argNumCols
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing height of a 2D grid.
+
+METHOD:: handleViewButtonEvent
+Programmatically press or release a button on the view. Used internally by the Grrr framework to dispatch button events to views.
+
+ARGUMENT:: source
+The object emitting the event, typically a GRController or GRContainerView
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid.
+
+ARGUMENT:: pressed
+A Boolean describing whether the event is a button press. If false, it is a button release.
+
+returns:: An Array of Events with information on all views handling the event and the location on each of the views the event pertained to.
+
+SUBSECTION:: Button state
+
+METHOD:: anyPressed
+
+returns:: A Boolean stating whether any button on the view is pressed.
+
+METHOD:: allPressed
+
+returns:: A Boolean stating whether all buttons on the view are pressed.
+
+METHOD:: anyPressedWithinBounds
+Answers whether any buttons within specified bounds are pressed.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid
+
+ARGUMENT:: argNumCols
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing height of a 2D grid.
+
+returns:: A Boolean
+
+METHOD:: allPressedWithinBounds
+Answers whether all buttons within specified bounds are pressed.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid
+
+ARGUMENT:: argNumCols
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing height of a 2D grid.
+
+returns:: A Boolean
+
+METHOD:: anyReleased
+
+returns:: A Boolean stating whether any button on the view is released.
+
+METHOD:: allReleased
+
+returns:: A Boolean stating whether all buttons on the view are released.
+
+METHOD:: anyReleasedWithinBounds
+Answers whether any buttons within specified bounds are released.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid
+
+ARGUMENT:: argNumCols
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing height of a 2D grid.
+
+returns:: A Boolean
+
+METHOD:: allReleasedWithinBounds
+Answers whether all buttons within specified bounds are released.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid.
+
+ARGUMENT:: argNumCols
+An Integer describing the width of the 2D grid of the new GRView.
+
+ARGUMENT:: argNumRows
+An Integer describing the height of the 2D grid of the new GRView.
+
+returns:: A Boolean
+
+METHOD:: isPressedAt
+Answers whether the button at the given point is pressed on the view.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+METHOD:: isPressedAtSkipValidation
+Answers whether the button at the given point is pressed on the view. In contrast to code::isPressedAt:: this method does not throw errors when point is out of view bounds.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+METHOD:: isReleasedAt
+Answers whether the button at the given point is released on the view.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+METHOD:: firstPressed
+Returns first button pressed on the view, if any.
+
+returns:: A Point or nil if no buttons are pressed
+
+METHOD:: lastPressed
+Returns last button pressed on the view, if any.
+
+returns:: A Point or nil if no buttons are pressed
+
+METHOD:: numPressed
+Returns number of pressed buttons on the view.
+
+returns:: An Integer
+
+METHOD:: numPressedWithinBounds
+Returns number of pressed buttons within a specified bounds of the view.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid.
+
+ARGUMENT:: argNumCols
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing height of a 2D grid.
+
+returns:: An Integer
+
+METHOD:: numReleased
+Returns number of released buttons on the view.
+
+returns:: An Integer
+
+METHOD:: numReleasedWithinBounds
+Returns number of released buttons within a specified bounds of the view.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid.
+
+ARGUMENT:: argNumCols
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing height of a 2D grid.
+
+returns:: An Integer
+
+METHOD:: topmostPressed
+Returns topmost pressed button(s).
+
+returns:: An Array of Points
+
+METHOD:: bottommostPressed
+Returns bottommost pressed button(s).
+
+returns:: An Array of Points
+
+METHOD:: leftmostPressed
+Returns leftmost pressed button(s).
+
+returns:: An Array of Points
+
+METHOD:: rightmostPressed
+Returns rightmost pressed button(s).
+
+returns:: An Array of Points
+
+METHOD:: topmostRowPressed
+Returns the index of the topmost row that contains pressed buttons, if any.
+
+returns:: An Integer or nil
+
+METHOD:: bottommostRowPressed
+Returns the index of the bottommost row that contains pressed buttons, if any.
+
+returns:: An Integer or nil
+
+METHOD:: leftmostColPressed
+Returns the index of the leftmost column that contains pressed buttons, if any.
+
+returns:: An Integer or nil
+
+METHOD:: rightmostColPressed
+Returns the index of the rightmost column that contains pressed buttons, if any.
+
+returns:: An Integer or nil
+
+METHOD:: pointsPressedWithinBounds
+Returns points of all buttons pressed within specified bounds of the view.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid.
+
+ARGUMENT:: argNumCols
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing height of a 2D grid.
+
+returns:: An Array of Points
+
+METHOD:: pointsPressed
+Returns pressed buttons of the view in the order in which they were pressed.
+
+returns:: An Array of Points
+
+SUBSECTION:: Led state
+
+METHOD:: anyLit
+
+returns:: A Boolean stating whether a led of any button on the view is lit.
+
+METHOD:: allLit
+
+returns:: A Boolean stating whether leds of all buttons are lit.
+
+METHOD:: anyUnlit
+
+returns:: A Boolean stating whether a led of any button on the view is unlit.
+
+METHOD:: allUnlit
+
+returns:: A Boolean stating whether leds of all buttons are unlit.
+
+METHOD:: isLitAt
+Answers whether the led of the button a point is lit on the view.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+METHOD:: isUnlitAt
+Answers whether the led of the button a point is unlit on the view.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+METHOD:: hasViewLedRefreshedAction
+Answers whether the view has an action triggered when refreshing leds.
+
+returns:: A Boolean
+
+METHOD:: viewLedRefreshedAction
+Returns the view's action triggered when refreshing leds, if any. This action is automatically set by the Grrr framework in order to dispatch led events.
+
+returns:: A Function or nil
+
+SUBSECTION:: Refresh
+
+METHOD:: refresh
+Refreshes led state of all leds in the view.
+
+ARGUMENT:: refreshChildren
+A Boolean that determine whether to propagate refresh to child views. Default is true.
+
+METHOD:: refreshBounds
+Refreshes led state within a specified bounds of the view.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid.
+
+ARGUMENT:: argNumCols
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing height of a 2D grid.
+
+ARGUMENT:: argRefreshChildren
+A Boolean that determine whether to propagate refresh to child views. Default is true.
+
+METHOD:: refreshPoints
+Refreshes led state for one or more buttons of the view.
+
+ARGUMENT:: points
+An Array of Points describing locations on a 2D grid
+
+ARGUMENT:: refreshChildren
+A Boolean that determine whether to propagate refresh to child views. Default is true.
+
+METHOD:: refreshPoint
+Refreshes led state for a button on the view.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+ARGUMENT:: refreshChildren
+A Boolean that determine whether to propagate refresh to child views. Default is true.
+
+SUBSECTION:: Indication support
+
+Indication flashes points of the view continuously a given number of times. The points flashes regardless of whether the view is enabled or not and regardless of whether an isLitAtFunc is defined. Indication is typically used for indicating where views are placed and should not be used for anything else. Indication may be utilized as help for Live Coding. See link::Reference/Grrr/Basic-Concepts#Debugging and Internal Snooping::.
+
+METHOD:: indicateView
+Flashes points of the view continuously a given number of times.
+
+ARGUMENT:: repeat
+Number of times to flash
+
+ARGUMENT:: interval
+Flash interval in milliseconds
+
+METHOD:: indicateBounds
+Flashes points of specified bounds on the view continuously a given number of times.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid.
+
+ARGUMENT:: argNumCols
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argRepeat
+Number of times to flash
+
+ARGUMENT:: argInterval
+Flash interval in milliseconds
+
+METHOD:: indicatePoints
+Flashes given points on the view continuously a given number of times.
+
+ARGUMENT:: points
+An Array of Points describing locations on a 2D grid
+
+ARGUMENT:: repeat
+Number of times to flash
+
+ARGUMENT:: interval
+Flash interval in milliseconds
+
+METHOD:: indicatePoint
+Flashes a point on the view continuously a given number of times.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+ARGUMENT:: repeat
+Number of times to flash
+
+ARGUMENT:: interval
+Flash interval in milliseconds
+
+SUBSECTION:: Flash support
+
+Flash behavior is typically customized by subclasses. For flash to work an isLitAtFunc has to be defined.
+
+METHOD:: flashView
+Flashes the view.
+
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelay is used.
+
+discussion::
+
+code::
+a=GRVToggle.newDetached(2, 8);
+a.spawnGui;
+a.flashView;
+a.flashView(200);
+::
+
+METHOD:: flashBounds
+Flashes points of specified bounds of the view.
+
+ARGUMENT:: argOrigin
+A Point describing a location on a 2D grid.
+
+ARGUMENT:: argNumCols
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argNumRows
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: argDelay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelay is used.
+
+discussion::
+
+code::
+a=GRVToggle.newDetached(2, 8);
+a.spawnGui;
+a.flashBounds(0@2, 2, 4);
+a.flashBounds(0@2, 2, 4, 200);
+::
+
+METHOD:: flashPoints
+Flashes given points on the view.
+
+ARGUMENT:: points
+An Array of Points to flash.
+
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelay is used.
+
+discussion::
+
+code::
+a=GRVToggle.newDetached(2, 8);
+a.spawnGui;
+p = [0@0, 0@1, 0@2, 0@3, 1@0, 1@1, 1@2, 1@3];
+a.flashPoints(p);
+a.flashPoints(p, 200);
+::
+
+METHOD:: flashPoint
+Flash a point of the view.
+
+ARGUMENT:: point
+A Point to flash.
+
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelay is used.
+
+discussion::
+
+code::
+a=GRVToggle.newDetached(2, 8);
+a.spawnGui;
+a.flashPoint(0@0);
+a.flashPoint(1@1, 200);
+::
+
+SUBSECTION:: String representation
+
+METHOD:: plot
+Plots information on button and led state of the view to the Post Window.
+
+discussion::
+code::
+a=GRView.newDetached(5, 5);
+a.plot;
+a.press(1@1);
+a.press(2@2);
+a.press(3@3);
+a.plot;
+a.release(2@2);
+a.plot;
+
+b=GRButton.newDetached;
+b.plot;
+b.press(0@0);
+b.plot;
+b.release(0@0);
+b.plot;
+b.press(2@0);
+b.plot;
+
+c=GRVToggle.newDetached;
+c.plot;
+c.press(0@2);
+c.plot;
+c.press(0@0);
+c.plot;
+::
+
+METHOD:: plotTree
+Plots information on button and led state of the view and all its children to the Post Window.
+
+discussion::
+code::
+a=GRContainerView.new;
+b=GRContainerView.new(a, 0@0);
+c=GRView.new(b, 0@0);
+a.plotTree;
+::
+
+METHOD:: postTree
+Plots information of the view and, optionally, all its children to the Post Window
+
+ARGUMENT:: includeDetails
+A Boolean. True will include a plot whereas false will not.
+
+ARGUMENT:: indentLevel
+An Integer describing what indentation level to use.
+
+METHOD:: asTree
+Returns a String representing human readable information of the view and, optionally, all its children.
+
+ARGUMENT:: includeDetails
+A Boolean. True will include a plot whereas false will not.
+
+ARGUMENT:: indentLevel
+An Integer describing what indentation level to use.
+
+returns:: A String
+
+METHOD:: asString
+
+returns:: A String representation of the view
+
+METHOD:: asPlot
+Return a String representation of plot information on button and led state of the view.
+
+ARGUMENT:: indentLevel
+An Integer describing what indentation level to use
+
+returns:: a String
+
+SUBSECTION:: Actions in general
+
+METHOD:: action
+Gets or sets the default action of the view when coupled, i.e. the object to be evaluated when the user interacts with the view in such a way that the value changes (ie. a GRButton is pressed or GRToggle value is selected).
+
+returns:: Any object to set as default action, usually a Function or a FunctionList. When evaluated, it will be passed the view as the first argument. Subclasses typically also include other arguments.
+
+METHOD:: doAction
+Evaluates the default action.
+
+METHOD:: addAction
+
+METHOD:: removeAction
+
+Adds/removes 'function' to or from the list of objects in the variable determined by 'selector'. If 'selector' is not an Array or a List, it will become one, containing the previous object plus 'function'.
+
+This is useful for adding functionality to existing frameworks that have action functions already.
+
+ARGUMENT:: function
+Any object to add as an action, usually a Function.
+
+ARGUMENT:: selector
+A Symbol containing the name of the action variable to which 'function' will be added. In other words, 'add' method will be invoked on that variable; by default that is \action, but any other (sensible) instance or class variable of the view could work.
+
+EXAMPLES::
+
+code::
+(some example code)
+::

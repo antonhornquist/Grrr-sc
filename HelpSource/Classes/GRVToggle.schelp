@@ -1,0 +1,122 @@
+TITLE:: GRVToggle
+summary:: Vertically oriented toggle
+categories:: External Control
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+(put long description here)
+
+
+CLASSMETHODS::
+
+METHOD:: defaultNumCols
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: defaultNumRows
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: new
+(describe method here)
+
+ARGUMENT:: parent
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+ARGUMENT:: coupled
+(describe argument here)
+
+ARGUMENT:: nillable
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: newDecoupled
+(describe method here)
+
+ARGUMENT:: parent
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+ARGUMENT:: nillable
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: newDetached
+(describe method here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+ARGUMENT:: coupled
+(describe argument here)
+
+ARGUMENT:: nillable
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: newNillable
+(describe method here)
+
+ARGUMENT:: parent
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+ARGUMENT:: coupled
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+
+INSTANCEMETHODS::
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

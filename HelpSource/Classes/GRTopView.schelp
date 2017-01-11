@@ -1,0 +1,148 @@
+TITLE:: GRTopView
+summary:: The topmost view in a view tree
+categories:: External Control
+related:: Classes/GRContainerView, Overviews/Grrr
+
+DESCRIPTION::
+The topmost view in a view tree and typically the view to which controllers attach. This view cannot be added as a child to any other view.
+
+
+CLASSMETHODS::
+
+METHOD:: newDisabled
+(describe method here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: newDetached
+(describe method here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: new
+(describe method here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+
+INSTANCEMETHODS::
+
+METHOD:: release
+(describe method here)
+
+ARGUMENT:: point
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: spawnGui
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: handleViewButtonEvent
+(describe method here)
+
+ARGUMENT:: source
+(describe argument here)
+
+ARGUMENT:: point
+(describe argument here)
+
+ARGUMENT:: pressed
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isReleasedBySourceAt
+(describe method here)
+
+ARGUMENT:: source
+(describe argument here)
+
+ARGUMENT:: point
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isNotPressedByAnySourceAt
+(describe method here)
+
+ARGUMENT:: point
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setParentReference
+(describe method here)
+
+ARGUMENT:: argParent
+(describe argument here)
+
+ARGUMENT:: argOrigin
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isPressedByOneSourceAt
+(describe method here)
+
+ARGUMENT:: point
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: press
+(describe method here)
+
+ARGUMENT:: point
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isPressedBySourceAt
+(describe method here)
+
+ARGUMENT:: source
+(describe argument here)
+
+ARGUMENT:: point
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: initGRTopView
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

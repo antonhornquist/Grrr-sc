@@ -1,0 +1,435 @@
+TITLE:: GRMultiToggleView
+summary:: An array of vertical or horizontal toggles of the same size.
+categories:: External Control
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+(put long description here)
+
+
+CLASSMETHODS::
+
+METHOD:: newDisabled
+(describe method here)
+
+ARGUMENT:: parent
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: orientation
+(describe argument here)
+
+ARGUMENT:: coupled
+(describe argument here)
+
+ARGUMENT:: nillable
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: newDetached
+(describe method here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: orientation
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+ARGUMENT:: coupled
+(describe argument here)
+
+ARGUMENT:: nillable
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: new
+(describe method here)
+
+ARGUMENT:: parent
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: orientation
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+ARGUMENT:: coupled
+(describe argument here)
+
+ARGUMENT:: nillable
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: newDecoupled
+(describe method here)
+
+ARGUMENT:: parent
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: orientation
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+ARGUMENT:: nillable
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+
+INSTANCEMETHODS::
+
+METHOD:: thumbWidth
+(describe method here)
+
+ARGUMENT:: argThumbWidth
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: numToggles
+(describe method here)
+
+ARGUMENT:: argNumToggles
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isCoupled
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isNillable
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: prAddActions
+(describe method here)
+
+ARGUMENT:: toggle
+(describe argument here)
+
+ARGUMENT:: index
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asPbind
+(describe method here)
+
+ARGUMENT:: key
+(describe argument here)
+
+ARGUMENT:: repeats
+(describe argument here)
+
+ARGUMENT:: transform
+(describe argument here)
+
+ARGUMENT:: indicate
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asGRPseq
+(describe method here)
+
+ARGUMENT:: repeats
+(describe argument here)
+
+ARGUMENT:: transform
+(describe argument here)
+
+ARGUMENT:: indicate
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: play
+(describe method here)
+
+ARGUMENT:: clock
+(describe argument here)
+
+ARGUMENT:: protoEvent
+(describe argument here)
+
+ARGUMENT:: quant
+(describe argument here)
+
+ARGUMENT:: key
+(describe argument here)
+
+ARGUMENT:: repeats
+(describe argument here)
+
+ARGUMENT:: transform
+(describe argument here)
+
+ARGUMENT:: indicate
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: orientation
+(describe method here)
+
+ARGUMENT:: argOrientation
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: toggleRangePressedAction
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: value
+(describe method here)
+
+ARGUMENT:: val
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setToggleValueAction
+(describe method here)
+
+ARGUMENT:: i
+(describe argument here)
+
+ARGUMENT:: val
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: thumbSize
+(describe method here)
+
+ARGUMENT:: argThumbSize
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: toggleWidth
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: validateNumToggles
+(describe method here)
+
+ARGUMENT:: argNumToggles
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: validateValue
+(describe method here)
+
+ARGUMENT:: val
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: toggleValueChangedAction
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: toggleValuePressedAction
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: toggleReleasedAction
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: toggleHeight
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isFilled
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setToggleValue
+(describe method here)
+
+ARGUMENT:: i
+(describe argument here)
+
+ARGUMENT:: val
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: toggleValue
+(describe method here)
+
+ARGUMENT:: i
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: coupled
+(describe method here)
+
+ARGUMENT:: argCoupled
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: initGRMultiToggleView
+(describe method here)
+
+ARGUMENT:: argParent
+(describe argument here)
+
+ARGUMENT:: argOrigin
+(describe argument here)
+
+ARGUMENT:: argOrientation
+(describe argument here)
+
+ARGUMENT:: argCoupled
+(describe argument here)
+
+ARGUMENT:: argNillable
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: prReconstructChildren
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: togglePressedAction
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isValidNumToggles
+(describe method here)
+
+ARGUMENT:: argNumToggles
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: thumbHeight
+(describe method here)
+
+ARGUMENT:: argThumbHeight
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: valueAction
+(describe method here)
+
+ARGUMENT:: val
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: prSetNumTogglesDefaults
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: filled
+(describe method here)
+
+ARGUMENT:: argFilled
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: valuesAreInverted
+(describe method here)
+
+ARGUMENT:: argValuesAreInverted
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: nillable
+(describe method here)
+
+ARGUMENT:: argNillable
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: flashToggle
+(describe method here)
+
+ARGUMENT:: i
+(describe argument here)
+
+ARGUMENT:: delay
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asSpec
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: maximumToggleValue
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

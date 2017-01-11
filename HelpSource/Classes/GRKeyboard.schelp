@@ -1,0 +1,493 @@
+TITLE:: GRKeyboard
+summary:: A widget that represents a keyboard
+categories:: External Control
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+(put long description here)
+
+
+CLASSMETHODS::
+
+METHOD:: maxMidiNoteNumber
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: new
+(describe method here)
+
+ARGUMENT:: parent
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+ARGUMENT:: basenote
+(describe argument here)
+
+ARGUMENT:: coupled
+(describe argument here)
+
+ARGUMENT:: behavior
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: newDecoupled
+(describe method here)
+
+ARGUMENT:: parent
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+ARGUMENT:: basenote
+(describe argument here)
+
+ARGUMENT:: behavior
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: minMidiNoteNumber
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: newDetached
+(describe method here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: enabled
+(describe argument here)
+
+ARGUMENT:: basenote
+(describe argument here)
+
+ARGUMENT:: coupled
+(describe argument here)
+
+ARGUMENT:: behavior
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: newDisabled
+(describe method here)
+
+ARGUMENT:: parent
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+ARGUMENT:: numCols
+(describe argument here)
+
+ARGUMENT:: numRows
+(describe argument here)
+
+ARGUMENT:: basenote
+(describe argument here)
+
+ARGUMENT:: coupled
+(describe argument here)
+
+ARGUMENT:: behavior
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+
+INSTANCEMETHODS::
+
+METHOD:: indicateKeys
+(describe method here)
+
+ARGUMENT:: argIndicateKeys
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: coupled
+(describe method here)
+
+ARGUMENT:: argCoupled
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isBlackKey
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setNoteReleasedAction
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: keyrange
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: flashNote
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+ARGUMENT:: delay
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: valueAction
+(describe method here)
+
+ARGUMENT:: argValue
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isAllowedMidiNoteNumber
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: noteIsReleasedOnView
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: notesShown
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: toggleNote
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: noteIsPressedOnView
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: noteIs
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+ARGUMENT:: pressed
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: validateMidiNote
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: notShownNoteStateChangedAction
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: maxNoteShown
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: prSetNote
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+ARGUMENT:: pressed
+(describe argument here)
+
+ARGUMENT:: triggerActions
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isCoupled
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: flashRightEdge
+(describe method here)
+
+ARGUMENT:: delay
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: initGRKeyboard
+(describe method here)
+
+ARGUMENT:: argParent
+(describe argument here)
+
+ARGUMENT:: argOrigin
+(describe argument here)
+
+ARGUMENT:: argBasenote
+(describe argument here)
+
+ARGUMENT:: argCoupled
+(describe argument here)
+
+ARGUMENT:: argBehavior
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setNoteReleased
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: toggleNoteAction
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: basenote
+(describe method here)
+
+ARGUMENT:: argBasenote
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: midiNotesInterval
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: flashLeftEdge
+(describe method here)
+
+ARGUMENT:: delay
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: noteReleasedOnViewAction
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setNoteAction
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+ARGUMENT:: pressed
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: noteIsPressed
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setNotePressed
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: flashNotes
+(describe method here)
+
+ARGUMENT:: notes
+(describe argument here)
+
+ARGUMENT:: delay
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: getLeftEdgePoints
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: noteReleasedAction
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: getNoteAt
+(describe method here)
+
+ARGUMENT:: point
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: validateValue
+(describe method here)
+
+ARGUMENT:: argValue
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: noteIsReleased
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: behavior
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setNote
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+ARGUMENT:: pressed
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: handleNotShownNoteStateChange
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+ARGUMENT:: pressed
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: getPointOfNote
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: noteIsShown
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: getRightEdgePoints
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: notePressedAction
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: minNoteShown
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: notePressedOnViewAction
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: prRecalculateMidiNoteLookup
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: setNotePressedAction
+(describe method here)
+
+ARGUMENT:: note
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

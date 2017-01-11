@@ -1,0 +1,84 @@
+title:: Grrr
+summary:: An overview of the Grrr library
+categories:: External Control
+
+section::Introduction
+
+Grrr provides high level UI abstractions for grid based controllers. The library was inspired by early mono-bright monome devices (link::http://www.monome.org::): a bunch of buttons with lights arranged in a grid, the visual feedback being decoupled from the buttons. Grrr reuses some principles of the standard SuperCollider GUI class library (see link::Guides/GUI-Introduction::).
+
+subsection::Hello World
+code::
+a=GRScreenGrid.new; // creates a virtual grid which shows up in a separate window
+b=GRButton(a, 0@0); // places a 1x1 button at top left key
+b.action = { |view, value| (value.if("Hello", "Goodbye") + "World").postln }; // sets an action to be triggered when the button is pressed
+
+// pressing the top left grid button of the virtual grid will change led state and output to the Post Window
+::
+
+subsection::An example with sound
+code::
+s.boot;
+a=GRScreenGrid.new; // creates a virtual grid
+b=GRButton(a, 0@0); // places a 1x1 button at top left key
+b.action = { |view, value| if (value) { c = {SinOsc.ar}.play } { c.release } }; // sets an action to be triggered when the button is pressed
+
+// pressing the top left grid button of the virtual grid will change led state and audition a sine oscillator
+::
+
+section::Classes
+
+link::Classes/GRView:: - Abstract superclass. Represents a 2D grid of backlit buttons.
+	tree::
+	## link::Classes/GRButton:: - An on/off button.
+	## link::Classes/GRAbstractToggle::
+		tree::
+		## link::Classes/GRToggle:: - A multiple value toggle
+			tree::
+			## link::Classes/GRVToggle:: - Vertically oriented toggle
+			## link::Classes/GRHToggle:: - Horizontally oriented toggle
+			::
+		## (link::Classes/GRAbstractRangeToggle:: (rename to GRRangeToggleBase?))
+			tree::
+			## (link::Classes/GRVRangeToggle::)
+			## (link::Classes/GRHRangeToggle::)
+			::
+		## (link::Classes/GRSliderBase::)
+			tree::
+			## (link::Classes/GRVSlider::)
+			## (link::Classes/GRHSlider::)
+			::
+		::
+	## link::Classes/GRKeyboard:: - Keyboard representation
+	## link::Classes/GRContainerView:: - Abstract class for views that may contain other views.
+		tree::
+		## link::Classes/GRTopView:: - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
+		## link::Classes/GRMultiButtonView:: - A grid of buttons of the same size.
+		## link::Classes/GRMultiToggleView:: - An array of vertical or horizontal toggles of the same size.
+		## link::Classes/GRSwitcher:: - A container that only have one child view active at any given time. Has convenience methods for changing which child view is active.
+		::
+	::
+link::Classes/GRController:: - Abstract superclass. Represents a device that may attach to and control part of or an entire GRView.
+	tree::
+	## link::Classes/GRScreenGrid:: - An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
+	::
+
+section::In depth
+
+definitionList::
+## Basic Concepts || link::Reference/Grrr/Basic-Concepts::
+## A tour of Grrr || link::Tutorials/Grrr/A-Tour-Of-Widgets::
+## Persistance || link::Reference/Grrr/Persistance::
+## Live Coding || link::Tutorials/Grrr/Live-Coding::
+## Internal Snooping || link::Tutorials/Grrr/Internal-Snooping::
+## Delimitations || link::Reference/Grrr/Delimitations::
+## Monome Support || link::Reference/Grrr/Monome-Support::
+## Using Grrr Specs || link::Reference/Grrr/Specs::
+## Pattern Support || link::Reference/Grrr/Pattern-Support::
+## Extending Grrr || link::Reference/Grrr/Extending-Grrr::
+::
+
+section::Feedback
+
+for suggestions / comments contact me
+
+Anton Hörnquist, anton.hornquist@gmail.com.

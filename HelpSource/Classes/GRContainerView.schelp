@@ -1,0 +1,360 @@
+TITLE:: GRContainerView
+summary:: Abstract class for views that may contain other views.
+categories:: External Control
+related:: Classes/GRSwitcher, Classes/GRView, Overviews/Grrr
+
+DESCRIPTION::
+Abstract class for views that may contain other views.
+
+
+CLASSMETHODS::
+
+METHOD:: new
+
+Creates a new instance of GRView and - if parent and origin is supplied - makes it a child of a GRContainerView or GRController, effectively placing it within the parent's visual space.
+
+NOTE::
+If parent and origin arguments are omitted the view will be created as detached and not connected to a parent. It may be attached to a parent at a later stage.
+::
+
+ARGUMENT:: parent
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRView will become a child of.
+
+ARGUMENT:: origin
+A Point describing the position of the GRView. Position is measured relative to the parent's top-left corner.
+
+ARGUMENT:: numCols
+An Integer describing the width of the 2D grid of the new GRView.
+
+ARGUMENT:: numRows
+An Integer describing the height of the 2D grid of the new GRView.
+
+ARGUMENT:: enabled
+A Boolean that determine whether the new GRView is enabled upon creation.
+
+ARGUMENT:: pressThrough
+TODO
+
+(describe argument here)
+
+returns:: An instance of GRContainerView
+
+METHOD:: newDetached
+Convenience method used when creating a detached view not connected to a parent. TODO: See (link to Grrr overview on detached views)
+
+ARGUMENT:: numCols
+An Integer describing the width of the 2D grid of the new GRView.
+
+ARGUMENT:: numRows
+An Integer describing the height of the 2D grid of the new GRView.
+
+ARGUMENT:: enabled
+A Boolean that determine whether the new GRView is enabled upon creation.
+
+ARGUMENT:: pressThrough
+TODO
+
+(describe argument here)
+
+returns:: An instance of GRContainerView
+
+METHOD:: newDisabled
+Convenience method used for creating a disabled view.
+
+ARGUMENT:: parent
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRView will become a child of.
+
+ARGUMENT:: origin
+A Point describing the position of the new GRView. Position is measured relative to the parent's top-left corner.
+
+ARGUMENT:: numCols
+An Integer describing the width of the GRView.
+
+ARGUMENT:: numRows
+An Integer describing the height of the GRView.
+
+ARGUMENT:: pressThrough
+TODO
+
+(describe argument here)
+
+returns:: An instance of GRContainerView
+
+
+INSTANCEMETHODS::
+
+METHOD:: addChild
+Adds a view as a child to this view
+
+ARGUMENT:: view
+The view to add as a child.
+
+ARGUMENT:: origin
+A Point describing the position of where to add the view. Position is measured relative to the parent (this view's) top-left corner.
+
+METHOD:: removeChild
+Removes a view as a child to this view.
+
+ARGUMENT:: view
+The child view.
+
+METHOD:: removeAllChildren
+Removes all child views to this view.
+
+METHOD:: isParentOf
+Answers whether this view is parent of another view.
+
+ARGUMENT:: view
+The view to test.
+
+returns:: A Boolean
+
+METHOD:: hasChildAt
+Answers whether this view has a child that occupies a certain point.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+METHOD:: getChildrenAt
+Returns all children that occupies a certain point.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: An Array of GRViews
+
+METHOD:: anyEnabledChildrenWithinBounds
+Answers whether this view has any child that occupies a certain area on the 2D grid.
+
+ARGUMENT:: origin
+A Point describing a location on a 2D grid
+
+ARGUMENT:: numCols
+An Integer describing width of a 2D grid.
+
+ARGUMENT:: numRows
+An Integer describing height of a 2D grid.
+
+returns:: A Boolean
+
+METHOD:: hasEnabledChildAt
+Answers true if view has an enabled child that occupies a certain point.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+METHOD:: getEnabledChildAt
+Return the enabled child that occupies a certain point, if any.
+
+ARGUMENT:: point
+A Point.
+
+returns:: A GRView or nil
+
+METHOD:: enabledChildren
+Returns all enabled children.
+
+returns:: An Array of GRViews
+
+METHOD:: isEmpty
+Answers true if view has no child views
+
+returns:: A Boolean
+
+METHOD:: pressThrough
+TODO
+
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+
+
+METHOD:: validateOkToAddChild
+Throws error if a view cannot be added at a certain origin.
+
+ARGUMENT:: view
+A potential child view
+
+ARGUMENT:: origin
+A Point describing a location on a 2D grid on which to possibly add a child view
+
+METHOD:: validateParentOf
+Throws error if a view is not a child of this view
+
+ARGUMENT:: child
+A view to test
+
+METHOD:: validateOkToEnableChild
+Throws error if a disabled child view of this view cannot be enabled
+
+ARGUMENT:: child
+A view to test
+
+METHOD:: validateDoesNotOverlapWithEnabledChildren
+(describe method here)
+
+ARGUMENT:: view
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: validateOkToDisableChild
+(describe method here)
+
+ARGUMENT:: child
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: validateWithinBounds
+(describe method here)
+
+ARGUMENT:: view
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+
+
+METHOD:: isWithinBounds
+(describe method here)
+
+ARGUMENT:: view
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+
+
+SUBSECTION:: Overrides
+
+METHOD:: handleViewButtonEvent
+(describe method here)
+
+ARGUMENT:: source
+(describe argument here)
+
+ARGUMENT:: point
+(describe argument here)
+
+ARGUMENT:: pressed
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: releaseAll
+(describe method here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asTree
+(describe method here)
+
+ARGUMENT:: includeDetails
+(describe argument here)
+
+ARGUMENT:: indentLevel
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: asPlot
+(describe method here)
+
+ARGUMENT:: indentLevel
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: refreshPoint
+(describe method here)
+
+ARGUMENT:: point
+(describe argument here)
+
+ARGUMENT:: refreshChildren
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: isLitAt
+(describe method here)
+
+ARGUMENT:: point
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+
+SUBSECTION:: Private
+
+METHOD:: prRemoveAllChildren
+(describe method here)
+
+ARGUMENT:: preventFlash
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: prAddChild
+(describe method here)
+
+ARGUMENT:: view
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+ARGUMENT:: preventFlash
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: prRemoveChild
+(describe method here)
+
+ARGUMENT:: view
+(describe argument here)
+
+ARGUMENT:: preventFlash
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+METHOD:: prAddChildNoFlash
+(describe method here)
+
+ARGUMENT:: view
+(describe argument here)
+
+ARGUMENT:: origin
+(describe argument here)
+
+returns:: (describe returnvalue here)
+
+
+
+EXAMPLES::
+
+code::
+a=GRContainerView.newDetached(8, 8);
+b=GRView.newDetached(2, 2);
+a.addChild(b, 0@0);
+a.isParentOf(b); // true
+a.getChildrenAt(0@0) == [b]; // true
+a.getEnabledChildAt(0@0) == b; // true
+::

@@ -1,0 +1,378 @@
+title:: Basic Concepts
+summary:: Basic Concepts
+categories:: External Control
+related:: Overviews/Grrr
+
+Grrr is an UI library for grid based controllers.
+
+Grrr classes are loosely based on SuperCollider GUI classes. GRControllers are similar to Windows, GRView and its subclasses are similar to View and its subclasses.
+
+section::Adding views to a controller
+
+
+
+A parent is typically passed to a GRView upon instantiation to indicate which controller or view the view will become a child of. This is much like when building regular SuperCollider GUI. However, instead of SuperCollider GUI bounds (a Rect supplied to GUI Views) arguments origin (a Point), numCols and numRows (Integers) designate where on the parent view or controller a Grrr widget is added and how large it will be.
+
+code::
+a=GRScreenGrid.new; // a GRScreenGrid is a virtual grid with configurable size that defaults to 8x8
+b=GRButton(a, 0@0, 2, 2); // a button spanning 2x2 keys is placed at top left key on the virtual grid
+b.action = { |view, value| (value.if("Hello", "Goodbye") + "World").postln }; // sets an action to be triggered when the button is pressed
+
+// pressing the top-leftmost 2x2 grid keys will now post a message to the Post Window and toggle the button's value which in turn toggles led state
+
+b.value = true; // set value programmatically
+b.value = false;
+
+b.valueAction = true; // valueAction sets value *and* triggers action
+b.valueAction = false;
+
+b.toggleValue; // toggle value and trigger action, this is the action coupled GRButton presses trigger
+
+b.remove; // remove the button from the screen grid
+::
+
+section::Enabling and disabling views
+
+GRViews may be enabled or disabled individually. Disabled views do not display led state nor handle button events from it's parent.
+
+code::
+b=GRButton(a, 0@0); // a 1x1 (the default size) button placed at top left key
+b.value = true;
+b.disable; // button led disappear when a view is disabled and key events are no longer handled
+b.enable; // enable button again to
+
+b.remove; // remove the button from the screen grid
+::
+
+Grrr differs from SuperCollider GUI classes in that views in enabled state (the default state) are not allowed to overlap. An error will be thrown for any method invocation that make two or more Grrr Views do so. At any given point in a view or controller only one view may be enabled. As such, there is no z ordering of views. The exception to this is GRContainerView which represents a view that may contain other views.
+
+code::
+b=GRButton(a, 0@0, 2, 2);
+c=GRButton(a, 0@0, 1, 1); // this will throw an error
+c=GRButton.newDisabled(a, 0@0, 1, 1); // this will work. a disabled view will not handle key events nor output led state
+c.enable; // this throws an error since b and c overlap
+b.disable; // if the large button is disabled,
+c.enable; // it's possible to enable the small button
+
+a.view.removeAllChildren; // removes all of the controllers child views
+::
+
+section::Grouping views
+
+GRContainerView may be used to group other views.
+
+code::
+b=GRContainerView(a, 0@0, 4, 4);
+c=GRMultiButtonView(b, 0@0, 4, 4);
+c.action = { |view| ("i'm in" + view.getParents).postln };
+a.postTree; // postTree prints a textual representation of the view tree to the Post Window
+
+d=GRContainerView(a, 4@0, 4, 4);
+e=GRContainerView(d, 0@0, 2, 2);
+f=GRButton(e, 0@0, 2, 2);
+f.action = { |view| ("i'm in" + view.getParents).postln };
+a.postTree;
+
+a.view.removeAllChildren;
+::
+
+A more convenient way to make pages of widgets is to use link::Classes/GRSwitcher::
+
+code::
+b=GRSwitcher(a, 0@0, 4, 4); // a GRSwitcher for switching between views
+c=4.collect { GRMultiButtonView(b, 0@0, 4, 4) }; // create four 4x4 views in the GRSwitcher (note: the contained views of a GRSwitcher must be of the same size as the GRSwitcher)
+b.value; // the GRSwitcher instance value indicates active page
+b.value=1; // changing value changes active page
+b.value=2;
+b.value=3;
+d=GRHToggle(a, 0@4, 4, 1); // a toggle can be used to switch between views of a GRSwitcher
+d.action = { |view, value| b.value = value }; // hook up the toggle to the switcher
+
+a.view.removeAllChildren;
+::
+
+section::Coupled and decoupled views
+
+Grrr widgets may be used in a coupled or decoupled fashion. Coupled views automatically updates a widget's value on incoming key events. This is the default, simply because that's how regular GUI views work. Decoupled views do not update a widget's value on incoming key events. A widget's value mostly correspond to the state of the leds of the widget. Decoupled views require a bit more code but is arguably more useful since key presses may be customized and not directly correspond to how a widget normally works.
+
+code::
+b=GRHToggle(a, 0@0, 8, 1); // a coupled toggle
+c=GRHToggle.newDecoupled(a, 0@1, 8, 1); // a decoupled one
+
+b.action = { |view, value| s.serverRunning.if { (degree: value, sustain: 0.05).play } }; // coupled toggle plays sound
+
+// Widget specific non-led-coupled actions are typically used with decoupled views
+(
+c.togglePressedAction = { |...args| // togglePressedAction is triggered anytime toggle is pressed anywhere
+	c.value = c.numCols.rand; // randomize value on toggle press
+};
+)
+
+// Something a bit more interesting: a sequence of different length triggered from the toggle
+(
+c.togglePressedAction = nil;
+c.toggleValuePressedAction = { |view, value| // toggleValuePressedAction is triggered anytime a toggle value is pressed
+	var playFunc;
+	playFunc = { |degree| s.serverRunning.if { (degree: degree, sustain: 0.05).play } };
+	r.stop;
+	r = Routine({
+		loop {
+			(value..0).do { |val|
+				0.1.wait;
+				playFunc.(val);
+				view.value = val;
+			};
+		};
+	}).play;
+};
+)
+
+r.stop; // stop the sequence
+
+a.view.removeAllChildren;
+::
+
+In addition to using the newDecoupled constructor it's possible to set a widget coupled or decoupled using the coupled_() method.
+
+section::Detached views
+
+A view is typically created as a child to another view acting as a parent view. When a view has a parent it is considered attached. It's possible to create detached views and attach them at a later stage.
+
+code::
+b=GRButton(a, 0@0);
+b.hasParent; // true
+c=GRButton.newDetached;
+c.hasParent; // false
+c.isDetached; // true
+a.addChild(c, 1@1);
+c.hasParent; // true
+c.isDetached; // false
+
+a.view.removeAllChildren;
+::
+
+It's also possible to detach a view from a parent and reattach them to another parent.
+
+code::
+// Example code
+a=GRScreenGrid.new;
+b=GRButton(a, 0@0);
+c.hasParent; // true
+b.remove;
+c.hasParent; // false
+c=GRScreenGrid.new;
+c.addChild(b, 3@3);
+c.hasParent; // true
+::
+
+section::Debugging and Internal Snooping
+
+Views may be indicated meaning its bounds shown with a continuous flash on the controller to which it is attached.
+
+code::
+b=GRButton(a, 1@3);
+c=GRButton(a, 2@0);
+b.indicateView;
+c.indicateView;
+
+a.view.removeAllChildren;
+::
+
+Views are indicated regardless of whether they're enabled or not.
+
+code::
+a=GRScreenGrid.new;
+b=GRButton.new(a, 0@0);
+b.flashView;
+b.indicateView;
+b.disable;
+b.flashPoint; // will not make any difference
+b.indicateView; // still flashes leds
+::
+
+Using a GRCommon class variable views may automatically be indicated when added/removed to a controller. Automatic indications are nice hints when prototyping a UI or creating an ad hoc UI when live coding.
+
+code::
+GRCommon.indicateAddedRemovedAttachedDetached=true; // TODO: this should be called something better such as indicateAutomatically
+
+b=GRButton(a, 1@3);
+c=GRButton(a, 2@0);
+b.remove;
+c.remove;
+
+// However, the global should in other cases be set to false (the default) for indications not to happen all the time.
+GRCommon.indicateAddedRemovedAttachedDetached=false;
+::
+
+With globals Grrr button and led events may be traced
+
+code::
+GRCommon.traceButtonEvents=true;
+a=GRContainerView.newDetached(4, 4);
+b=GRButton(a, 1@3);
+a.press(this, 1@3);
+a.press(this, 0@0);
+a.release(this, 1@3);
+a.release(this, 0@0);
+GRCommon.traceButtonEvents=false; // the default
+
+GRCommon.traceLedEvents=true;
+b=GRButton(a, 1@3);
+b.value = true;
+b.value = false;
+GRCommon.traceLedEvents=false; // the default
+b.remove
+::
+
+It's possible to post textual representations of views to the Post Window.
+
+code::
+b=GRContainerView(a, 0@0, 4, 4);
+c=GRMultiButtonView(b, 0@0, 4, 4);
+a.postTree // post a tree of all contained views
+
+a.plot // plot a view or controller
+b.plot // plot container view
+a.plotTree // plot a view or controller and all its contained views recursively
+
+a.view.removeAllChildren;
+::
+
+section::Specs
+
+Many views has a spec describing possible value ranges of the views numerical representation of its value or contained value (for Multi*Views)
+
+code::
+a=GRVToggle.newDetached(1, 8);
+a.asSpec // [0, 7].asSpec
+
+b=GRButton.newDetached
+b.value.asInteger // false -> 0
+b.toggleValue
+b.value.asInteger // true -> 1
+b.asSpec // [0, 1].asSpec
+::
+
+Specs are handy for converting the mostly discreet values of Grrr widgets to a normalized value 0..1.0
+
+code::
+a.value=7;
+a.asSpec.unmap(a.value); // [0, 7].asSpec.unmap(a.value);
+a.value=4;
+a.asSpec.unmap(a.value);
+a.value=1;
+a.asSpec.unmap(a.value);
+::
+
+See help file for ControlSpec for the whole story...
+
+section::Pattern support
+
+code::
+a=GRStepView(8, 2);
+a.asPseq;
+a.asPbind.play;
+
+
+(
+var dur, bump;
+dur = 0.25;
+a=Pbind(*[
+	\degree, Pseq([0, \r, 3, 7, 9, 11, \r, 5], inf),
+	\octave, Pseq([4, 3], inf),
+	\pan, Pseq([-1, 0, 0.5, -0.5, 1], inf),
+	\dur, Pfunc({ dur }),
+	\notify, Prout({ var pos = 0; loop { bump.(pos); pos=(pos+1).wrap(0, 7); pos.yield } })
+]);
+b=a.play;
+c=GRScreenGrid(8, 4);
+d=GRHToggle.newDecoupled(c, 0@0, 8, 1);
+bump = { |pos| d.value = pos };
+d.toggleValuePressedAction = { |view, value| dur = ((value+1).reciprocal/2) };
+)
+::
+
+
+section::Flash
+
+code::
+c.flashView; // flashView flashes a view (inverts and then resets view after a given time)
+::
+
+
+section::Delimitations
+
+Overlapping widgets not allowed: At a given grid button only one non-container view may be active (enabled). Work-around: use and switch between views, GRSwitcher is designed for this use case.
+
+Performance: readability of code right has so far been prioritized over speed. A lot can be improved with optimizations. Do not expect Grrr to work well with very high refresh rates right now.
+
+No vari-bright: i did not have a vari-bright grid when starting this. vari-brightness can be added, but hasn't been worked on yet.
+
+code::
+b.remove
+c.remove
+
+//a=GRScreenGrid.new;
+a=GRMonome64.new;
+b=GRHToggle(a, 0@0, 8, 1); // a toggle to switch view pages
+c=GRSwitcher(a, 0@1, 8, 7); // a container view used for simple switching between views
+b.action = { |view, value| c.value_(value) }; // make toggle switch GRSwitcher's views
+GRButton(c, 0@0, 8, 7); // page 5
+GRMultiButtonView(c, 0@0, 8, 7); // page 1
+GRVToggle(c, 0@0, 8, 7); // page 5
+GRHToggle(c, 0@0, 8, 7); // page 5
+GRMultiToggleView(c, 0@0, 8, 7); // page 2
+GRMultiToggleView(c, 0@0, 8, 7, 'horizontal'); // page 3
+d=GRContainerView(c, 0@0, 8, 7); // page 5
+GRKeyboard(d, 0@1, 7, 6); // page 5, GRKeyboard is contained in a GRContainerView since views of a GRSwitcher must be of the GRSwitcher's size
+a.spawnGui; // It's possible to spawn a GRScreenGrid from any view
+
+
+(
+{
+	c.value = 1
+}.bench
+)
+
+(
+r{
+	var count = 0;
+	inf.do {
+		8 do: { d.setButtonValue(d.numCols.rand, d.numRows.rand, [true, false].choose) };
+		8 do: { |i| e.setToggleValue(i, count.wrap(0, 6)) };
+		2 do: { f.setButtonValue((f.numCols/2).rand, (f.numRows/2).rand, [true, false].choose) };
+		8 do: { |i| g.setToggleValue(i, 6-count.wrap(0, 6)) };
+		count = count + 1;
+		0.1.wait;
+	};
+}.play
+)
+
+d.remove
+e.remove
+
+// Debugging
+
+// Textual representations of views
+
+a.plot // plot one view
+a.plotTree // plot one view and all its contained views recursively
+
+// Textual representations of views
+
+c.indicateView // views may be indicated which means shown on a controller, or
+c.flashView // flashed, which means flashed (inverted and reset after a given time), but only if its containing view is enabled.
+GRCommon.indicateAddedRemovedAttachedDetached=true; // indicated automatically on creation. this is nice for prototyping but should typically be set to default false otherwise.
+
+// When building stuff manually / prototyping enabling the following global (which defaults to false) will indicate where widgets are added. This is typically only used in prototype / live coding situations.
+
+// Virtual grid controllers may be created or spawned from views
+
+l=GRScreenGrid.new(8, 8); // create controller
+
+c.spawnGui; // spawn from view
+
+
+SerialOSCClient.doGridKeyAction(0, 0, true)
+SerialOSCClient.doGridKeyAction(0, 0, false)
+::
