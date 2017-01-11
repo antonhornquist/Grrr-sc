@@ -146,7 +146,7 @@ GRMultiToggleView : GRContainerView {
 	}
 
 	validateValue { |val|
- 		if (val.length != numToggles) { Error("array must be of size %".format(numToggles)).throw }
+ 		if (val.size != numToggles) { Error("array must be of size %".format(numToggles)).throw }
 	}
 
 	maximumToggleValue {
