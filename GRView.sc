@@ -571,7 +571,7 @@ GRView {
 	}
 
 	doAction {
-		action !? action.value(this, this.value)
+		action.value(this, this.value);
 	}
 
 	validateValue { |argValue|
