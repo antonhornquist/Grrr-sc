@@ -1,7 +1,7 @@
 GRKeyboard : GRView {
 	classvar
-		minMidiNoteNumber=0,
-		maxMidiNoteNumber=127
+		<minMidiNoteNumber=0,
+		<maxMidiNoteNumber=127
 	;
 
 	var
