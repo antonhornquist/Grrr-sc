@@ -277,7 +277,7 @@ GRView {
 						pointsPressed.detectIndex(_==point)
 					)
 				};
-				viewButtonStateChangedAction !? viewButtonStateChangedAction.value(point, pressed);
+				viewButtonStateChangedAction.value(point, pressed);
 
 				if (GRCommon.traceButtonEvents) {
 					"in % - button % at % (source: [%]) handled in [%]".format(
@@ -478,7 +478,7 @@ GRView {
 			};
 			enabled = true;
 			this.refresh;
-			viewWasEnabledAction !? viewWasEnabledAction.value(this);
+			viewWasEnabledAction.value(this);
 		} {
 			if (this.hasParent) {
 				parent.validateOkToDisableChild(this);
@@ -488,7 +488,7 @@ GRView {
 			if (this.hasParent) {
 				parent.refreshBounds(origin, numCols, numRows);
 			};
-			viewWasDisabledAction !? viewWasDisabledAction.value(this);
+			viewWasDisabledAction.value(this);
 		};
 	}
 
