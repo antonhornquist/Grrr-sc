@@ -39,7 +39,7 @@ b.buttonReleasedAction = { "the first button was released!".postln };
 a.view.removeAllChildren;
 ```
 
-### Example 2
+### Example 3
 
 ``` supercollider
 // post note names pressed
