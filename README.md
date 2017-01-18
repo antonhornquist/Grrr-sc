@@ -183,7 +183,7 @@ MyController : GRController {
 
 ## Requirements
 
-This code was developed and have been tested in SuperCollider 3.6.6.
+This code has been developed and tested in SuperCollider 3.8.0.
 
 ## Installation
 
