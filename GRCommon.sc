@@ -1,8 +1,8 @@
 GRCommon {
 	classvar
-		indicateAddedRemovedAttachedDetached=false,
-		traceButtonEvents=false,
-		traceLedEvents=false
+		<>indicateAddedRemovedAttachedDetached=false,
+		<>traceButtonEvents=false,
+		<>traceLedEvents=false
 	;
 
 }
