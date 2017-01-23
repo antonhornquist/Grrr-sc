@@ -41,7 +41,7 @@ GRContainerView : GRView {
 			Error("child view origin may not be negative").throw;
 		};
 		this.validateWithinBounds(view, origin);
-		if (view.isEnabled) {
+		if (view.isEnabled) { // UPCOMINGTODO: remove
 this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 		};
 	}
@@ -145,7 +145,7 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 	// Validations
 
 	validateOkToEnableChild { |child|
-		this.validateDoesNotOverlapWithEnabledChildren(child, child.origin);
+		this.validateDoesNotOverlapWithEnabledChildren(child, child.origin); // UPCOMINGTODO: remove
 	}
 
 	validateOkToDisableChild { |child|
@@ -161,13 +161,13 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 		^this.containsBounds(origin, view.numCols, view.numRows);
 	}
 
-	validateDoesNotOverlapWithEnabledChildren { |view, origin|
+	validateDoesNotOverlapWithEnabledChildren { |view, origin| // UPCOMINGTODO: remove
 		if (this.anyEnabledChildrenWithinBounds(origin, view.numCols, view.numRows)) {
 			Error("[%] at % overlaps with one or more enabled child views in [%]".format(view, origin, this)).throw;
 		};
 	}
 
-	anyEnabledChildrenWithinBounds { |origin, numCols, numRows|
+	anyEnabledChildrenWithinBounds { |origin, numCols, numRows| // UPCOMINGTODO: remove
 		var points = GRView.boundsToPoints(origin, numCols, numRows);
 		^this.enabledChildren.any { |child|
 			GRView.pointsSect(child.asPointsFromOrigin, points).size > 0
@@ -221,9 +221,9 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 	refreshPoint { |point, refreshChildren=true|
 		var hasEnabledChildAtPoint, view;
 		if (enabled) {
-			hasEnabledChildAtPoint = this.hasEnabledChildAt(point);
+			hasEnabledChildAtPoint = this.hasEnabledChildAt(point); // UPCOMINGTODO: hasAnyEnabledChildrenAt
 			if (hasEnabledChildAtPoint and: refreshChildren) {
-				view = this.getEnabledChildAt(point);
+				view = this.getEnabledChildAt(point); // UPCOMINGTODO: getTopmostEnabledChildAt
 
 				if (GRCommon.traceLedEvents) {
 					"refresh at % forwarded to [%] at %".format(

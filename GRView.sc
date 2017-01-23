@@ -97,19 +97,19 @@ GRView {
 		^Point.new(numCols-1, numRows-1)
 	}
 
-	leftmostCol { // TODO: add test
+	leftmostCol {
 		^0
 	}
 
-	rightmostCol { // TODO: add test
+	rightmostCol {
 		^numCols-1
 	}
 
-	topmostRow { // TODO: add test
+	topmostRow {
 		^0
 	}
 
-	bottommostRow { // TODO: add test
+	bottommostRow {
 		^numRows-1
 	}
 
@@ -624,7 +624,7 @@ GRView {
 		origin = argOrigin;
 		parentViewLedRefreshedListener = { |source, point, on|
 			var reason;
-			if (parent.hasViewLedRefreshedAction and: parent.isEnabled) {
+			if (parent.hasViewLedRefreshedAction and: parent.isEnabled) { // UPCOMINGTODO: and: parent.getTopmostEnabledChildAt(origin + point) == this
 
 				if (GRCommon.traceLedEvents) {
 					"led % at % (source: [%]) forwarded to [%]".format(
@@ -645,6 +645,13 @@ GRView {
 						if (parent.isEnabled.not) {
 							"parent is disabled"
 						}
+/*
+						{
+							if (parent.isEnabled.not) {
+								"view [%] is not topmost at point [%] in parent [%]"
+							}
+						}
+*/
 					};
 					"led % at % (source: [%]) not forwarded to [%] - %".format(
 						if (on, "on", "off"),
