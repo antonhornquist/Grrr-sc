@@ -3,6 +3,8 @@ summary:: How monomes relate to the core Grrr library
 categories:: External Control
 related:: Overviews/Grrr
 
+Note: These docs are incomplete. I'm working on it /Anton
+
 section::Introduction
 
 Grrr was inspired by early mono-bright monome grids but has not specifically been designed to be used with monomes. Other grids exist, ie. pad controllers. All features of the current monomes are not even covered in Grrr: Vari-brightness isn't handled. Tilt isn't supported. That said, monomes are probably the best tactile controller to use with Grrr.

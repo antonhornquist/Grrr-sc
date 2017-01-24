@@ -1,10 +1,12 @@
 # Grrr-sc
 
-Grid controller UI widget library for SuperCollider
+Grid controller UI library for SuperCollider
 
 ## Description
 
 High level UI abstractions for grid based controllers. Simplifies interaction with for instance Monome devices.
+
+Note: So far code readability has been favored over optimizations.
 
 ## Examples
 
@@ -43,6 +45,9 @@ a.view.removeAllChildren;
 
 ``` supercollider
 // post note names pressed
+
+// TODO: no need to make newDetached and enableKeyControl
+
 (
 	var table = (), keyboard, screenGrid;
 	// build a table of note names (nicked from Literals helpfile)
@@ -77,12 +82,15 @@ a.view.removeAllChildren;
 		* GRToggle
 			* GRVToggle
 			* GRHToggle
+/*
+	TODO: remove for now
 		* (GRAbstractRangeToggle (rename to GRRangeToggleBase?))
 			* (GRVRangeToggle)
 			* (GRHRangeToggle)
 		* (GRSliderBase)
 			* (GRVSlider)
 			* (GRHSlider)
+*/
 	* GRKeyboard
 	* GRContainerView - Abstract class for views that may contain other views.
 		* GRTopView - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.

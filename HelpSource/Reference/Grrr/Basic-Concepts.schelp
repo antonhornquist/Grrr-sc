@@ -3,6 +3,8 @@ summary:: Basic Concepts
 categories:: External Control
 related:: Overviews/Grrr
 
+Note: These docs are incomplete. I'm working on it /Anton
+
 Grrr is an UI library for grid based controllers.
 
 Grrr classes are loosely based on SuperCollider GUI classes. GRControllers are similar to Windows, GRView and its subclasses are similar to View and its subclasses.

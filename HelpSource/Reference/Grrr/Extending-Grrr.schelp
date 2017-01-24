@@ -3,6 +3,8 @@ summary:: How to build your own views or controllers
 categories:: External Control
 related:: Overviews/Grrr
 
+Note: These docs are incomplete. I'm working on it /Anton
+
 It's possible to build customized Grrr views and controllers by subclassing core Grrr classes.
 
 section::Writing Custom Views

@@ -2,6 +2,8 @@ title:: Grrr
 summary:: An overview of the Grrr library
 categories:: External Control
 
+Note: These docs are incomplete. I'm working on it /Anton
+
 section::Introduction
 
 Grrr provides high level UI abstractions for grid based controllers. The library was inspired by early mono-bright monome devices (link::http://www.monome.org::): a bunch of buttons with lights arranged in a grid, the visual feedback being decoupled from the buttons. Grrr reuses some principles of the standard SuperCollider GUI class library (see link::Guides/GUI-Introduction::).
