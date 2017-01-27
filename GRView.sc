@@ -53,6 +53,13 @@ GRView {
 
 	// Bounds
 
+	origin_ { |argOrigin|
+		// 1. check new origin and new bounds is within parent bounds, and if so:
+		// 2. release all buttons
+		// 3. change origin
+		// 4. refresh all points covering the bounds of the vew in the original position + the bounds of the vew in the new position
+	}
+
 	numViewButtons {
 		^numCols * numRows
 	}
@@ -381,14 +388,49 @@ GRView {
 		^this.asPoints.all { |point| this.isUnlitAt(point) }
 	}
 
+	getLedStateWithinBounds { |argOrigin, argNumCols, argNumRows|
+		^GRView.boundsToPoints(argOrigin, argNumCols, argNumRows).collect { |point| point -> this.isLitAt(point) }
+	}
+
+	prDisableLedForwardingToParent {
+		this.removeAction(parentViewLedRefreshedListener, \viewLedRefreshedAction);
+	}
+
+	prEnableLedForwardingToParent {
+		this.addAction(parentViewLedRefreshedListener, \viewLedRefreshedAction);
+	}
+
+	doThenRefreshChangedLeds { |func|
+		var pre, post, pointsHavingChangedState, pointsToRefresh;
+		pre = this.getLedStateWithinBounds(origin, numCols, numRows);
+		this.prDisableLedForwardingToParent;
+		// TODO: ensure led forwarding is enabled after a possible error - finally?
+		func.value;
+		// TODO: ensure led forwarding is enabled after a possible error - finally?
+		this.prEnableLedForwardingToParent;
+		post = this.getLedStateWithinBounds(origin, numCols, numRows);
+
+		pointsHavingChangedState = post.select { |pointState1|
+			pre.any { |pointState2|
+				(pointState1.key == pointState2.key)
+				and:
+				(pointState1.value != pointState2.value)
+			}
+		};
+		pointsToRefresh = pointsHavingChangedState.collect { |pointState| pointState.key };
+		this.refreshPoints(pointsToRefresh);
+	}
+
 	// Indicate support
 
 /*
+	TODO
+
 	DOC:
 	Indicate schedules to set leds of a specific area or of a collection of points to first lit and the unlit. This process is repeated a specified number of times (repeat) and with a specified delay in milliseconds (interval). When done it refreshes the points. Leds will be affected even though they are covered by child views. This is mainly used to indicate added / detached views and attached / detached controllers.
 */
 
-	indicateView { |repeat, interval|
+	indicateView { |repeat, interval| // TODO: compare before and after UPCOMINGFIX
 		this.indicatePoints(this.asPoints, repeat, interval)
 	}
 
@@ -477,7 +519,9 @@ GRView {
 		};
 		if (bool) {
 			if (this.hasParent) {
+/*
 				parent.validateOkToEnableChild(this);
+*/
 				parent.releaseAllWithinBounds(origin, numCols, numRows);
 			};
 			enabled = true;
@@ -539,6 +583,8 @@ GRView {
 	}
 
 /*
+	TODO
+
 	DOC:
 	Returns the current state. This will not evaluate the function assigned to action. 
 */
@@ -548,6 +594,8 @@ GRView {
 	}
 
 /*
+	TODO
+
 	DOC:
 	Sets the view to display the state of a new value. This will not evaluate the function assigned to action.
 */
@@ -563,6 +611,8 @@ GRView {
 	}
 
 /*
+	TODO
+
 	DOC:
 	Sets the view to display the state of a new value, and evaluates action, if the value has changed. 
 */
@@ -624,7 +674,8 @@ GRView {
 		origin = argOrigin;
 		parentViewLedRefreshedListener = { |source, point, on|
 			var reason;
-			if (parent.hasViewLedRefreshedAction and: parent.isEnabled) { // UPCOMINGTODO: and: parent.getTopmostEnabledChildAt(origin + point) == this
+			// if (parent.hasViewLedRefreshedAction and: parent.isEnabled) { // UPCOMINGTODO: and: parent.getTopmostEnabledChildAt(origin + point) == this
+			if (parent.hasViewLedRefreshedAction and: parent.isEnabled and: (parent.getTopmostEnabledChildAt(origin + point) == this)) {
 
 				if (GRCommon.traceLedEvents) {
 					"led % at % (source: [%]) forwarded to [%]".format(
@@ -644,14 +695,15 @@ GRView {
 					} {
 						if (parent.isEnabled.not) {
 							"parent is disabled"
-						}
-/*
-						{
-							if (parent.isEnabled.not) {
-								"view [%] is not topmost at point [%] in parent [%]"
+						} {
+							if (parent.getTopmostEnabledChildAt(origin + point) != this) {
+								"view [%] is not topmost at point [%] in parent [%]".format(
+									this,
+									point,
+									parent
+								);
 							}
 						}
-*/
 					};
 					"led % at % (source: [%]) not forwarded to [%] - %".format(
 						if (on, "on", "off"),
@@ -680,6 +732,18 @@ GRView {
 		parents = Array.new;
 		while({(view = view.parent).notNil},{ parents = parents.add(view)});
 		^parents
+	}
+
+	bringToFront {
+		if (this.hasParent) {
+			parent.bringChildToFront(this);
+		}
+	}
+
+	sendToBack {
+		if (this.hasParent) {
+			parent.sendChildToBack(this);
+		}
 	}
 
 	// String representation

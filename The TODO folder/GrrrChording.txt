@@ -1,0 +1,25 @@
+Chording
+
+viewButtonChordReleasedAction = { |view, chord|
+}
+
+getViewButtonChord
+
+A view's "view button chord" pertains to the last set of buttons getting simultaneously held upon a view button press event. 
+
+The view button chord is retained as long as no new view buttons are pressed - defining a new chord - and as long as the last pressed view button is of the view is not yet released. When the last button held of a view is released the viewButtonChordReleasedAction is triggered. 
+
+Examples:
+a=GRScreenGrid.new;
+b=GRView.new;
+b.viewButtonStateChangedAction = {
+  If pressed
+    The view has a new chord: getViewButtonChord
+  Else
+    Current chord: getViewButtonChord
+  End
+flashPoints(chord)
+}
+b.viewButtonChordReleasedAction = { |chord|
+Released chord + chord
+}

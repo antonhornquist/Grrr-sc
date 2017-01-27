@@ -41,9 +41,11 @@ GRContainerView : GRView {
 			Error("child view origin may not be negative").throw;
 		};
 		this.validateWithinBounds(view, origin);
+/*
 		if (view.isEnabled) { // UPCOMINGTODO: remove
 this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 		};
+*/
 	}
 
 	addChild { |view, origin|
@@ -130,22 +132,52 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 		^children.select { |view| view.containsPoint(point-view.origin) };
 	}
 
+/*
 	hasEnabledChildAt { |point|
 		^this.enabledChildren.any { |view| view.containsPoint(point-view.origin) };
 	}
+*/
+	hasAnyEnabledChildAt { |point|
+		^this.enabledChildren.any { |view| view.containsPoint(point-view.origin) };
+	}
 
+/*
 	getEnabledChildAt { |point|
 		^this.enabledChildren.detect { |view| view.containsPoint(point-view.origin) };
+	}
+*/
+	getTopmostEnabledChildAt { |point|
+		^this.enabledChildren.select { |view| view.containsPoint(point-view.origin) }.last;
 	}
 
 	isEmpty {
 		^children.isEmpty
 	}
 
+	bringChildToFront { |view|
+		children.move(this.prGetChildIndex(view), this.numChildren);
+		this.refreshBounds(view.origin, view.numCols, view.numRows)
+	}
+
+	sendChildToBack { |view|
+		children.move(this.prGetChildIndex(view), 0);
+		this.refreshBounds(view.origin, view.numCols, view.numRows)
+	}
+
+	numChildren {
+		^children.size;
+	}
+
+	prGetChildIndex { |argChild|
+		^children.detectIndex { |child| child == argChild };
+	}
+
 	// Validations
 
 	validateOkToEnableChild { |child|
+/*
 		this.validateDoesNotOverlapWithEnabledChildren(child, child.origin); // UPCOMINGTODO: remove
+*/
 	}
 
 	validateOkToDisableChild { |child|
@@ -161,6 +193,7 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 		^this.containsBounds(origin, view.numCols, view.numRows);
 	}
 
+/*
 	validateDoesNotOverlapWithEnabledChildren { |view, origin| // UPCOMINGTODO: remove
 		if (this.anyEnabledChildrenWithinBounds(origin, view.numCols, view.numRows)) {
 			Error("[%] at % overlaps with one or more enabled child views in [%]".format(view, origin, this)).throw;
@@ -173,6 +206,7 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 			GRView.pointsSect(child.asPointsFromOrigin, points).size > 0
 		}
 	}
+*/
 
 	validateParentOf { |child|
 		if (this.isParentOf(child).not) {
@@ -190,8 +224,8 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 	handleViewButtonEvent { |source, point, pressed|
 		var view, respondingViews;
 		if (enabled) {
-			^if (this.hasEnabledChildAt(point)) {
-				view = this.getEnabledChildAt(point);
+			^if (this.hasAnyEnabledChildAt(point)) {
+				view = this.getTopmostEnabledChildAt(point);
 
 				if (GRCommon.traceButtonEvents) {
 					"in % - button % at % (source: [%]) forwarded to [%] at %".format(
@@ -221,9 +255,9 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 	refreshPoint { |point, refreshChildren=true|
 		var hasEnabledChildAtPoint, view;
 		if (enabled) {
-			hasEnabledChildAtPoint = this.hasEnabledChildAt(point); // UPCOMINGTODO: hasAnyEnabledChildrenAt
+			hasEnabledChildAtPoint = this.hasAnyEnabledChildAt(point); // UPCOMINGTODO: hasAnyEnabledChildrenAt
 			if (hasEnabledChildAtPoint and: refreshChildren) {
-				view = this.getEnabledChildAt(point); // UPCOMINGTODO: getTopmostEnabledChildAt
+				view = this.getTopmostEnabledChildAt(point); // UPCOMINGTODO: getTopmostEnabledChildAt
 
 				if (GRCommon.traceLedEvents) {
 					"refresh at % forwarded to [%] at %".format(
@@ -246,8 +280,8 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 
 	isLitAt { |point|
 		var view;
-		^if (this.hasEnabledChildAt(point)) {
-			view = this.getEnabledChildAt(point);
+		^if (this.hasAnyEnabledChildAt(point)) {
+			view = this.getTopmostEnabledChildAt(point);
 
 			if (GRCommon.traceLedEvents) {
 				"isLitAt at % forwarded to [%] at %".format(
@@ -279,7 +313,7 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 			plotPressedLines = Array.fill(numRows) { Array.new };
 			plotLedLines = Array.fill(numRows) { Array.new };
 			this.asPoints.do { |point|
-				wrap = if (this.hasEnabledChildAt(point)) { [ "[", "]" ] } { [ " ", " " ] };
+				wrap = if (this.hasAnyEnabledChildAt(point)) { [ "[", "]" ] } { [ " ", " " ] };
 				plotPressedLines[point.y] = plotPressedLines[point.y].add(
 					wrap.join(if (this.isPressedAt(point), 'P', '-'))
 				);
