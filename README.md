@@ -4,9 +4,7 @@ Grid controller UI library for SuperCollider
 
 ## Description
 
-High level UI abstractions for grid based controllers. Simplifies interaction with for instance Monome devices.
-
-Note: So far code readability has been favored over optimizations.
+Grrr-sc provides high level UI abstractions for grid based controllers simplifying interaction with for instance Monome devices.
 
 ## Examples
 
@@ -74,6 +72,10 @@ a.view.removeAllChildren;
 )
 ```
 
+## Implementation
+
+Code readability has been favored over optimizations.
+
 ## Classes
 
 * GRView - Abstract superclass. Represents a 2D grid of backlit buttons.
@@ -82,15 +84,6 @@ a.view.removeAllChildren;
 		* GRToggle
 			* GRVToggle
 			* GRHToggle
-/*
-	TODO: remove for now
-		* (GRAbstractRangeToggle (rename to GRRangeToggleBase?))
-			* (GRVRangeToggle)
-			* (GRHRangeToggle)
-		* (GRSliderBase)
-			* (GRVSlider)
-			* (GRHSlider)
-*/
 	* GRKeyboard
 	* GRContainerView - Abstract class for views that may contain other views.
 		* GRTopView - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
@@ -128,7 +121,7 @@ MyView : GRView {
 			// handle press / release
 
 			// if press / release results should result in a new value call
-			// value_action to set value and notify any observing objects
+			// valueAction to set value and notify any observing objects
 			this.valueAction_(newValue);
 
 		};
@@ -162,7 +155,7 @@ MyController : GRController {
 		this.refresh;
 	}
 
-	// it is good form to override new_detached with custom arguments to ensure it is 
+	// it is good practice to override newDetached with custom arguments to ensure it is 
 	// possible to create an instance of the controller that is not attached to any view
 	*newDetached { |arg1, arg2|
 		^this.new(arg1, arg2, nil, nil, false)
@@ -180,11 +173,6 @@ MyController : GRController {
 	asString {
 		// optionally return a descriptive string representation
 		^"My Controller connected to port % (%x%)".format(arg1, numCols, numRows)
-	}
-
-	info {
-		// optionally return a description on how to setup physical device. example:
-		^"Connect My Controller by USB and configure it to send button press / release osc messages to port %".format(arg1)
 	}
 }
 ```
