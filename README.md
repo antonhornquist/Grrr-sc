@@ -4,7 +4,11 @@ Grid controller UI library for SuperCollider
 
 ## Description
 
-Grrr-sc provides high level UI abstractions for grid based controllers simplifying interaction with for instance Monome devices.
+Grrr-sc provides high level UI abstractions for grid based controllers simplifying interaction with for instance [monome](http://monome.org) devices.
+
+## Usage
+
+See examples below. To use Grrr-sc with a monome install [GrrrMonome-sc](http://github.com/antonhornquist/GrrrMonome-sc)
 
 ## Examples
 
@@ -80,11 +84,11 @@ Code readability has been favored over optimizations.
 
 * GRView - Abstract superclass. Represents a 2D grid of backlit buttons.
 	* GRButton - A button that may span over several rows and columns.
-	* GRAbstractToggle
-		* GRToggle
-			* GRVToggle
-			* GRHToggle
-	* GRKeyboard
+	* GRAbstractToggle - Abstract class for toggles.
+		* GRToggle - A toggle.
+			* GRVToggle - Vertical toggle.
+			* GRHToggle - Horizontal toggle.
+	* GRKeyboard - A virtual keyboard.
 	* GRContainerView - Abstract class for views that may contain other views.
 		* GRTopView - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
 		* GRMultiButtonView - A grid of buttons of the same size.
