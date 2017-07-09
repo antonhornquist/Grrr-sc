@@ -403,23 +403,29 @@ GRView {
 
 	prDoThenRefreshChangedLeds { |func|
 		var pre, post, pointsHavingChangedState, pointsToRefresh;
-		pre = this.getLedStateWithinBounds(origin, numCols, numRows);
-		this.prDisableLedForwardingToParent;
+		if (this.hasParent) {
+			pre = this.getLedStateWithinBounds(origin, numCols, numRows);
+			this.prDisableLedForwardingToParent;
+		};
+
 		// TODO: ensure led forwarding is enabled after a possible error - finally?
 		func.value;
 		// TODO: ensure led forwarding is enabled after a possible error - finally?
-		this.prEnableLedForwardingToParent;
-		post = this.getLedStateWithinBounds(origin, numCols, numRows);
 
-		pointsHavingChangedState = post.select { |pointState1|
-			pre.any { |pointState2|
-				(pointState1.key == pointState2.key)
-				and:
-				(pointState1.value != pointState2.value)
-			}
-		};
-		pointsToRefresh = pointsHavingChangedState.collect { |pointState| pointState.key };
-		this.refreshPoints(pointsToRefresh);
+		if (this.hasParent) {
+			this.prEnableLedForwardingToParent;
+			post = this.getLedStateWithinBounds(origin, numCols, numRows);
+
+			pointsHavingChangedState = post.select { |pointState1|
+				pre.any { |pointState2|
+					(pointState1.key == pointState2.key)
+					and:
+					(pointState1.value != pointState2.value)
+				}
+			};
+			pointsToRefresh = pointsHavingChangedState.collect { |pointState| pointState.key };
+			this.refreshPoints(pointsToRefresh);
+		}
 	}
 
 	// Indicate support

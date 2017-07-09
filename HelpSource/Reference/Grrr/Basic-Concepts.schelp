@@ -92,6 +92,7 @@ b.switchToChildByIndex(3);
 b.switchToChildByIndex(0);
 
 (
+b.switchToChildByIndex(0);
 d=GRHToggle(a, 0@4, 4, 1); // a toggle can be used to switch between views
 d.action = { |view, value| b.switchToChildByIndex(value) };
 )
