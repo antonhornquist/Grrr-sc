@@ -94,7 +94,6 @@ Code readability has been favored over optimizations.
 		* GRMultiButtonView - A grid of buttons of the same size.
 
 		* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
-		* GRSwitcher - A container that only have one child view active at any given time. Has convenience methods for changing which child view is active.
 * GRController - Abstract superclass. Represents a device that may attach to and control part of or an entire view.
 	* GRScreenGrid - An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
 
