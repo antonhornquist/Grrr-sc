@@ -30,6 +30,44 @@ GRContainerView : GRView {
 
 	// Parent - Child
 
+	switchById { |id|
+		// TODO: implement: switch to all views matching id
+	}
+
+	switchToChildByIndex { |index|
+		var prevCurrentView, newCurrentView;
+
+		if ((index < 0) or: (index >= children.size)) {
+			Error("bad child index %. view has % children.".format(index, children.size)).throw;
+		};
+
+		if (this.value != index) {
+			this.prDoThenRefreshChangedLeds {
+				this.disableChildrenSuchThat { |child|
+					children.indexOf(child) != index
+				};
+				if (children[index].isDisabled) {
+					children[index].enable;
+				}
+			};
+		};
+	}
+
+/*
+	TODO: needed?
+	disableAllChildren {
+		this.disableChildrenSuchThat { |child| true };
+	}
+*/
+
+	disableChildrenSuchThat { |predicate| // TODO: naming
+		this.enabledChildren.do { |child|
+			if (predicate.value(child)) {
+				child.disable;
+			};
+		};
+	}
+
 	validateOkToAddChild { |view, origin|
 		if (origin.isNil) {
 			Error("origin is required").throw;
@@ -41,11 +79,6 @@ GRContainerView : GRView {
 			Error("child view origin may not be negative").throw;
 		};
 		this.validateWithinBounds(view, origin);
-/*
-		if (view.isEnabled) { // UPCOMINGTODO: remove
-this.validateDoesNotOverlapWithEnabledChildren(view, origin);
-		};
-*/
 	}
 
 	addChild { |view, origin|
@@ -132,20 +165,10 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 		^children.select { |view| view.containsPoint(point-view.origin) };
 	}
 
-/*
-	hasEnabledChildAt { |point|
-		^this.enabledChildren.any { |view| view.containsPoint(point-view.origin) };
-	}
-*/
 	hasAnyEnabledChildAt { |point|
 		^this.enabledChildren.any { |view| view.containsPoint(point-view.origin) };
 	}
 
-/*
-	getEnabledChildAt { |point|
-		^this.enabledChildren.detect { |view| view.containsPoint(point-view.origin) };
-	}
-*/
 	getTopmostEnabledChildAt { |point|
 		^this.enabledChildren.select { |view| view.containsPoint(point-view.origin) }.last;
 	}
@@ -169,15 +192,12 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 	}
 
 	prGetChildIndex { |argChild|
-		^children.detectIndex { |child| child == argChild };
+		^children.indexOf(argChild);
 	}
 
 	// Validations
 
 	validateOkToEnableChild { |child|
-/*
-		this.validateDoesNotOverlapWithEnabledChildren(child, child.origin); // UPCOMINGTODO: remove
-*/
 	}
 
 	validateOkToDisableChild { |child|
@@ -192,21 +212,6 @@ this.validateDoesNotOverlapWithEnabledChildren(view, origin);
 	isWithinBounds { |view, origin|
 		^this.containsBounds(origin, view.numCols, view.numRows);
 	}
-
-/*
-	validateDoesNotOverlapWithEnabledChildren { |view, origin| // UPCOMINGTODO: remove
-		if (this.anyEnabledChildrenWithinBounds(origin, view.numCols, view.numRows)) {
-			Error("[%] at % overlaps with one or more enabled child views in [%]".format(view, origin, this)).throw;
-		};
-	}
-
-	anyEnabledChildrenWithinBounds { |origin, numCols, numRows| // UPCOMINGTODO: remove
-		var points = GRView.boundsToPoints(origin, numCols, numRows);
-		^this.enabledChildren.any { |child|
-			GRView.pointsSect(child.asPointsFromOrigin, points).size > 0
-		}
-	}
-*/
 
 	validateParentOf { |child|
 		if (this.isParentOf(child).not) {

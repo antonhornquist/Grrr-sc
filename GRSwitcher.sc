@@ -8,10 +8,13 @@ GRSwitcher : GRContainerView {
 	}
 
 	addChild { |view, origin|
+/*
+	TODO: remove
 		// TODO: below check added in conjunction with resolving monome repaint issues due to disabling and enabling views quickly. fix for when setting new value below could only be guaranteed to work when child view bounds are the same as GRSwitcher bounds which is why this guard clause was included for now. can be removed if *all* affected points are refreshed in one go after reenabling view led refreshed action
 		if (((view.numCols == numCols) and: (view.numRows == numRows)).not) {
 			Error("View added to GRSwitcher must be of same size as the GRSwitcher view: %x%".format(numCols, numRows)).throw;
 		};
+*/
 		if (currentView.notNil) {
 			if (view.isEnabled) {
 				view.disable
@@ -80,6 +83,7 @@ GRSwitcher : GRContainerView {
 		^children.indexOf(currentView)
 	}
 
+/*
 	value_ { |index|
 		var prevCurrentView, newCurrentView;
 
@@ -100,6 +104,29 @@ GRSwitcher : GRContainerView {
 			};
 			newCurrentView.enable;
 			currentView = newCurrentView;
+		};
+	}
+*/
+	value_ { |index|
+		var prevCurrentView, newCurrentView;
+
+		if (index.isNil) {
+			Error("it is not allowed to set switcher value to nil").throw; // TODO: why? perhaps we should allow?
+		};
+		if ((index < 0) or: (index >= children.size)) {
+			Error("bad child index %. view has % children.".format(index, children.size)).throw;
+		};
+		if (this.value != index) {
+			this.doThenRefreshChangedLeds {
+				newCurrentView = children[index];
+				if (currentView.notNil) {
+					prevCurrentView = currentView;
+					currentView = nil;
+					prevCurrentView.disable;
+				};
+				newCurrentView.enable;
+				currentView = newCurrentView;
+			};
 		};
 	}
 }

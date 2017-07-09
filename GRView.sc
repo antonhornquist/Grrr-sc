@@ -54,6 +54,7 @@ GRView {
 	// Bounds
 
 	origin_ { |argOrigin|
+		// UPCOMINGTODO
 		// 1. check new origin and new bounds is within parent bounds, and if so:
 		// 2. release all buttons
 		// 3. change origin
@@ -400,7 +401,7 @@ GRView {
 		this.addAction(parentViewLedRefreshedListener, \viewLedRefreshedAction);
 	}
 
-	doThenRefreshChangedLeds { |func|
+	prDoThenRefreshChangedLeds { |func|
 		var pre, post, pointsHavingChangedState, pointsToRefresh;
 		pre = this.getLedStateWithinBounds(origin, numCols, numRows);
 		this.prDisableLedForwardingToParent;
@@ -422,13 +423,6 @@ GRView {
 	}
 
 	// Indicate support
-
-/*
-	TODO
-
-	DOC:
-	Indicate schedules to set leds of a specific area or of a collection of points to first lit and the unlit. This process is repeated a specified number of times (repeat) and with a specified delay in milliseconds (interval). When done it refreshes the points. Leds will be affected even though they are covered by child views. This is mainly used to indicate added / detached views and attached / detached controllers.
-*/
 
 	indicateView { |repeat, interval| // TODO: compare before and after UPCOMINGFIX
 		this.indicatePoints(this.asPoints, repeat, interval)
@@ -520,6 +514,7 @@ GRView {
 		if (bool) {
 			if (this.hasParent) {
 /*
+	TODO
 				parent.validateOkToEnableChild(this);
 */
 				parent.releaseAllWithinBounds(origin, numCols, numRows);
@@ -582,23 +577,9 @@ GRView {
 		}
 	}
 
-/*
-	TODO
-
-	DOC:
-	Returns the current state. This will not evaluate the function assigned to action. 
-*/
-
 	value {
 		^value
 	}
-
-/*
-	TODO
-
-	DOC:
-	Sets the view to display the state of a new value. This will not evaluate the function assigned to action.
-*/
 
 	value_ { |argValue|
 		if (value != argValue) {
@@ -609,13 +590,6 @@ GRView {
 			}
 		}
 	}
-
-/*
-	TODO
-
-	DOC:
-	Sets the view to display the state of a new value, and evaluates action, if the value has changed. 
-*/
 
 	valueAction_ { |argValue|
 		if (value != argValue) {
