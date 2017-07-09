@@ -56,7 +56,6 @@ link::Classes/GRView:: - Abstract superclass. Represents a 2D grid of backlit bu
 		## link::Classes/GRTopView:: - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
 		## link::Classes/GRMultiButtonView:: - A grid of buttons of the same size.
 		## link::Classes/GRMultiToggleView:: - An array of vertical or horizontal toggles of the same size.
-		## link::Classes/GRSwitcher:: - A container that only have one child view active at any given time. Has convenience methods for changing which child view is active.
 		::
 	::
 link::Classes/GRController:: - Abstract superclass. Represents a device that may attach to and control part of or an entire GRView.

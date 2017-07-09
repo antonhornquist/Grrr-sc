@@ -78,18 +78,23 @@ a.postTree;
 a.view.removeAllChildren;
 ::
 
-A more convenient way to make pages of widgets is to use link::Classes/GRSwitcher::
+GRContainerView provides methods for switching between the views it contain.
 
 code::
-b=GRSwitcher(a, 0@0, 4, 4); // a GRSwitcher for switching between views
-c=4.collect { GRMultiButtonView(b, 0@0, 4, 4) }; // create four 4x4 views in the GRSwitcher (note: the contained views of a GRSwitcher must be of the same size as the GRSwitcher)
-b.value; // the GRSwitcher instance value indicates active page
-b.value=1; // changing value changes active page
-b.value=2;
-b.value=3;
-d=GRHToggle(a, 0@4, 4, 1); // a toggle can be used to switch between views of a GRSwitcher
-d.action = { |view, value| b.value = value }; // hook up the toggle to the switcher
+(
+b=GRContainerView(a, 0@0, 4, 4);
+c=4.collect { GRMultiButtonView(b, 0@0, 4, 4) }; // create four 4x4 views in the GRContainerView
+)
 
+b.switchToChildByIndex(1); // switch between views
+b.switchToChildByIndex(2);
+b.switchToChildByIndex(3);
+b.switchToChildByIndex(0);
+
+(
+d=GRHToggle(a, 0@4, 4, 1); // a toggle can be used to switch between views
+d.action = { |view, value| b.switchToChildByIndex(value) };
+)
 a.view.removeAllChildren;
 ::
 
@@ -304,8 +309,6 @@ c.flashView; // flashView flashes a view (inverts and then resets view after a g
 
 section::Delimitations
 
-Overlapping widgets not allowed: At a given grid button only one non-container view may be active (enabled). Work-around: use and switch between views, GRSwitcher is designed for this use case.
-
 Performance: readability of code right has so far been prioritized over speed. A lot can be improved with optimizations. Do not expect Grrr to work well with very high refresh rates right now.
 
 No vari-bright: i did not have a vari-bright grid when starting this. vari-brightness can be added, but hasn't been worked on yet.
@@ -317,16 +320,16 @@ c.remove
 //a=GRScreenGrid.new;
 a=GRMonome64.new;
 b=GRHToggle(a, 0@0, 8, 1); // a toggle to switch view pages
-c=GRSwitcher(a, 0@1, 8, 7); // a container view used for simple switching between views
-b.action = { |view, value| c.value_(value) }; // make toggle switch GRSwitcher's views
+c=GRContainerView(a, 0@1, 8, 7); // a container view used for simple switching between views
+b.action = { |view, value| c.switchToChildByIndex(value) }; // make toggle switch GRContainerView's views
 GRButton(c, 0@0, 8, 7); // page 5
 GRMultiButtonView(c, 0@0, 8, 7); // page 1
 GRVToggle(c, 0@0, 8, 7); // page 5
 GRHToggle(c, 0@0, 8, 7); // page 5
 GRMultiToggleView(c, 0@0, 8, 7); // page 2
 GRMultiToggleView(c, 0@0, 8, 7, 'horizontal'); // page 3
-d=GRContainerView(c, 0@0, 8, 7); // page 5
-GRKeyboard(d, 0@1, 7, 6); // page 5, GRKeyboard is contained in a GRContainerView since views of a GRSwitcher must be of the GRSwitcher's size
+d=GRContainerView(c, 0@0, 8, 7); // page 5 TODO
+GRKeyboard(d, 0@1, 7, 6); // page 5, TODO
 a.spawnGui; // It's possible to spawn a GRScreenGrid from any view
 
 

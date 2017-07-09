@@ -24,13 +24,13 @@ d.action = { |view, value| ("Vertical toggle says:" + value).postln };
 e=GRMultiButtonView(a, 2@0, 3, 7); // a view with 21 buttons
 e.action = { |view, value| ("MultiButtonView says:" + value).postln };
 
-f=GRSwitcher(a, 5@3, 3, 3); // a view for paging other views
-o=GRMultiButtonView(f, 0@0, 3, 3); // first view of switcher: a group of 3x3 buttons
+f=GRContainerView(a, 5@3, 3, 3); // a view for paging other views
+o=GRMultiButtonView(f, 0@0, 3, 3); // first page: a group of 3x3 buttons
 p=GRMultiToggleView(f, 0@0, 3, 3, 'horizontal'); // second view: a group of 3x1 toggles
 q=GRMultiToggleView(f, 0@0, 3, 3); // third view: a group of 1x3 toggles
 
-n=GRHToggle(a, 5@6, 3, 1); // a vertical 3x1 toggle that controls switcher page
-n.action = { |view, value| f.value = value };
+n=GRHToggle(a, 5@6, 3, 1); // a vertical 3x1 toggle that controls what page to view
+n.action = { |view, value| f.switchToChildByIndex(value) };
 
 // now, let some widgets control sound
 s.boot; // boot server if not already booted
@@ -105,7 +105,7 @@ SynthDef(
 
 m.stop
 (
-// let switcher widgets play a 3x3 sequence
+// let paged widgets play a 3x3 sequence
 l=Pbind(*[
 	\instrument, \grrr_test,
 	\degree, Prout({

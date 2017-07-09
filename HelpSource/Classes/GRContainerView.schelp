@@ -1,7 +1,7 @@
 TITLE:: GRContainerView
 summary:: Abstract class for views that may contain other views.
 categories:: External Control
-related:: Classes/GRSwitcher, Classes/GRView, Overviews/Grrr
+related:: Classes/GRView, Overviews/Grrr
 
 DESCRIPTION::
 Abstract class for views that may contain other views.

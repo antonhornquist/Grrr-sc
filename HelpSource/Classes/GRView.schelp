@@ -138,7 +138,7 @@ INSTANCEMETHODS::
 SUBSECTION:: Hierarchy and existence
 
 METHOD:: id
-An optional identifier, typically a Symbol. Can be used with link::Classes/GRSwitcher::.
+An optional identifier, typically a Symbol.
 
 returns:: a Symbol
 
