@@ -87,16 +87,6 @@ GRController {
 		^GRView.boundsToPoints(Point.new(0, 0), numCols, numRows)
 	}
 
-	// Controller info
-
-	printInfo {
-		this.info.postln
-	}
-
-	info {
-		// subclass responsibility
-	}
-
 	// Attaching and detaching
 
 	isAttached {
