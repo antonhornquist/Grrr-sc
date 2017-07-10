@@ -4,13 +4,31 @@ Grid controller UI library for SuperCollider
 
 ## Description
 
-Grrr-sc provides high level UI abstractions for grid based controllers simplifying interaction with for instance [monome](http://monome.org) devices.
+Grrr-sc provides high level UI abstractions for grid based controllers simplifying interaction with for instance [monome](http://monome.org) 40h, 64, 128 and 256 devices.
 
 ## Usage
 
-See examples below. To use Grrr-sc with a monome install [GrrrMonome-sc](http://github.com/antonhornquist/GrrrMonome-sc)
+See examples below.
 
 ## Examples
+
+### Monome Example
+
+``` supercollider
+a = GRMonome64App.new;
+
+b = GRButton.new(a, 0@0);
+b.action = { |view, value| "the first button's value was changed to %".format(value).postln };
+
+// press top-leftmost screen grid button to test the first button
+
+c = GRButton.newMomentary(a, 1@1, 2, 2);
+c.action = { |view, value| "the second button's value was changed to %".format(value).postln };
+
+// press screen grid button anywhere at 1@1 to 2@2 to test the second button
+
+a.free
+```
 
 ### Example 1
 
@@ -29,7 +47,6 @@ c.action = { |view, value| "the second button's value was changed to %".format(v
 
 a.view.removeAllChildren;
 ```
-
 
 ### Example 2
 
@@ -78,7 +95,9 @@ a.view.removeAllChildren;
 
 ## Implementation
 
-Code readability has been favored over optimizations.
+Please do note that code readability has been favored over optimizations.
+
+The [grrr-rb](http://github.com/antonhornquist/rsclass-rb) library is a Ruby port of this library. The SuperCollider and Ruby classes are generated using the [rsclass-rb](http://github.com/antonhornquist/rsclass-rb) class generator based on meta data defined in the [grrr-meta-rb](http://github.com/antonhornquist/grrr-meta-rb) repository.
 
 ## Classes
 
@@ -95,6 +114,8 @@ Code readability has been favored over optimizations.
 
 		* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
 * GRController - Abstract superclass. Represents a device that may attach to and control part of or an entire view.
+	* GRAbstractMonome - Abstract class for [monome](http://monome.org) controllers.
+		* GRMonome64 - 8x8 monome.
 	* GRScreenGrid - An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
 
 ## Extending Grrr
@@ -182,9 +203,13 @@ MyController : GRController {
 
 ## Requirements
 
+Requires the [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc) library.
+
 This code has been developed and tested in SuperCollider 3.8.0.
 
 ## Installation
+
+Make sure the SerialOSCClient library is properly installed.
 
 Copy the Grrr-sc folder to the user-specific or system-wide extension directory. Recompile the SuperCollider class library.
 
