@@ -8,8 +8,8 @@ GRAbstractMonome : GRController {
 		name
 	;
 
-	*new { |numCols, numRows, view, origin, createTopViewIfNoneIsSupplied=true|
-		^super.new(numCols, numRows, view, origin, createTopViewIfNoneIsSupplied).init(name);
+	*new { |numCols, numRows, name, view, origin, createTopViewIfNoneIsSupplied=true|
+		^super.new(numCols, numRows, view, origin, createTopViewIfNoneIsSupplied).initGRAbstractMonome(name);
 	}
 
 	*initClass {
