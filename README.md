@@ -114,7 +114,7 @@ The [grrr-rb](http://github.com/antonhornquist/rsclass-rb) library is a Ruby por
 
 		* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
 * GRController - Abstract superclass. Represents a device that may attach to and control part of or an entire view.
-	* GRAbstractMonome - Abstract class for [monome](http://monome.org) controllers.
+	* GRMonomeApp - Abstract class for [monome](http://monome.org) controllers.
 		* GRMonome64App - An 8x8 monome app.
 		* GRMonomeV128App - An 8x16 monome app.
 		* GRMonomeH128App - A 16x8 monome app.
