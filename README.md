@@ -15,7 +15,7 @@ See examples below.
 ### Monome Example
 
 ``` supercollider
-a = GRMonome64App.new;
+a = GRMonome64.new;
 
 b = GRButton.new(a, 0@0);
 b.action = { |view, value| "the first button's value was changed to %".format(value).postln };
@@ -114,11 +114,11 @@ The [grrr-rb](http://github.com/antonhornquist/rsclass-rb) library is a Ruby por
 
 		* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
 * GRController - Abstract superclass. Represents a device that may attach to and control part of or an entire view.
-	* GRMonomeApp - Abstract class for [monome](http://monome.org) controller apps.
-		* GRMonome64App - An 8x8 monome app.
-		* GRMonomeV128App - An 8x16 monome app.
-		* GRMonomeH128App - A 16x8 monome app.
-		* GRMonome256App - An 8x16 monome app.
+	* GRMonome - Abstract class for [monome](http://monome.org) controllers.
+		* GRMonome64 - An 8x8 monome.
+		* GRMonomeV128 - An 8x16 monome.
+		* GRMonomeH128 - A 16x8 monome.
+		* GRMonome256 - An 8x16 monome.
 	* GRScreenGrid - An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
 
 ## Extending Grrr

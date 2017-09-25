@@ -1,4 +1,4 @@
-GRMonomeApp : GRController {
+GRMonome : GRController {
 	classvar
 		<all
 	;
@@ -9,14 +9,14 @@ GRMonomeApp : GRController {
 	;
 
 	*new { |numCols, numRows, name, view, origin, createTopViewIfNoneIsSupplied=true|
-		^super.new(numCols, numRows, view, origin, createTopViewIfNoneIsSupplied).initGRMonomeApp(name);
+		^super.new(numCols, numRows, view, origin, createTopViewIfNoneIsSupplied).initGRMonome(name);
 	}
 
 	*initClass {
 		all = [];
 	}
 
-	initGRMonomeApp { |argName|
+	initGRMonome { |argName|
 		var gridSpec;
 		name = argName;
 		gridSpec = (numCols: numCols, numRows: numRows);
