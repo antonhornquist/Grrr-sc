@@ -1,3 +1,4 @@
+// TODO: enable function inline thing warning
 GRStepView : GRMultiButtonView {
 	var
 		<>stepPressedAction,
@@ -16,15 +17,14 @@ GRStepView : GRMultiButtonView {
 		stepViewIsCoupled = argCoupled;
 		steps = Array.fill(this.numSteps, false);
 		buttonPressedAction = { |view, x, y|
-			var index = this.xyToStepIndex(x, y);
+			var index = this.prXyToIndex(x, y);
 			if (stepViewIsCoupled) {
 				this.setStepValueAction(index, this.stepValue(index).not);
 			};
 			stepPressedAction.value(this, index);
 		};
 		buttonReleasedAction = { |view, x, y|
-			var index = this.xyToStepIndex(x, y);
-			stepReleasedAction.value(this, this.xyToStepIndex(x, y));
+			stepReleasedAction.value(this, this.prXyToIndex(x, y));
 		};
 	}
 
@@ -38,13 +38,13 @@ GRStepView : GRMultiButtonView {
 
 	stepIsPressed { |index|
 		var x, y;
-		# x, y = this.stepIndexToXY(index);
+		# x, y = this.prIndexToXy(index);
 		^this.buttonIsPressed(x, y);
 	}
 
 	stepIsReleased { |index|
 		var x, y;
-		# x, y = this.stepIndexToXY(index);
+		# x, y = this.prIndexToXy(index);
 		^this.buttonIsReleased(x, y);
 	}
 
@@ -54,9 +54,7 @@ GRStepView : GRMultiButtonView {
 
 	value_ { |val|
 		this.validateValue(val);
-		this.numSteps.do { |index|
-			this.setStepValue(index, val[index])
-		}
+		this.numSteps.do { |index| this.setStepValue(index, val[index]) }
 	}
 
 	valueAction_ { |val|
@@ -65,8 +63,7 @@ GRStepView : GRMultiButtonView {
 		this.validateValue(val);
 		numStepValuesChanged = 0;
 		this.numSteps.do { |index|
-			var stepValue = this.stepValue(index);
-			if (stepValue != val[index]) { // TODO: this simplified version
+			if (this.stepValue(index)!= val[index]) { // TODO: this simplified version
 				this.setStepValueAction(index, val[index]); // TODO: not working exactly on buttons but rather than set*-method
 				numStepValuesChanged = numStepValuesChanged + 1; // TODO: should be used in GRMultiButtonView too
 			}
@@ -88,16 +85,13 @@ GRStepView : GRMultiButtonView {
 
 	flashStep { |index, delay|
 		var x, y;
-		# x, y = this.stepIndexToXY(index);
+		# x, y = this.prIndexToXy(index);
 		this.flashButton(x, y, delay);
 	}
 
 	setStepValue { |index, val|
-		var buttonValue;
 		steps[index] = val;
-		buttonValue = this.prButtonValueByStepIndex(index);
-
-		if (buttonValue != (val or: (playhead == index))) {
+		if (this.prButtonValueByStepIndex(index) != (val or: (playhead == index))) {
 			this.prSetButtonValueByStepIndex(index, val);
 		}
 	}
@@ -109,34 +103,6 @@ GRStepView : GRMultiButtonView {
 
 	numSteps {
 		^this.numButtons
-	}
-
-	xyToStepIndex { |x, y|
-		^x + (y * this.numButtonCols)
-	}
-
-	stepIndexToXY { |index|
-		^[index mod: this.numButtonCols, index div: this.numButtonCols]
-	}
-
-	refreshStep { |index|
-		var x, y;
-		var buttonValue;
-		var stepShouldBeLit;
-
-		# x, y = this.stepIndexToXY(index);
-		buttonValue = this.buttonValue(x, y);
-		stepShouldBeLit = this.stepValue(index) or: (index == playhead);
-
-		if (buttonValue != stepShouldBeLit) {
-			this.setButtonValue(x, y, stepShouldBeLit);
-		};
-	}
-
-	refreshSteps { // TODO: this is just refresh or refreshView, right?
-		this.numSteps.do { |index|
-			this.refreshStep(index);
-		};
 	}
 
 	clear {
@@ -160,34 +126,51 @@ GRStepView : GRMultiButtonView {
 		previousPlayheadValue = playhead;
 		playhead = index;
 
-		if (playhead.isNil) {
-			if (previousPlayheadValue.notNil) {
-				this.refreshStep(previousPlayheadValue);
-			}
-		} {
-			var stepValueAtPlayhead;
-			stepValueAtPlayhead = this.stepValue(playhead);
-
-			if (stepValueAtPlayhead) {
+		if (playhead.notNil) {
+			if (this.stepValue(playhead)) {
 				this.flashStep(playhead, 100);
 			} {
 				this.prSetButtonValueByStepIndex(playhead, true);
 			};
 			if (previousPlayheadValue.notNil) {
-				this.refreshStep(previousPlayheadValue);
+				this.prRefreshStep(previousPlayheadValue);
+			}
+		} {
+			if (previousPlayheadValue.notNil) {
+				this.prRefreshStep(previousPlayheadValue);
 			}
 		};
 	}
 
+	prRefreshStep { |index|
+		var x, y;
+		var stepShouldBeLit;
+
+		# x, y = this.prIndexToXy(index);
+		stepShouldBeLit = this.stepValue(index) or: (index == playhead);
+
+		if (this.buttonValue(x, y) != stepShouldBeLit) {
+			this.setButtonValue(x, y, stepShouldBeLit);
+		};
+	}
+
+	prXyToIndex { |x, y|
+		^x + (y * this.numButtonCols)
+	}
+
+	prIndexToXy { |index|
+		^[index mod: this.numButtonCols, index div: this.numButtonCols]
+	}
+
 	prButtonValueByStepIndex { |index|
 		var x, y;
-		# x, y = this.stepIndexToXY(index);
+		# x, y = this.prIndexToXy(index);
 		^this.buttonValue(x, y);
 	}
 
 	prSetButtonValueByStepIndex { |index, val|
 		var x, y;
-		# x, y = this.stepIndexToXY(index);
+		# x, y = this.prIndexToXy(index);
 		this.setButtonValue(x, y, val);
 	}
 
