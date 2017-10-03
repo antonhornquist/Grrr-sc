@@ -30,44 +30,6 @@ GRContainerView : GRView {
 
 	// Parent - Child
 
-	switchById { |id|
-		// TODO: implement: switch to all views matching id
-	}
-
-	switchToChildByIndex { |index|
-		var prevCurrentView, newCurrentView;
-
-		if ((index < 0) or: (index >= children.size)) {
-			Error("bad child index %. view has % children.".format(index, children.size)).throw;
-		};
-
-		if (this.value != index) {
-			this.prDoThenRefreshChangedLeds {
-				this.disableChildrenSuchThat { |child|
-					children.indexOf(child) != index
-				};
-				if (children[index].isDisabled) {
-					children[index].enable;
-				}
-			};
-		};
-	}
-
-/*
-	TODO: needed?
-	disableAllChildren {
-		this.disableChildrenSuchThat { |child| true };
-	}
-*/
-
-	disableChildrenSuchThat { |predicate| // TODO: naming
-		this.enabledChildren.do { |child|
-			if (predicate.value(child)) {
-				child.disable;
-			};
-		};
-	}
-
 	validateOkToAddChild { |view, origin|
 		if (origin.isNil) {
 			Error("origin is required").throw;
