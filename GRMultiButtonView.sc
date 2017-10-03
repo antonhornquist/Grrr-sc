@@ -170,6 +170,22 @@ GRMultiButtonView : GRContainerView {
 		^numRows / this.numButtonRows
 	}
 
+	flashView { |delay|
+		this.numButtonCols.do { |x|
+			this.numButtonRows.do { |y|
+				buttons[x][y].flash(delay);
+			}
+		}
+	}
+
+	flashPoints { |points, delay|
+		Error("not implemented for GRMultiButtonView").throw
+	}
+
+	flashPoint { |point, delay|
+		Error("not implemented for GRMultiButtonView").throw
+	}
+
 	prReconstructChildren {
 		this.releaseAll;
 		this.prRemoveAllChildren(true);

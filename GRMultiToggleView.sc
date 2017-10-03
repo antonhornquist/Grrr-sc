@@ -211,6 +211,20 @@ GRMultiToggleView : GRContainerView {
 			}
 	}
 
+	flashView { |delay|
+		this.numToggles.do { |i|
+			toggles[i].flash(delay);
+		}
+	}
+
+	flashPoints {
+ 		Error("not implemented for GRMultiToggleView").throw;
+	}
+
+	flashPoint {
+ 		Error("not implemented for GRMultiToggleView").throw;
+	}
+
 	prReconstructChildren {
 		this.releaseAll;
 		this.prRemoveAllChildren(true);
