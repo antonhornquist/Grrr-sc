@@ -490,13 +490,17 @@ EXAMPLES::
 
 code::
 // post note names pressed
+
+// TODO: no need to make newDetached and enableKeyControl
+
+// TODO: cleanup
 (
 	var table = (), keyboard, screenGrid;
 	// build a table of note names (nicked from Literals helpfile)
 	value {
 		var semitones = [0, 2, 4, 5, 7, 9, 11];
 		var naturalNoteNames = ["C", "D", "E", "F", "G", "A", "B"];
-
+	
 		(0..9).do {|o|
 			naturalNoteNames.do {|c, i|
 				var n = (o + 1) * 12 + semitones[i];
