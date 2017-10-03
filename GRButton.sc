@@ -2,8 +2,8 @@ GRButton : GRView {
 	classvar
 		<defaultNumCols=1,
 		<defaultNumRows=1,
-		<defaultFlashDelayWhenLit=25,
-		<defaultFlashDelayWhenUnlit=50
+		<defaultFlashDelayWhenLit=50,
+		<defaultFlashDelayWhenUnlit=75
 	;
 
 	var

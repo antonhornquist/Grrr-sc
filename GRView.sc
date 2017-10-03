@@ -4,7 +4,7 @@ GRView {
 		<defaultNumRows=4,
 		<defaultIndicateRepeat=2,
 		<defaultIndicateInterval=50,
-		<defaultFlashDelay=25
+		<defaultFlashDelay=75
 	;
 
 	var
