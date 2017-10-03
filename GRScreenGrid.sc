@@ -1,3 +1,8 @@
+
+/*
+TODO: Remove Caps Lock modifier functionality completely since it is inconsistent. Investigate whether Caps Lock is not working on all platforms: not working on Grrr-sc SC3.6 Win7 (Qt) caps not detected, grrr-rb JRuby Win7 caps detected but not working due to a physically held key retriggers key press and released all the time
+*/
+
 GRScreenGrid : GRController {
 	classvar
 		<defaultNumCols=8,
@@ -120,12 +125,6 @@ GRScreenGrid : GRController {
 		if (window.isClosed.not) {
 			{ window.close }.defer;
 		};
-	}
-
-	info {
-		^"%
-==========
-Press buttons with mouse, or enable key control with ctrl-backspace and use keyboard. Use shift to hold buttons. Use caps lock to hold and toggle buttons. If the grid is larger than key control area (%x%) it is possible to switch between areas on the ScreenGrid using the arrow buttons. Also, as long as alt is key presses are redirected to next key control area.".format(this.class, keyControlAreaNumCols, keyControlAreaNumRows)
 	}
 
 	handleViewButtonStateChangedEvent { |point, pressed|
@@ -293,7 +292,7 @@ Press buttons with mouse, or enable key control with ctrl-backspace and use keyb
 
 		window = Window.new(
 			"%x% %".format(numCols, numRows, this.class.asString),
-			Rect(Window.screenBounds.width-windowWidth-50, 50, windowWidth, windowHeight),
+			Rect(Window.screenBounds.width-windowWidth-100, 100, windowWidth, windowHeight),
 			resizable: false
 		);
 
@@ -355,12 +354,18 @@ Press buttons with mouse, or enable key control with ctrl-backspace and use keyb
 		topView = window.view;
 
 		topView.keyDownAction = { |view, char, modifiers, unicode, keycode|
-			if (modifierCtrlIsPressed and: keycode == keymapBackspace) {
+			if (modifierCtrlIsPressed and: (keycode == keymapBackspace)) {
 				this.toggleKeyControl;
 			} {
+
+				// TODO Hack to support alt-. CmdPeriod keybinding in Atom edito. To be moved to separate Extension
+				if (modifierAltIsPressed and: (keycode == 190)) {
+					CmdPeriod.run;
+				};
+
 				if (keyControlEnabled) {
 					this.handleKeyControlEvent(keycode, true);
-				}
+				};
 			}
 		};
 
