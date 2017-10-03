@@ -275,9 +275,9 @@ GRView {
 	}
 
 	handleViewButtonEvent { |source, point, pressed|
-		if (enabled) {
+		^if (enabled) {
 			this.validateContainsPoint(point);
-			^if (this.isPressedAtSkipValidation(point) != pressed) {
+			if (this.isPressedAtSkipValidation(point) != pressed) {
 				if (pressed) {
 					pointsPressed.add(point)
 				} {
@@ -311,7 +311,7 @@ GRView {
 
 				[];
 			};
-		};
+		}
 	}
 
 	pointsPressed {
@@ -378,7 +378,7 @@ GRView {
 	}
 
 	allLit {
-		^this.asPoints.all { |point| this.isLitAt(point) }
+		^this.asPoints.every { |point| this.isLitAt(point) }
 	}
 
 	anyUnlit {
@@ -386,7 +386,7 @@ GRView {
 	}
 
 	allUnlit {
-		^this.asPoints.all { |point| this.isUnlitAt(point) }
+		^this.asPoints.every { |point| this.isUnlitAt(point) }
 	}
 
 	getLedStateWithinBounds { |argOrigin, argNumCols, argNumRows|
@@ -544,23 +544,21 @@ GRView {
 	// Action and Value
 
 	addAction { |function, selector=\action|
-		if ((selector == \viewButtonStateChangedAction) or: (selector == \viewLedRefreshedAction)) {
-			switch (selector)
-				{ \viewButtonStateChangedAction } {
-					viewButtonStateChangedAction = viewButtonStateChangedAction.addFunc(function)
-				}
-				{ \viewLedRefreshedAction } {
-					viewLedRefreshedAction = viewLedRefreshedAction.addFunc(function)
-				}
-				{ \viewWasEnabledAction } {
-					viewWasEnabledAction = viewWasEnabledAction.addFunc(function)
-				}
-				{ \viewWasDisabledAction } {
-					viewWasDisabledAction = viewWasDisabledAction.addFunc(function)
-				}
-		} {
-			this.perform(selector.asSetter, this.perform(selector).addFunc(function));
-		}
+		switch (selector)
+			{ \viewButtonStateChangedAction } {
+				viewButtonStateChangedAction = viewButtonStateChangedAction.addFunc(function)
+			}
+			{ \viewLedRefreshedAction } {
+				viewLedRefreshedAction = viewLedRefreshedAction.addFunc(function)
+			}
+			{ \viewWasEnabledAction } {
+				viewWasEnabledAction = viewWasEnabledAction.addFunc(function)
+			}
+			{ \viewWasDisabledAction } {
+				viewWasDisabledAction = viewWasDisabledAction.addFunc(function)
+			} {
+				this.perform(selector.asSetter, this.perform(selector).addFunc(function));
+			}
 	}
 
 	removeAction { |function, selector=\action|
