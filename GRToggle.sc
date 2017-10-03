@@ -37,7 +37,7 @@ GRToggle : GRAbstractToggle {
 				if (pressed) {
 					valuesPressed = valuesPressed.add(affectedValue);
 					localNumValuesPressed = this.numValuesPressed;
-		
+
 					if (this.isCoupled) {
 						if (this.isNillable and: affectedValue == value) {
 							this.valueAction_(nil)
@@ -45,13 +45,13 @@ GRToggle : GRAbstractToggle {
 							this.valueAction_(affectedValue)
 						}
 					};
-		
+
 					toggleValuePressedAction !? toggleValuePressedAction.value(this, affectedValue);
-		
+
 					if (localNumValuesPressed == 1) {
 						togglePressedAction !? togglePressedAction.value(this)
 					};
-		
+
 					if (localNumValuesPressed > 1) {
 						range = [this.minValuePressed, this.maxValuePressed];
 						if (savedRange != range) {
