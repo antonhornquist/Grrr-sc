@@ -91,7 +91,7 @@ GRToggle : GRAbstractToggle {
 
 	filled_ { |argFilled|
 		filled = argFilled;
-		this.refresh
+		if (enabled) { this.refresh }; // TODO: check in refresh
 	}
 
 	nillable_ { |argNillable|
@@ -115,6 +115,13 @@ GRToggle : GRAbstractToggle {
 			} {
 				this.valueAt(point) == value
 			}
+		};
+		this.flashPoints(pointsToFlash, delay)
+	}
+
+	flashToggleValue { |value, delay|
+		var pointsToFlash = this.asPoints.select { |point|
+			this.valueAt(point) == value
 		};
 		this.flashPoints(pointsToFlash, delay)
 	}
