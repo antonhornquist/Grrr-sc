@@ -20,7 +20,7 @@ GRMonome : GRController {
 		var gridSpec;
 		name = argName;
 		gridSpec = (numCols: numCols, numRows: numRows);
-		client = SerialOSCClient.new(name, gridSpec);
+		client = SerialOSCClient.new(name, gridSpec, \none);
 		client.gridRefreshAction = { this.refresh };
 		client.gridKeyAction = { |client, x, y, state|
 			if (this.containsPoint(x@y)) {
