@@ -60,6 +60,10 @@ b.buttonReleasedAction = { "the first button was released!".postln };
 a.view.removeAllChildren;
 ```
 
+## Documentation
+
+Tutorials, example apps and reference documentation in schelp format is available via the SuperCollider IDE.
+
 ## Implementation
 
 Please do note that code readability has been favored over optimizations.
@@ -78,6 +82,7 @@ The [grrr-rb](http://github.com/antonhornquist/rsclass-rb) library is a Ruby por
 	* GRContainerView - Abstract class for views that may contain other views.
 		* GRTopView - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
 		* GRMultiButtonView - A grid of buttons of the same size.
+			* GRStepView - A grid of buttons of the same size indexed as steps with possibility to indicate playing step. Suitable for step sequencing.
 
 		* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
 * GRController - Abstract superclass. Represents a device that may attach to and control part of or an entire view.
