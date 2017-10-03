@@ -49,7 +49,7 @@ GRStepView : GRMultiButtonView {
 	}
 
 	value {
-		^steps.dup
+		^steps.copy
 	}
 
 	value_ { |val|
