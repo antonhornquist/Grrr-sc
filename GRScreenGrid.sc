@@ -1,8 +1,3 @@
-
-/*
-TODO: Remove Caps Lock modifier functionality completely since it is inconsistent. Investigate whether Caps Lock is not working on all platforms: not working on Grrr-sc SC3.6 Win7 (Qt) caps not detected, grrr-rb JRuby Win7 caps detected but not working due to a physically held key retriggers key press and released all the time
-*/
-
 GRScreenGrid : GRController {
 	classvar
 		<defaultNumCols=8,

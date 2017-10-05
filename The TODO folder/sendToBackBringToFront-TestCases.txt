@@ -1,6 +1,0 @@
-
-View buttons getting hidden when view is sent to back should automatically be released
-
-View buttons getting covered when view is brought to front should automatically be released
-
-The same should apply when origin is changed.
