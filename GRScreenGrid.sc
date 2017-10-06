@@ -353,7 +353,6 @@ GRScreenGrid : GRController {
 				this.toggleKeyControl;
 			} {
 
-				// TODO Hack to support alt-. CmdPeriod keybinding in Atom edito. To be moved to separate Extension
 				if (modifierAltIsPressed and: (keycode == 190)) {
 					CmdPeriod.run;
 				};
@@ -441,6 +440,6 @@ GRScreenGrid : GRController {
 
 + GRView {
 	spawnGui {
-		GRScreenGrid.newView(this, true) // TODO: see Things entry
+		GRScreenGrid.newView(this, true)
 	}
 }

@@ -91,7 +91,7 @@ GRToggle : GRAbstractToggle {
 
 	filled_ { |argFilled|
 		filled = argFilled;
-		if (enabled) { this.refresh }; // TODO: check in refresh
+		if (enabled) { this.refresh };
 	}
 
 	nillable_ { |argNillable|
@@ -126,21 +126,6 @@ GRToggle : GRAbstractToggle {
 		this.flashPoints(pointsToFlash, delay)
 	}
 
-/*
-	TODO
-	prViewButtonStateChangeAffectedValuesPressed {
-		^valuesPressed.size != pointsPressed.
-			collect { |point| this.valueAt(point) }.
-			inject([]) { |arr, value|
-				if (arr.includes(value)) {
-					arr
-				} {
-					arr.add(value)
-				}
-			}.
-			size
-	}
-*/
 	prViewButtonStateChangeAffectedValuesPressed {
 		^valuesPressed.size != pointsPressed.collect { |point| this.valueAt(point) }.asSet.size
 	}

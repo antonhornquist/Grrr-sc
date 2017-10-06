@@ -47,7 +47,7 @@ GRAbstractToggle : GRView {
 	valuesAreInverted_ { |argValuesAreInverted|
 		this.releaseAll;
 		valuesAreInverted = argValuesAreInverted;
-		if (enabled) { this.refresh }; // TODO: check in refresh
+		if (enabled) { this.refresh };
 	}
 
 	thumbSize {
@@ -71,7 +71,7 @@ GRAbstractToggle : GRView {
 		if (value > this.maximumValue) {
 			value = 0
 		};
-		if (enabled) { this.refresh }; // TODO: check in refresh
+		if (enabled) { this.refresh };
 	}
 
 	isPressed {
