@@ -4,9 +4,15 @@ Grid controller UI toolkit for SuperCollider.
 
 ## Description
 
+TODO
+
 Grrr-sc provides high level UI abstractions for grid based controllers facilitating building complex UIs targeted to for instance [monome](http://monome.org) 40h, 64, 128 and 256 devices.
 
 Widgets, ie. buttons and toggles, can be placed on controllers. Widgets may be placed in containers. Containers may be nested for building paged UIs and modes.
+
+Instead of implementing a grid controller UI features by implementing "when a button in column 1 is pressed set it lit and all other buttons in column 1 to unlit" one can implement "column 1 should be a toggle".
+
+Widgets can be nested in containers which allows for widgets to be handled in different pages.
 
 Grrr reuses principles of the standard SuperCollider GUI class library (see link::Guides/GUI-Introduction::).
 
