@@ -404,9 +404,7 @@ GRView {
 			this.prDisableLedForwardingToParent;
 		};
 
-		// TODO: ensure led forwarding is enabled after a possible error - finally?
 		func.value;
-		// TODO: ensure led forwarding is enabled after a possible error - finally?
 
 		if (this.hasParent) {
 			this.prEnableLedForwardingToParent;
@@ -426,7 +424,7 @@ GRView {
 
 	// Indicate support
 
-	indicateView { |repeat, interval| // TODO: compare before and after UPCOMINGFIX
+	indicateView { |repeat, interval|
 		this.indicatePoints(this.asPoints, repeat, interval)
 	}
 
@@ -515,10 +513,6 @@ GRView {
 		};
 		if (bool) {
 			if (this.hasParent) {
-/*
-	TODO
-				parent.validateOkToEnableChild(this);
-*/
 				parent.releaseAllWithinBounds(origin, numCols, numRows);
 			};
 			enabled = true;

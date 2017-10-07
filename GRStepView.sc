@@ -1,11 +1,10 @@
-// TODO: enable function inline thing warning
 GRStepView : GRMultiButtonView {
 	var
 		<>stepPressedAction,
 		<>stepReleasedAction,
 		<>stepValueChangedAction,
 		<playhead,
-		<stepViewIsCoupled, // TODO: hide under coupled
+		<stepViewIsCoupled,
 		steps
 	;
 
