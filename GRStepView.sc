@@ -62,14 +62,14 @@ GRStepView : GRMultiButtonView {
 		this.validateValue(val);
 		numStepValuesChanged = 0;
 		this.numSteps.do { |index|
-			if (this.stepValue(index)!= val[index]) { // TODO: this simplified version
-				this.setStepValueAction(index, val[index]); // TODO: not working exactly on buttons but rather than set*-method
-				numStepValuesChanged = numStepValuesChanged + 1; // TODO: should be used in GRMultiButtonView too
+			if (this.stepValue(index) != val[index]) {
+				this.setStepValueAction(index, val[index]);
+				numStepValuesChanged = numStepValuesChanged + 1;
 			}
 		};
 		if (numStepValuesChanged > 0) {
 			this.doAction
-		}
+		};
 	}
 
 	validateValue { |val|
