@@ -235,7 +235,7 @@ GRMultiToggleView : GRContainerView {
 			if (valuesAreInverted.notNil) {
 				toggle.valuesAreInverted = valuesAreInverted
 			};
-			if (this.thumbSize != [nil, nil]) { // TODO: what's this?
+			if (this.thumbSize != [nil, nil]) {
 				if (toggle.isValidThumbSize(this.thumbSize)) {
 					toggle.thumbSize = this.thumbSize
 				} {
