@@ -35,7 +35,7 @@ GRMonome : GRController {
 		all = all.add(this);
 	}
 
-	*newDetached { |numCols, numRows|
+	*newDetached { |numCols, numRows| // TODO: fix
 		^this.new(nil, nil, false);
 	}
 

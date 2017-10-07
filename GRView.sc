@@ -54,11 +54,7 @@ GRView {
 	// Bounds
 
 	origin_ { |argOrigin|
-		// UPCOMINGTODO
-		// 1. check new origin and new bounds is within parent bounds, and if so:
-		// 2. release all buttons
-		// 3. change origin
-		// 4. refresh all points covering the bounds of the vew in the original position + the bounds of the vew in the new position
+		Error("not yet implemented").throw;
 	}
 
 	numViewButtons {
@@ -652,7 +648,6 @@ GRView {
 		origin = argOrigin;
 		parentViewLedRefreshedListener = { |source, point, on|
 			var reason;
-			// if (parent.hasViewLedRefreshedAction and: parent.isEnabled) { // UPCOMINGTODO: and: parent.getTopmostEnabledChildAt(origin + point) == this
 			if (parent.hasViewLedRefreshedAction and: parent.isEnabled and: (parent.getTopmostEnabledChildAt(origin + point) == this)) {
 
 				if (GRCommon.traceLedEvents) {

@@ -222,9 +222,9 @@ GRContainerView : GRView {
 	refreshPoint { |point, refreshChildren=true|
 		var hasEnabledChildAtPoint, view;
 		if (enabled) {
-			hasEnabledChildAtPoint = this.hasAnyEnabledChildAt(point); // UPCOMINGTODO: hasAnyEnabledChildrenAt
+			hasEnabledChildAtPoint = this.hasAnyEnabledChildAt(point);
 			if (hasEnabledChildAtPoint and: refreshChildren) {
-				view = this.getTopmostEnabledChildAt(point); // UPCOMINGTODO: getTopmostEnabledChildAt
+				view = this.getTopmostEnabledChildAt(point);
 
 				if (GRCommon.traceLedEvents) {
 					"refresh at % forwarded to [%] at %".format(
