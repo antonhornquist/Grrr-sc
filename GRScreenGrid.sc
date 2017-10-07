@@ -199,9 +199,6 @@ GRScreenGrid : GRController {
 		}
 	}
 
-/*
-	TODO: In QtGUI when a key is held down on the keyboard it repeats.
-*/
 	handleKeyControlEvent { |keycode, pressed|
 		var keymapKeysIndex = keymapKeys.indexOf(keycode);
 		if (keymapKeysIndex.notNil) {
