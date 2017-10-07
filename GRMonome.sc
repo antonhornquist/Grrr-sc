@@ -32,16 +32,13 @@ GRMonome : GRController {
 		client.willFree = { |client| this.remove };
 		client.refreshGrid;
 
+		onRemove = { client.free };
+
 		all = all.add(this);
 	}
 
-	*newDetached { |numCols, numRows| // TODO: fix
-		^this.new(nil, nil, false);
-	}
-
-	// TODO: probably move to init and this.onRemove_ = { client.free };
-	onRemove { // TODO: test
-		client.free;
+	*newDetached { |numCols, numRows, name|
+		^this.new(numCols, numRows, name, nil, nil, false);
 	}
 
 	handleViewLedRefreshedEvent { |point, on|
