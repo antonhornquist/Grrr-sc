@@ -70,13 +70,25 @@ b.buttonReleasedAction = { "the first button was released!".postln };
 a.view.removeAllChildren;
 ```
 
+## Requirements
+
+This code requires the [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc) library and has been developed and tested in SuperCollider 3.8.0.
+
+## Installation
+
+Make sure the [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc) library is properly installed.
+
+Copy the Grrr-sc folder to the user-specific or system-wide extension directory. Recompile the SuperCollider class library.
+
+The user-specific extension directory may be retrieved by evaluating Platform.userExtensionDir in SuperCollider, the system-wide by evaluating Platform.systemExtensionDir.
+
 ## Documentation
 
-Tutorials, example apps and reference documentation in schelp format is available via the SuperCollider IDE.
+Tutorials, example apps and reference documentation in schelp format is automatically available via the SuperCollider IDE when the library is installed.
 
 ## Implementation
 
-Please do note that code readability has been favored over optimizations.
+Pleas note that code readability has been favored over optimizations.
 
 The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port of this library. The SuperCollider and Ruby classes are generated using the [rsclass-rb](http://github.com/antonhornquist/rsclass-rb) class generator based on meta data defined in the [grrr-meta-rb](http://github.com/antonhornquist/grrr-meta-rb) repository.
 
@@ -92,7 +104,7 @@ The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port o
 	* GRContainerView - Abstract class for views that may contain other views.
 		* GRTopView - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
 		* GRMultiButtonView - A grid of buttons of the same size.
-			* GRStepView - A grid of buttons of the same size adapted for step sequencing. Buttons are indexed by step and the step currently playing can be indicated using a property of the class.
+			* GRStepView - A grid of buttons of the same size referred to by index. One of the steps may be indicated as the playhead position. Suitable for step sequencing.
 		* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
 * GRController - Abstract superclass. Represents a device that may attach to and control part of or an entire view.
 	* GRMonome - Abstract class for [monome](http://monome.org) controllers.
@@ -104,19 +116,7 @@ The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port o
 
 ## Extending Grrr
 
-It's fairly easy to create custom widgets or provide support for additional controllers by subclassing base classes in the Grrr library. Refer to [EXTENDING.md](EXTENDING.md) for more information.
-
-## Requirements
-
-This code requires the [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc) library and has been developed and tested in SuperCollider 3.8.0.
-
-## Installation
-
-Make sure the [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc) library is properly installed.
-
-Copy the Grrr-sc folder to the user-specific or system-wide extension directory. Recompile the SuperCollider class library.
-
-The user-specific extension directory may be retrieved by evaluating Platform.userExtensionDir in SuperCollider, the system-wide by evaluating Platform.systemExtensionDir.
+It's possible to create custom widgets or provide support for additional controllers by subclassing base classes in the Grrr library. Refer to [EXTENDING.md](EXTENDING.md) for details on extending Grrr.
 
 ## License
 
