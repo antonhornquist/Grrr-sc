@@ -18,7 +18,7 @@ Grrr reuses principles of the standard SuperCollider GUI class library (see link
 
 ## Usage
 
-See examples below.
+Grrr can be used in live coding or as a framework for building [complete apps](http://github.com/antonhornquist/dw-sc).
 
 ## Examples
 
@@ -72,11 +72,11 @@ a.view.removeAllChildren;
 
 ## Requirements
 
-This code requires the [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc) library and has been developed and tested in SuperCollider 3.8.0.
+Grrr-sc requires the [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc) library. The library has been developed and tested in SuperCollider 3.8.0.
 
 ## Installation
 
-Make sure the [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc) library is properly installed.
+Install dependency [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc).
 
 Copy the Grrr-sc folder to the user-specific or system-wide extension directory. Recompile the SuperCollider class library.
 
@@ -116,7 +116,7 @@ The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port o
 
 ## Extending Grrr
 
-It's possible to create custom widgets or provide support for additional controllers by subclassing base classes in the Grrr library. Refer to [EXTENDING.md](EXTENDING.md) for details on extending Grrr.
+It's possible to create custom widgets and add support for additional grid controllers by subclassing base classes in the Grrr library. Refer to [EXTENDING.md](EXTENDING.md) for details on extending Grrr.
 
 ## License
 
