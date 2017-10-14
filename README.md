@@ -4,9 +4,7 @@ Grid controller UI toolkit for SuperCollider.
 
 ## Description
 
-TODO
-
-Grrr-sc provides high level UI abstractions for grid based controllers facilitating building complex UIs targeted to for instance [monome](http://monome.org) 40h, 64, 128 and 256 devices.
+Grrr-sc provides high level UI abstractions for grid based controllers such as [monome](http://monome.org) 40h, 64, 128 and 256 devices.
 
 Widgets, ie. buttons and toggles, can be placed on controllers. Widgets may be placed in containers. Containers may be nested for building paged UIs and modes.
 
@@ -18,9 +16,27 @@ Grrr reuses principles of the standard SuperCollider GUI class library (see link
 
 ## Usage
 
-Grrr can be used in live coding or as a framework for building [complete apps](http://github.com/antonhornquist/dw-sc).
+Grrr can be used as a framework for building [complete apps](http://github.com/antonhornquist/dw-sc) or in live coding.
 
 ## Examples
+
+### A Simple Step Sequencer
+
+``` supercollider
+a = GRMonome64.new;
+
+b = GRStepView.new(a, 0@0);
+b.action = { |view, value| "the value of button at 0@0 was changed to %".format(value).postln };
+
+// press top-leftmost screen grid button to test the first button
+
+c = GRButton.newMomentary(a, 1@1, 2, 2);
+c.action = { |view, value| "the second button's value was changed to %".format(value).postln };
+
+// press screen grid button anywhere at 1@1 to 2@2 to test the second button
+
+a.free
+```
 
 ### Monome Example
 
@@ -76,7 +92,7 @@ Grrr-sc requires the [SerialOSCClient-sc](http://github.com/antonhornquist/Seria
 
 ## Installation
 
-Install dependency [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc).
+Install the [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc) dependency.
 
 Copy the Grrr-sc folder to the user-specific or system-wide extension directory. Recompile the SuperCollider class library.
 
@@ -84,11 +100,11 @@ The user-specific extension directory may be retrieved by evaluating Platform.us
 
 ## Documentation
 
-Tutorials, example apps and reference documentation in schelp format is automatically available via the SuperCollider IDE when the library is installed.
+Tutorials, example apps and reference documentation in SCDoc help format is installed and available in the SuperCollider IDE once the library is installed.
 
 ## Implementation
 
-Pleas note that code readability has been favored over optimizations.
+Code readability has been favored over optimizations.
 
 The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port of this library. The SuperCollider and Ruby classes are generated using the [rsclass-rb](http://github.com/antonhornquist/rsclass-rb) class generator based on meta data defined in the [grrr-meta-rb](http://github.com/antonhornquist/grrr-meta-rb) repository.
 
@@ -98,15 +114,15 @@ The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port o
 	* GRButton - A button that may span over several rows and columns.
 	* GRAbstractToggle - Abstract class for toggles.
 		* GRToggle - A toggle.
-			* GRVToggle - Vertical toggle.
-			* GRHToggle - Horizontal toggle.
+			* GRVToggle - Vertical oriented toggle.
+			* GRHToggle - Horizontal oriented toggle.
 	* GRKeyboard - A virtual keyboard.
 	* GRContainerView - Abstract class for views that may contain other views.
 		* GRTopView - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
 		* GRMultiButtonView - A grid of buttons of the same size.
 			* GRStepView - A grid of buttons of the same size referred to by index. One of the steps may be indicated as the playhead position. Suitable for step sequencing.
 		* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
-* GRController - Abstract superclass. Represents a device that may attach to and control part of or an entire view.
+* GRController - Abstract superclass. Represents a grid based controller device that may attach to and control part of or an entire view.
 	* GRMonome - Abstract class for [monome](http://monome.org) controllers.
 		* GRMonome64 - An 8x8 monome.
 		* GRMonomeV128 - An 8x16 monome.
@@ -116,7 +132,7 @@ The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port o
 
 ## Extending Grrr
 
-It's possible to create custom widgets and add support for additional grid controllers by subclassing base classes in the Grrr library. Refer to [EXTENDING.md](EXTENDING.md) for details on extending Grrr.
+It's possible to create custom widgets and add support for additional grid controllers by subclassing base classes in the Grrr library. Refer to section "Extending Grrr" in documentation for details on extending Grrr.
 
 ## License
 
