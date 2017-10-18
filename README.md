@@ -6,6 +6,8 @@ Grid controller UI toolkit for SuperCollider.
 
 Grrr-sc provides high level UI abstractions for grid based controllers such as [monome](http://monome.org) 40h, 64, 128 and 256 devices.
 
+Using Grrr grid controller UIs can be built in the way SuperCollider GUIs are built.
+
 Widgets, ie. buttons and toggles, can be placed on controllers. Widgets may be placed in containers. Containers may be nested for building paged UIs and modes.
 
 Instead of implementing a grid controller UI features by implementing "when a button in column 1 is pressed set it lit and all other buttons in column 1 to unlit" one can implement "column 1 should be a toggle".
@@ -106,6 +108,8 @@ Tutorials, example apps and reference documentation in SCDoc help format is inst
 
 Code readability has been favored over optimizations.
 
+An extensive automated test suite for Grrr-sc is available separately [GrrrTests-sc](http://github.com/antonhornquist/GrrrTests-sc).
+
 The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port of this library. The SuperCollider and Ruby classes are generated using the [rsclass-rb](http://github.com/antonhornquist/rsclass-rb) class generator based on meta data defined in the [grrr-meta-rb](http://github.com/antonhornquist/grrr-meta-rb) repository.
 
 ## Classes
@@ -123,11 +127,11 @@ The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port o
 			* GRStepView - A grid of buttons of the same size referred to by index. One of the steps may be indicated as the playhead position. Suitable for step sequencing.
 		* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
 * GRController - Abstract superclass. Represents a grid based controller device that may attach to and control part of or an entire view.
-	* GRMonome - Abstract class for [monome](http://monome.org) controllers.
-		* GRMonome64 - An 8x8 monome.
-		* GRMonomeV128 - An 8x16 monome.
-		* GRMonomeH128 - A 16x8 monome.
-		* GRMonome256 - An 8x16 monome.
+	* GRMonome - Generic [Monome](http://monome.org) controller.
+		* GRMonome64 - 8x8 monome.
+		* GRMonomeV128 - 8x16 monome.
+		* GRMonomeH128 - 16x8 monome.
+		* GRMonome256 - 8x16 monome.
 	* GRScreenGrid - An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
 
 ## Extending Grrr
