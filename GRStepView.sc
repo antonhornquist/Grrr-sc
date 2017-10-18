@@ -63,7 +63,7 @@ GRStepView : GRMultiButtonView {
 		numStepValuesChanged = 0;
 		this.numSteps.do { |index|
 			if (this.stepValue(index) != val[index]) {
-				this.setStepValueAction(index, val[index]);
+				this.setStepValueAction(index, val[index]); // TODO: this triggers action everytime
 				numStepValuesChanged = numStepValuesChanged + 1;
 			}
 		};
@@ -75,6 +75,12 @@ GRStepView : GRMultiButtonView {
 	validateValue { |val|
 		if (val.size != this.numSteps) {
 			Error("value must be a 1-dimensional array of % values".format(this.numSteps)).throw
+		}
+	}
+
+	stepsPressed {
+		^this.buttonsPressed.collect { |button|
+			this.prXyToIndex(button.x, button.y)
 		}
 	}
 
@@ -97,7 +103,15 @@ GRStepView : GRMultiButtonView {
 
 	setStepValueAction { |index, val|
 		this.setStepValue(index, val);
-		stepValueChangedAction.value(this, index, val)
+		stepValueChangedAction.value(this, index, val);
+		this.doAction;
+/*
+	TODO: remove, bugs due to playhead check
+		steps[index] = val;
+		if (this.prButtonValueByStepIndex(index) != (val or: (playhead == index))) {
+			this.prSetButtonValueActionByStepIndex(index, val);
+		}
+*/
 	}
 
 	numSteps {
@@ -172,5 +186,14 @@ GRStepView : GRMultiButtonView {
 		# x, y = this.prIndexToXy(index);
 		this.setButtonValue(x, y, val);
 	}
+
+/*
+	TODO: remove
+	prSetButtonValueActionByStepIndex { |index, val|
+		var x, y;
+		# x, y = this.prIndexToXy(index);
+		this.setButtonValueAction(x, y, val);
+	}
+*/
 
 }

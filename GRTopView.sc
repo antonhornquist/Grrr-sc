@@ -11,7 +11,7 @@ GRTopView : GRContainerView {
 		pointsPressedBySource = Array.fill2D(numCols, numRows) { Array.new }
 	}
 
-	*newDetached { |numCols, numRows, enabled=true|
+	*newDetached { |numCols, numRows, enabled=true| // same as *new, this is just to override superclass version
 		^this.new(numCols, numRows, enabled);
 	}
 

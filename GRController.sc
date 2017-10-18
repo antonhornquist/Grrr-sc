@@ -30,7 +30,7 @@ GRController {
 
 		if (argView.notNil and: argOrigin.notNil) {
 			this.prAttach(argView, argOrigin)
-		} {
+		} {
 			if (argView.notNil) {
 				Error("if a view is supplied an origin must also be supplied").throw
 			};
@@ -43,7 +43,7 @@ GRController {
 		};
 		isRemoved = false;
 		all = all.add(this);
-		initAction !? initAction.value(this);
+		initAction.value(this);
 	}
 
 	*newDetached { |numCols, numRows|
@@ -54,7 +54,7 @@ GRController {
 		this.cleanup;
 		if (this.isAttached) { this.detach };
 		all.remove(this);
-		onRemove !? onRemove.value;
+		onRemove.value;
 	}
 
 	cleanup {
@@ -64,7 +64,7 @@ GRController {
 	// Validations
 
 	validateContainsPoint { |point|
-		if (this.containsPoint(point) == false) { 
+		if (this.containsPoint(point) == false) {
 			Error("point"+point+"not within bounds of"+this).throw;
 		}
 	}
@@ -203,7 +203,7 @@ GRController {
 		this.validateContainsPoint(point);
 		^if (this.isAttached) {
 			view.isLitAt(origin+point);
-		} { false }
+		} { false }
 	}
 
 	handleViewButtonStateChangedEvent { |point, pressed|

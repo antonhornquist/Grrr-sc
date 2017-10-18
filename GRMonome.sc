@@ -4,11 +4,13 @@ GRMonome : GRController {
 	;
 
 	var
+		<>onGridRouted,
+		<>onGridUnrouted,
 		client,
 		name
 	;
 
-	*new { |numCols, numRows, name, view, origin, createTopViewIfNoneIsSupplied=true|
+	*new { |numCols=16, numRows=8, name, view, origin, createTopViewIfNoneIsSupplied=true|
 		^super.new(numCols, numRows, view, origin, createTopViewIfNoneIsSupplied).initGRMonome(name);
 	}
 
@@ -20,19 +22,24 @@ GRMonome : GRController {
 		var gridSpec;
 		name = argName;
 		gridSpec = (numCols: numCols, numRows: numRows);
-		client = SerialOSCClient.new(name, gridSpec, \none);
-		client.gridRefreshAction = { this.refresh };
-		client.gridKeyAction = { |client, x, y, state|
-			if (this.containsPoint(x@y)) {
-				this.emitButtonEvent(Point.new(x, y), state.asBoolean);
-			} {
-				"%x% is outside of current bounds: %x%".format(x, y, numCols, numRows).warn;
+		SerialOSCClient.new(name, gridSpec, \none) { |serialOSCClient|
+			serialOSCClient.gridRefreshAction = { this.refresh };
+			serialOSCClient.gridKeyAction = { |client, x, y, state|
+				if (this.containsPoint(x@y)) {
+					this.emitButtonEvent(Point.new(x, y), state.asBoolean);
+				} {
+					"%x% is outside of current bounds: %x%".format(x, y, numCols, numRows).warn;
+				};
 			};
+			serialOSCClient.onFree = { this.remove };
+			serialOSCClient.onGridRouted = { |client, grid| onGridRouted.value(this, grid); };
+			serialOSCClient.onGridUnrouted = { |client, grid| onGridUnrouted.value(this, grid); };
+			fork {
+				0.5.wait;
+				client = serialOSCClient;
+				client.refreshGrid;
+			}
 		};
-		client.willFree = { |client| this.remove };
-		client.refreshGrid;
-
-		onRemove = { client.free };
 
 		all = all.add(this);
 	}
@@ -42,34 +49,34 @@ GRMonome : GRController {
 	}
 
 	handleViewLedRefreshedEvent { |point, on|
-		client.ledSet(
-			point.x.asInteger,
-			point.y.asInteger,
-			if (on.asBoolean, 1, 0)
-		);
+		client !? { |client|
+			client.ledSet(
+				point.x.asInteger,
+				point.y.asInteger,
+				if (on.asBoolean, 1, 0)
+			);
+		};
+	}
+
+	cleanup {
+		client !? { |client|
+			if (client.active) { client.free };
+		};
 	}
 
 	spawnGui {
 		^GRScreenGrid.new(numCols, numRows, view, origin)
 	}
 
-	permanent {
-		^client.permanent;
-	}
-
-	permanent_ { |argPermanent|
-		client.permanent_(argPermanent);
-	}
-
 	grabDevices {
-		client.grabDevices;
+		client !? _.grabDevices;
 	}
 
 	grabGrid {
-		client.grabGrid;
+		client !? _.grabGrid;
 	}
 
 	asSerialOscClient {
-		^client
+		^if (client.notNil) { client } { Error("No client instantiated").throw };
 	}
 }

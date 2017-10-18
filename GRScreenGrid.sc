@@ -431,12 +431,12 @@ GRScreenGrid : GRController {
 
 + GRTopView {
 	spawnGui {
-		GRScreenGrid.newView(this)
+		^GRScreenGrid.newView(this)
 	}
 }
 
 + GRView {
 	spawnGui {
-		GRScreenGrid.newView(this, true)
+		^GRScreenGrid.newView(this, true)
 	}
 }

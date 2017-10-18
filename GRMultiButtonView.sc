@@ -116,6 +116,18 @@ GRMultiButtonView : GRContainerView {
 		}
 	}
 
+	buttonsPressed {
+		^buttons.collect { |row, x|
+			row.collect { |button, y|
+				[button, x@y]
+			}
+		}.flatten.select { |buttonAndPos|
+			buttonAndPos[0].isPressed
+		}.collect { |buttonAndPos|
+			buttonAndPos[1]
+		}
+	}
+
 	buttonValue { |x, y|
 		^buttons[x][y].value
 	}

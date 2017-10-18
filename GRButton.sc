@@ -48,12 +48,12 @@ GRButton : GRView {
 		}
 	}
 
-	*newDecoupled { |parent, origin, numCols, numRows|
-		^this.new(parent, origin, numCols, numRows, true, false);
+	*newDecoupled { |parent, origin, numCols, numRows, enabled=true|
+		^this.new(parent, origin, numCols, numRows, enabled, false);
 	}
 
-	*newMomentary { |parent, origin, numCols, numRows|
-		^this.new(parent, origin, numCols, numRows, true, true, \momentary);
+	*newMomentary { |parent, origin, numCols, numRows, enabled=true|
+		^this.new(parent, origin, numCols, numRows, enabled, true, \momentary);
 	}
 
 	isCoupled {
