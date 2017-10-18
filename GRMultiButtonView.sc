@@ -97,10 +97,10 @@ GRMultiButtonView : GRContainerView {
 		numButtonValuesChanged = 0;
 		this.numButtonCols.do { |x|
 			this.numButtonRows.do { |y|
-				var button = buttons[x][y];
-				if (button.value != val[x][y]) {
-					button.value = val[x][y];
-					buttonValueChangedAction !? buttonValueChangedAction.value(this, x, y, button.value);
+				var newButtonValue = val[x][y];
+				if (this.buttonValue(x, y) != newButtonValue) {
+					this.setButtonValue(x, y, newButtonValue);
+					buttonValueChangedAction !? buttonValueChangedAction.value(this, x, y, newButtonValue);
 					numButtonValuesChanged = numButtonValuesChanged + 1;
 				}
 			}
