@@ -3,11 +3,9 @@ summary:: Basic Concepts
 categories:: External Control
 related:: Overviews/Grrr
 
-Note: These docs are incomplete. I'm working on it /Anton
-
 Grrr is an UI library for grid based controllers.
 
-Grrr classes are loosely based on SuperCollider GUI classes. GRControllers are similar to Windows, GRView and its subclasses are similar to View and its subclasses.
+The Grrr class library is loosely based on the SuperCollider GUI class library. link::Classes/GRController:: is similar to link::Classes/Window::, link::Classes/GRView:: and its subclasses are similar to link::Classes/View:: and its subclasses. Working with Grrr will be familiar to those working with GUI. 
 
 section::Adding views to a controller
 
@@ -59,7 +57,7 @@ c.enable; // it's possible to enable the small button
 a.view.removeAllChildren; // removes all of the controllers child views
 ::
 
-section::Grouping views
+section::Nesting views
 
 GRContainerView may be used to group other views.
 
@@ -99,7 +97,7 @@ d.action = { |view, value| b.switchToChildByIndex(value) };
 a.view.removeAllChildren;
 ::
 
-section::Coupled and decoupled views
+section::Coupled vs decoupled views
 
 Grrr widgets may be used in a coupled or decoupled fashion. Coupled views automatically updates a widget's value on incoming key events. This is the default, simply because that's how regular GUI views work. Decoupled views do not update a widget's value on incoming key events. A widget's value mostly correspond to the state of the leds of the widget. Decoupled views require a bit more code but is arguably more useful since key presses may be customized and not directly correspond to how a widget normally works.
 
@@ -273,33 +271,6 @@ a.asSpec.unmap(a.value);
 ::
 
 See help file for ControlSpec for the whole story...
-
-section::Pattern support
-
-code::
-a=GRStepView(8, 2);
-a.asPseq;
-a.asPbind.play;
-
-
-(
-var dur, bump;
-dur = 0.25;
-a=Pbind(*[
-	\degree, Pseq([0, \r, 3, 7, 9, 11, \r, 5], inf),
-	\octave, Pseq([4, 3], inf),
-	\pan, Pseq([-1, 0, 0.5, -0.5, 1], inf),
-	\dur, Pfunc({ dur }),
-	\notify, Prout({ var pos = 0; loop { bump.(pos); pos=(pos+1).wrap(0, 7); pos.yield } })
-]);
-b=a.play;
-c=GRScreenGrid(8, 4);
-d=GRHToggle.newDecoupled(c, 0@0, 8, 1);
-bump = { |pos| d.value = pos };
-d.toggleValuePressedAction = { |view, value| dur = ((value+1).reciprocal/2) };
-)
-::
-
 
 section::Flash
 

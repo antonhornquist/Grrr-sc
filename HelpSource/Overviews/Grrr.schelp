@@ -2,11 +2,11 @@ title:: Grrr
 summary:: An overview of the Grrr library
 categories:: External Control
 
-Note: These docs are incomplete. I'm working on it /Anton
-
 section::Introduction
 
-Grrr provides high level UI abstractions for grid based controllers. The library was inspired by early mono-bright monome devices (link::http://www.monome.org::): a bunch of buttons with lights arranged in a grid, the visual feedback being decoupled from the buttons. Grrr reuses some principles of the standard SuperCollider GUI class library (see link::Guides/GUI-Introduction::).
+Grrr provides high level UI abstractions for grid based controllers. The library is inspired by early mono-bright monome devices (link::http://www.monome.org::): a bunch of buttons with lights arranged in a grid, the visual feedback being decoupled from the buttons.
+
+Grrr reuses principles of the standard SuperCollider GUI class library (see link::Guides/GUI-Introduction::).
 
 subsection::Hello World
 code::
@@ -55,11 +55,21 @@ link::Classes/GRView:: - Abstract superclass. Represents a 2D grid of backlit bu
 		tree::
 		## link::Classes/GRTopView:: - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
 		## link::Classes/GRMultiButtonView:: - A grid of buttons of the same size.
+			tree::
+			## link::Classes/GRStepView:: - A grid of buttons of the same size referred to by index. One of the steps may be indicated as the playhead position. Suitable for step sequencing.
+			::
 		## link::Classes/GRMultiToggleView:: - An array of vertical or horizontal toggles of the same size.
 		::
 	::
 link::Classes/GRController:: - Abstract superclass. Represents a device that may attach to and control part of or an entire GRView.
 	tree::
+	## link::Classes/GRMonome:: - Monome controller (defaults to the bounds of an horizontally oriented monome 128).
+		tree::
+		## link::Classes/GRMonome64:: - 8x8 monome.
+		## link::Classes/GRVMonome128:: - 8x16 monome.
+		## link::Classes/GRHMonome128:: - 16x8 monome.
+		## link::Classes/GRMonome256:: - 16x16 monome.
+		::
 	## link::Classes/GRScreenGrid:: - An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
 	::
 
@@ -68,13 +78,9 @@ section::In depth
 definitionList::
 ## Basic Concepts || link::Reference/Grrr/Basic-Concepts::
 ## A tour of Grrr || link::Tutorials/Grrr/A-Tour-Of-Widgets::
-## Persistance || link::Reference/Grrr/Persistance::
 ## Live Coding || link::Tutorials/Grrr/Live-Coding::
 ## Internal Snooping || link::Tutorials/Grrr/Internal-Snooping::
 ## Delimitations || link::Reference/Grrr/Delimitations::
-## Monome Support || link::Reference/Grrr/Monome-Support::
-## Using Grrr Specs || link::Reference/Grrr/Specs::
-## Pattern Support || link::Reference/Grrr/Pattern-Support::
 ## Extending Grrr || link::Reference/Grrr/Extending-Grrr::
 ::
 

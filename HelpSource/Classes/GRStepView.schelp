@@ -1,0 +1,185 @@
+TITLE:: GRStepView
+summary:: A grid of buttons of the same size referred to by index
+categories:: External Control
+related:: Classes/GRMultiButtonView
+
+DESCRIPTION::
+A grid of buttons of the same size referred to by index. One of the steps may be indicated as the playhead position. Suitable for step sequencing.
+
+A GRStepView's value is an Array of Booleans determining what steps in the view are lit and not lit.
+
+CLASSMETHODS::
+
+METHOD:: new
+Creates a new instance of GRStepView and makes it a child of a link::Classes/GRContainerView:: or link::Classes/GRController::, effectively placing it within the parent's visual space.
+
+ARGUMENT:: parent
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRStepView will become a child of.
+
+ARGUMENT:: origin
+A Point describing the position of the new GRStepView. Position is measured relative to the parent's top-left corner.
+
+ARGUMENT:: numCols
+An Integer describing the width of the new GRStepView.
+
+ARGUMENT:: numRows
+An Integer describing the height of the new GRStepView.
+
+ARGUMENT:: enabled
+A Boolean that determine whether the new GRStepView is enabled upon creation.
+
+ARGUMENT:: coupled
+A Boolean that determine whether the buttons of the new GRStepView's values automatically toggles on button press/release. The default is true.
+
+returns:: An instance of GRStepView
+
+METHOD:: newDisabled
+Convenience method used for creating a disabled view. See link::Reference/Grrr/Basic-Concepts#Enabling and disabling views::. Refer to link::#*new:: for description of arguments.
+
+returns:: An instance of GRStepView
+
+METHOD:: newDetached
+Convenience method used when creating a view not connected to a parent. See link::Reference/Grrr/Basic-Concepts#Detached views::. Refer to link::#*new:: for description of arguments.
+
+returns:: An instance of GRStepView
+
+METHOD:: newDecoupled
+Convenience method used when creating a decoupled view. Refer to link::#*new:: for description of arguments.
+
+returns:: An instance of GRStepView
+
+
+INSTANCEMETHODS::
+
+SUBSECTION:: Behavior
+
+METHOD:: stepViewIsCoupled
+A Boolean that determine whether pressing buttons on the view automatically toggles value of steps. The default is true.
+TODO: regular coupled property should be used
+
+returns:: A Boolean
+
+
+SUBSECTION:: Size
+
+METHOD:: numSteps
+Answers the number of steps in the view.
+
+returns:: An Integer
+
+
+SUBSECTION:: Step state
+
+METHOD:: stepIsPressed
+Answers whether a specific step of the view is pressed.
+
+ARGUMENT:: stepIndex
+An Integer identifying step
+
+returns:: A Boolean
+
+METHOD:: stepIsReleased
+Answers whether a specific step of the view is released.
+
+ARGUMENT:: stepIndex
+An Integer identifying step
+
+returns:: A Boolean
+
+
+SUBSECTION::Value
+
+METHOD:: playhead
+Sets or gets the playhead index position.
+
+ARGUMENT:: stepIndex
+An Integer identifying step
+
+returns:: An Integer
+
+METHOD:: stepValue
+Answers the value of a specific step in the GRStepView.
+
+ARGUMENT:: stepIndex
+An Integer identifying step
+
+returns:: A Boolean
+
+METHOD:: setStepValue
+Sets the value of a specific step in the GRStepView.
+
+ARGUMENT:: stepIndex
+An Integer identifying step
+
+ARGUMENT:: val
+A Boolean: true to set, false to clear
+
+METHOD:: setStepValueAction
+Sets the value of a specific button in the GRStepView with side effect of triggering actions.
+
+ARGUMENT:: stepIndex
+An Integer identifying step
+
+ARGUMENT:: val
+A Boolean: true to set, false to clear
+
+METHOD:: fill
+Sets all steps in view with false (unlit) value to true (lit).
+
+METHOD:: fillAction
+Sets all steps in view with false (unlit) value to true (lit) with side effect of triggering applicable actions.
+
+METHOD:: clear
+Sets all steps in view with true (lit) value to false (unlit).
+
+METHOD:: clearAction
+Sets all steps in view with true (lit) value to false (unlit) with side effect of triggering applicable actions.
+
+METHOD:: value
+Sets or returns the values of all steps by an Array of Booleans.
+
+ARGUMENT:: val
+An Array of Booleans.
+
+METHOD:: valueAction
+Sets or returns the values of all contained buttons by a two-dimensional Array with side effect of triggering actions.
+
+ARGUMENT:: val
+An Array of Booleans.
+
+
+SUBSECTION:: Actions
+
+METHOD:: stepPressedAction
+Sets or returns the view's action triggered when a step is pressed.
+
+returns:: A Function
+
+METHOD:: stepReleasedAction
+Sets or returns the view's action triggered when a step is released.
+
+returns:: A Function
+
+METHOD:: stepValueChangedAction
+Sets or returns the view's action triggered when a step's value is changed.
+
+returns:: A Function
+
+
+SUBSECTION:: Flash support
+
+METHOD:: flashStep
+Flash leds of buttons referring to a step.
+
+ARGUMENT:: stepIndex
+An Integer identifying step
+
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelayWhenLit or defaultFlashDelayWhenUnlit is used depending on whether step is set or not.
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

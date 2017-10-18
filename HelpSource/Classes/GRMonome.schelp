@@ -1,0 +1,76 @@
+TITLE:: GRMonome
+summary:: Generic monome controller.
+categories:: External Control
+related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+
+DESCRIPTION::
+Generic monome controller. Defaults to the bounds of an horizontally oriented monome 128.
+
+GRMonome utilizes link::Classes/SerialOSCClient:: for discovery, connection and routing of grids to instances by making each GRMonome instance a SerialOSCClient instance.
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Creates a new instance of GRMonome and, if supplied, attaches it to a link::Classes/GRView:: at the supplied origin.
+
+NOTE::
+If view and origin arguments are omitted by default a GRTopView having same size as the GRController will be created and attached to the GRController. The default can be overriden by setting argument createTopViewIfNoneIsSupplied to false, which creates a detached GRController. A detached GRController may be attached to a view at a later stage.
+::
+
+ARGUMENT:: numCols
+An Integer describing the width of the new monome.
+
+ARGUMENT:: numRows
+An Integer describing the height of the new monome.
+
+ARGUMENT:: name
+A String used to name the SerialOSCClient instantiated for each GRMonome.
+
+ARGUMENT:: view
+A subclass of link::Classes/GRView:: to which the new GRMonome will attach.
+
+ARGUMENT:: origin
+A Point describing the position on the supplied view to which the GRMonome will be placed. Position is measured relative to the view's top-left corner.
+
+ARGUMENT:: createTopViewIfNoneIsSupplied
+A Boolean that determine whether a GRTopView by default is created if view and origin arguments are omitted. Default is true.
+
+returns:: A new instance of GRMonome
+
+METHOD:: newDetached
+Convenience method used for creating a controller without a view. The same as invoking link::#*new:: with view, origin arguments set to nil and createTopViewIfNoneIsSupplied set to false.
+
+returns:: A new instance of GRMonome
+
+METHOD:: all
+All added monomes.
+
+returns:: An Array of GRMonome instances.
+
+
+INSTANCEMETHODS::
+
+SUBSECTION:: UI
+
+SUBSECTION:: GUI support
+
+METHOD:: spawnGui
+Presents a link::Classes/GRScreenGrid:: for the monome presenting view led and button events.
+
+SUBSECTION::SerialOSCClient methods
+
+If a SerialOSCGrid device is not routed to this monome instance methods used below can be used to forcefully route a grid.
+
+METHOD:: grabDevices
+Route any connected grid to this GRMonome instance.
+
+METHOD:: grabGrid
+Route any connected grid to this GRMonome instance.
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

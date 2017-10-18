@@ -1,163 +1,119 @@
 TITLE:: GRButton
 summary:: A button that may span over several rows and columns.
 categories:: External Control
-related:: Classes/GRToggle, Overviews/Grrr
+related:: Classes/GRToggle, Classes/GRMultiButtonView
 
 DESCRIPTION::
 A button that may span over several rows and columns.
 
-The button's value is a boolean that determines whether the button leds are lit or not.
+A GRButton's value is a boolean that determines whether the button leds are lit or not.
 
-The behavior of the button when pressed is to toggle its led and boolean value. This may be set to momentarily toggle the button when it is pressed.
+The default behavior of a GRButton when pressed is to toggle its led and boolean value. This may be changed to momentarily toggle the button when it is pressed.
 
 CLASSMETHODS::
 
-METHOD:: newDecoupled
-(describe method here)
-
-ARGUMENT:: parent
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
 METHOD:: new
-(describe method here)
+Creates a new instance of GRButton and makes it a child of a link::Classes/GRContainerView:: or link::Classes/GRController::, effectively placing it within the parent's visual space.
 
 ARGUMENT:: parent
-(describe argument here)
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRButton will become a child of.
 
 ARGUMENT:: origin
-(describe argument here)
+A Point describing the position of the new GRButton. Position is measured relative to the parent's top-left corner.
 
 ARGUMENT:: numCols
-(describe argument here)
+An Integer describing the width of the new GRButton.
 
 ARGUMENT:: numRows
-(describe argument here)
+An Integer describing the height of the new GRButton.
 
 ARGUMENT:: enabled
-(describe argument here)
+A Boolean that determine whether the new GRButton is enabled upon creation.
 
 ARGUMENT:: coupled
-(describe argument here)
+A Boolean that determine whether the new GRButton's value automatically toggles on button press/release. The default is true.
 
 ARGUMENT:: behavior
-(describe argument here)
+A Boolean that determine whether the new GRButton's value automatically toggles on button press (\toggle) or button press and release (\momentary). The default is \toggle.
 
-returns:: (describe returnvalue here)
+returns:: An instance of GRButton
 
-METHOD:: defaultFlashDelayWhenUnlit
-(describe method here)
+METHOD:: newDecoupled
+Convenience method used when creating a decoupled button. Refer to link::#*new:: for description of arguments.
 
-returns:: (describe returnvalue here)
-
-METHOD:: defaultNumRows
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: defaultFlashDelayWhenLit
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: defaultNumCols
-(describe method here)
-
-returns:: (describe returnvalue here)
+returns:: An instance of GRButton
 
 METHOD:: newMomentary
-(describe method here)
+Convenience method used when creating a coupled, momentary button. Refer to link::#*new:: for description of arguments.
 
-ARGUMENT:: parent
-(describe argument here)
+returns:: An instance of GRButton
 
-ARGUMENT:: origin
-(describe argument here)
+SUBSECTION::Defaults
 
-ARGUMENT:: numCols
-(describe argument here)
+METHOD:: defaultFlashDelayWhenUnlit
+Returns default delay in milliseconds used when flashing GRButtons that are unlit.
 
-ARGUMENT:: numRows
-(describe argument here)
+returns:: An Integer
 
-returns:: (describe returnvalue here)
+METHOD:: defaultFlashDelayWhenLit
+Returns default delay in milliseconds used when flashing GRButtons that are lit.
+
+returns:: An Integer
 
 
 INSTANCEMETHODS::
 
-METHOD:: asSpec
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: behavior
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: flash
-(describe method here)
-
-ARGUMENT:: delay
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: coupled
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: buttonReleasedAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: buttonPressedAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: isPressed
-(describe method here)
-
-returns:: (describe returnvalue here)
+SUBSECTION::Behavior
 
 METHOD:: isCoupled
-(describe method here)
+Answers whether the GRButton is coupled or not.
 
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
-METHOD:: initGRButton
-(describe method here)
+METHOD:: coupled
+A Boolean that determine whether the GRButton's value automatically toggles on button press/release. The default is true.
 
-ARGUMENT:: argCoupled
-(describe argument here)
+returns:: A Boolean
 
-ARGUMENT:: argBehavior
-(describe argument here)
+METHOD:: behavior
+A Boolean that determine whether the GRButton's value automatically toggles on button press (\toggle) or button press and release (\momentary). The default is \toggle.
 
-returns:: (describe returnvalue here)
+returns:: A Symbol
+
+METHOD:: isPressed
+Answers whether the GRButton is pressed, that is one or more of the grid buttons the GRButton cover are pressed.
+
+returns:: A Boolean
 
 METHOD:: isReleased
-(describe method here)
+Answers whether the GRButton is released, that is none of the grid buttons the GRButton cover are pressed.
 
-returns:: (describe returnvalue here)
+returns:: A Boolean
+
+SUBSECTION::Value
 
 METHOD:: toggleValue
-(describe method here)
+Toggles a GRButton's value.
 
-returns:: (describe returnvalue here)
+SUBSECTION::Flash support
+
+METHOD:: flash
+Flashes the button.
+
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelayWhenLit or defaultFlashDelayWhenUnlit is used depending on whether the button is lit or not.
+
+SUBSECTION:: Actions
+
+METHOD:: buttonPressedAction
+Sets or returns the GRButton's action triggered when the button is pressed.
+
+returns:: A Function
+
+METHOD:: buttonReleasedAction
+Sets or returns the GRButton's action triggered when the button is released.
+
+returns:: A Function
 
 
 EXAMPLES::

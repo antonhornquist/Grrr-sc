@@ -11,77 +11,54 @@ CLASSMETHODS::
 
 METHOD:: new
 
-Creates a new instance of GRView and - if parent and origin is supplied - makes it a child of a GRContainerView or GRController, effectively placing it within the parent's visual space.
+Creates a new instance of GRContainerView and - if parent and origin is supplied - makes it a child of another GRContainerView or GRController, effectively placing it within the parent's visual space.
 
 NOTE::
 If parent and origin arguments are omitted the view will be created as detached and not connected to a parent. It may be attached to a parent at a later stage.
 ::
 
 ARGUMENT:: parent
-The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRView will become a child of.
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRContainerView will become a child of.
 
 ARGUMENT:: origin
-A Point describing the position of the GRView. Position is measured relative to the parent's top-left corner.
+A Point describing the position of the GRContainerView. Position is measured relative to the parent's top-left corner.
 
 ARGUMENT:: numCols
-An Integer describing the width of the 2D grid of the new GRView.
+An Integer describing the width of the 2D grid of the new GRContainerView.
 
 ARGUMENT:: numRows
-An Integer describing the height of the 2D grid of the new GRView.
+An Integer describing the height of the 2D grid of the new GRContainerView.
 
 ARGUMENT:: enabled
-A Boolean that determine whether the new GRView is enabled upon creation.
+A Boolean that determine whether the new GRContainerView is enabled upon creation.
 
 ARGUMENT:: pressThrough
-TODO
-
-(describe argument here)
+A Boolean that determine whether the new GRContainerView will maintain button state events for areas covered by its child views.
 
 returns:: An instance of GRContainerView
 
 METHOD:: newDetached
-Convenience method used when creating a detached view not connected to a parent. TODO: See (link to Grrr overview on detached views)
-
-ARGUMENT:: numCols
-An Integer describing the width of the 2D grid of the new GRView.
-
-ARGUMENT:: numRows
-An Integer describing the height of the 2D grid of the new GRView.
-
-ARGUMENT:: enabled
-A Boolean that determine whether the new GRView is enabled upon creation.
-
-ARGUMENT:: pressThrough
-TODO
-
-(describe argument here)
+Convenience method used when creating a detached view not connected to a parent. Refer to link::#*new:: for description of arguments.
 
 returns:: An instance of GRContainerView
 
 METHOD:: newDisabled
-Convenience method used for creating a disabled view.
-
-ARGUMENT:: parent
-The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRView will become a child of.
-
-ARGUMENT:: origin
-A Point describing the position of the new GRView. Position is measured relative to the parent's top-left corner.
-
-ARGUMENT:: numCols
-An Integer describing the width of the GRView.
-
-ARGUMENT:: numRows
-An Integer describing the height of the GRView.
-
-ARGUMENT:: pressThrough
-TODO
-
-(describe argument here)
+Convenience method used for creating a disabled view. Refer to link::#*new:: for description of arguments.
 
 returns:: An instance of GRContainerView
 
 
 INSTANCEMETHODS::
+
+SUBSECTION:: Behavior
+
+METHOD:: pressThrough
+Answers whether view maintains button state events for areas covered by its child views.
+
+returns:: A Boolean
+
+
+SUBSECTION:: Parent - child
 
 METHOD:: addChild
 Adds a view as a child to this view
@@ -125,36 +102,6 @@ A Point describing a location on a 2D grid
 
 returns:: An Array of GRViews
 
-METHOD:: anyEnabledChildrenWithinBounds
-Answers whether this view has any child that occupies a certain area on the 2D grid.
-
-ARGUMENT:: origin
-A Point describing a location on a 2D grid
-
-ARGUMENT:: numCols
-An Integer describing width of a 2D grid.
-
-ARGUMENT:: numRows
-An Integer describing height of a 2D grid.
-
-returns:: A Boolean
-
-METHOD:: hasEnabledChildAt
-Answers true if view has an enabled child that occupies a certain point.
-
-ARGUMENT:: point
-A Point describing a location on a 2D grid
-
-returns:: A Boolean
-
-METHOD:: getEnabledChildAt
-Return the enabled child that occupies a certain point, if any.
-
-ARGUMENT:: point
-A Point.
-
-returns:: A GRView or nil
-
 METHOD:: enabledChildren
 Returns all enabled children.
 
@@ -165,187 +112,73 @@ Answers true if view has no child views
 
 returns:: A Boolean
 
-METHOD:: pressThrough
-TODO
-
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-
-
-METHOD:: validateOkToAddChild
-Throws error if a view cannot be added at a certain origin.
-
-ARGUMENT:: view
-A potential child view
-
-ARGUMENT:: origin
-A Point describing a location on a 2D grid on which to possibly add a child view
-
-METHOD:: validateParentOf
-Throws error if a view is not a child of this view
-
-ARGUMENT:: child
-A view to test
-
-METHOD:: validateOkToEnableChild
-Throws error if a disabled child view of this view cannot be enabled
-
-ARGUMENT:: child
-A view to test
-
-METHOD:: validateDoesNotOverlapWithEnabledChildren
-(describe method here)
-
-ARGUMENT:: view
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: validateOkToDisableChild
-(describe method here)
-
-ARGUMENT:: child
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: validateWithinBounds
-(describe method here)
-
-ARGUMENT:: view
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-
-
-METHOD:: isWithinBounds
-(describe method here)
-
-ARGUMENT:: view
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-
 
 SUBSECTION:: Overrides
 
 METHOD:: handleViewButtonEvent
-(describe method here)
+Programmatically press or release a button on the view. Used internally by the Grrr framework to dispatch button events to views.
+
+If child views of a GRContainerView cover the point pressed or released, the button event will be routed to the topmost child view.
+
+If pressThrough property is set to true the button event will also be registered on the GRContainerView. This is typically used for subclasses of GRContainerView that hides its internals and from the outside acts as a GRView.
 
 ARGUMENT:: source
-(describe argument here)
+The object emitting the event, typically a GRController or GRContainerView
 
 ARGUMENT:: point
-(describe argument here)
+A Point describing a location on a 2D grid.
 
 ARGUMENT:: pressed
-(describe argument here)
+A Boolean describing whether the event is a button press. If false, it is a button release.
 
-returns:: (describe returnvalue here)
+returns:: An Array of Events with information on all views handling the event and the location on each of the views the event pertained to.
 
 METHOD:: releaseAll
-(describe method here)
+Releases all pressed buttons on the view.
 
-returns:: (describe returnvalue here)
 
-METHOD:: asTree
-(describe method here)
-
-ARGUMENT:: includeDetails
-(describe argument here)
-
-ARGUMENT:: indentLevel
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asPlot
-(describe method here)
-
-ARGUMENT:: indentLevel
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: refreshPoint
-(describe method here)
-
-ARGUMENT:: point
-(describe argument here)
-
-ARGUMENT:: refreshChildren
-(describe argument here)
-
-returns:: (describe returnvalue here)
+SUBSECTION:: Led state
 
 METHOD:: isLitAt
-(describe method here)
+Answers whether the led of the button at point is lit on the view. If the GRContainerView contains child views at specified point the topmost child's led state will be returned.
 
 ARGUMENT:: point
-(describe argument here)
+A Point describing a location on a 2D grid
 
-returns:: (describe returnvalue here)
+returns:: A Boolean
+
+SUBSECTION:: Refresh
+
+METHOD:: refreshPoint
+Refreshes led state for a button on the view.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+ARGUMENT:: refreshChildren
+A Boolean that determine whether to propagate refresh to child views. Default is true.
 
 
-SUBSECTION:: Private
+SUBSECTION:: String representation
 
-METHOD:: prRemoveAllChildren
-(describe method here)
+METHOD:: asTree
+Returns a String representing human readable information of the view and, optionally, all its children.
 
-ARGUMENT:: preventFlash
-(describe argument here)
+ARGUMENT:: includeDetails
+A Boolean. True will include a plot whereas false will not. The default is false.
 
-returns:: (describe returnvalue here)
+ARGUMENT:: indentLevel
+An Integer describing what indentation level to use.
 
-METHOD:: prAddChild
-(describe method here)
+returns:: A String
 
-ARGUMENT:: view
-(describe argument here)
+METHOD:: asPlot
+Return a String representation of plot information on button and led state of the view.
 
-ARGUMENT:: origin
-(describe argument here)
+ARGUMENT:: indentLevel
+An Integer describing what indentation level to use
 
-ARGUMENT:: preventFlash
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: prRemoveChild
-(describe method here)
-
-ARGUMENT:: view
-(describe argument here)
-
-ARGUMENT:: preventFlash
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: prAddChildNoFlash
-(describe method here)
-
-ARGUMENT:: view
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
+returns:: A String
 
 
 EXAMPLES::

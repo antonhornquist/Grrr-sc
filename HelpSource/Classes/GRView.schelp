@@ -7,6 +7,10 @@ DESCRIPTION::
 
 Abstract superclass representing a 2D grid of backlit buttons. This class defines the internal Grrr event system and exposes a number of helper methods useful when subclassing.
 
+NOTE::
+Refer to link::Reference/Grrr/Extending-Grrr:: for details on how to write custom views.
+::
+
 CLASSMETHODS::
 
 METHOD:: new
@@ -611,7 +615,7 @@ METHOD:: allUnlit
 returns:: A Boolean stating whether leds of all buttons are unlit.
 
 METHOD:: isLitAt
-Answers whether the led of the button a point is lit on the view.
+Answers whether the led of the button at point is lit on the view.
 
 ARGUMENT:: point
 A Point describing a location on a 2D grid
@@ -619,7 +623,7 @@ A Point describing a location on a 2D grid
 returns:: A Boolean
 
 METHOD:: isUnlitAt
-Answers whether the led of the button a point is unlit on the view.
+Answers whether the led of the button at point is unlit on the view.
 
 ARGUMENT:: point
 A Point describing a location on a 2D grid
@@ -869,7 +873,7 @@ METHOD:: asTree
 Returns a String representing human readable information of the view and, optionally, all its children.
 
 ARGUMENT:: includeDetails
-A Boolean. True will include a plot whereas false will not.
+A Boolean. True will include a plot whereas false will not. The default is false.
 
 ARGUMENT:: indentLevel
 An Integer describing what indentation level to use.
@@ -911,6 +915,12 @@ Any object to add as an action, usually a Function.
 
 ARGUMENT:: selector
 A Symbol containing the name of the action variable to which 'function' will be added. In other words, 'add' method will be invoked on that variable; by default that is \action, but any other (sensible) instance or class variable of the view could work.
+
+SUBSECTION:: GUI support
+
+METHOD:: spawnGui
+Presents a readonly link::Classes/GRScreenGrid:: for the GRView visualizing view led and button events.
+
 
 EXAMPLES::
 

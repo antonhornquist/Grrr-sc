@@ -1,489 +1,235 @@
 TITLE:: GRKeyboard
 summary:: A widget that represents a keyboard
 categories:: External Control
-related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
 
 DESCRIPTION::
-(put long description here)
-
+A view that lays out keys as a keyboard. A GRKeyboard's value is a dictionary describing which midinotes of the keyboard are pressed and which are not.
 
 CLASSMETHODS::
 
-METHOD:: maxMidiNoteNumber
-(describe method here)
-
-returns:: (describe returnvalue here)
-
 METHOD:: new
-(describe method here)
+Creates a new instance of GRKeyboard and makes it a child of a link::Classes/GRContainerView:: or link::Classes/GRController::, effectively placing it within the parent's visual space.
 
 ARGUMENT:: parent
-(describe argument here)
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRKeyboard will become a child of.
 
 ARGUMENT:: origin
-(describe argument here)
+A Point describing the position of the new GRKeyboard. Position is measured relative to the parent's top-left corner.
 
 ARGUMENT:: numCols
-(describe argument here)
+An Integer describing the width of the new GRKeyboard.
 
 ARGUMENT:: numRows
-(describe argument here)
+An Integer describing the height of the new GRKeyboard.
 
 ARGUMENT:: enabled
-(describe argument here)
+A Boolean that determine whether the new GRKeyboard is enabled upon creation.
 
 ARGUMENT:: basenote
-(describe argument here)
+The lowest note on the visible keyboard.
 
 ARGUMENT:: coupled
-(describe argument here)
+A Boolean that determine whether the new GRKeyboard's value automatically toggles on button press/release. The default is true.
 
 ARGUMENT:: behavior
-(describe argument here)
+A Boolean that determine whether notes on the keyboard are toggled on each button press or momentarily played only as buttons are held down. Symbol \toggle refers to the former, and \momentary the latter. The default is \momentary.
 
-returns:: (describe returnvalue here)
+returns:: An instance of GRKeyboard
 
 METHOD:: newDecoupled
-(describe method here)
+Convenience method used when creating a decoupled button. Refer to link::#*new:: for description of arguments.
 
-ARGUMENT:: parent
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: enabled
-(describe argument here)
-
-ARGUMENT:: basenote
-(describe argument here)
-
-ARGUMENT:: behavior
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: minMidiNoteNumber
-(describe method here)
-
-returns:: (describe returnvalue here)
+returns:: An instance of GRKeyboard
 
 METHOD:: newDetached
-(describe method here)
+Convenience method used when creating a view not connected to a parent.
 
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: enabled
-(describe argument here)
-
-ARGUMENT:: basenote
-(describe argument here)
-
-ARGUMENT:: coupled
-(describe argument here)
-
-ARGUMENT:: behavior
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: An instance of GRKeyboard
 
 METHOD:: newDisabled
-(describe method here)
+Convenience method used when creating a disabled view.
 
-ARGUMENT:: parent
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: basenote
-(describe argument here)
-
-ARGUMENT:: coupled
-(describe argument here)
-
-ARGUMENT:: behavior
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: An instance of GRKeyboard
 
 
 INSTANCEMETHODS::
 
-METHOD:: indicateKeys
-(describe method here)
-
-ARGUMENT:: argIndicateKeys
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: coupled
-(describe method here)
-
-ARGUMENT:: argCoupled
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: isBlackKey
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: setNoteReleasedAction
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: keyrange
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: flashNote
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-ARGUMENT:: delay
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: valueAction
-(describe method here)
-
-ARGUMENT:: argValue
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: isAllowedMidiNoteNumber
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteIsReleasedOnView
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: notesShown
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: toggleNote
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteIsPressedOnView
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteIs
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-ARGUMENT:: pressed
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: validateMidiNote
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: notShownNoteStateChangedAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: maxNoteShown
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: prSetNote
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-ARGUMENT:: pressed
-(describe argument here)
-
-ARGUMENT:: triggerActions
-(describe argument here)
-
-returns:: (describe returnvalue here)
+SUBSECTION:: Behavior
 
 METHOD:: isCoupled
-(describe method here)
+Answers whether the GRKeyboard is coupled or not.
 
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
-METHOD:: flashRightEdge
-(describe method here)
-
-ARGUMENT:: delay
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: initGRKeyboard
-(describe method here)
-
-ARGUMENT:: argParent
-(describe argument here)
-
-ARGUMENT:: argOrigin
-(describe argument here)
-
-ARGUMENT:: argBasenote
-(describe argument here)
+METHOD:: coupled
+A Boolean that determine whether the GRKeyboard's value automatically toggles on button press/release. The default is true.
 
 ARGUMENT:: argCoupled
-(describe argument here)
+A Boolean
 
-ARGUMENT:: argBehavior
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: setNoteReleased
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: toggleNoteAction
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: basenote
-(describe method here)
-
-ARGUMENT:: argBasenote
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: midiNotesInterval
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: flashLeftEdge
-(describe method here)
-
-ARGUMENT:: delay
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteReleasedOnViewAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: setNoteAction
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-ARGUMENT:: pressed
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteIsPressed
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: setNotePressed
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: flashNotes
-(describe method here)
-
-ARGUMENT:: notes
-(describe argument here)
-
-ARGUMENT:: delay
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: getLeftEdgePoints
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteReleasedAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: getNoteAt
-(describe method here)
-
-ARGUMENT:: point
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: validateValue
-(describe method here)
-
-ARGUMENT:: argValue
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteIsReleased
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
 METHOD:: behavior
-(describe method here)
+A Boolean that determine whether notes on the keyboard are toggled on each button press or momentarily played only as buttons are held down. Symbol \toggle refers to the former, and \momentary the latter. The default is \momentary.
 
-returns:: (describe returnvalue here)
+returns:: A Symbol
+
+METHOD:: basenote
+The lowest note on the visible keyboard.
+
+ARGUMENT:: argBasenote
+An Integer describing midinote of the lowest note on the keyboard.
+
+returns:: An Integer
+
+
+SUBSECTION:: Visual appearance
+
+METHOD:: indicateKeys
+Sets or gets flag that determine what keys are lit. Either \black, \white or \blackAndWhite. Default is \blackAndWhite.
+
+ARGUMENT:: argIndicateKeys
+A Symbol
+
+returns:: A Symbol
+
+
+SUBSECTION:: Note state
+
+METHOD:: keyrange
+Range of visible notes
+
+returns:: An Interval
+
+METHOD:: noteIsPressed
+Answers whether a specific note currently is pressed.
+
+ARGUMENT:: note
+An Integer describing midinote
+
+returns:: A Boolean
+
+METHOD:: noteIsReleased
+Answers whether a specific note currently is released.
+
+ARGUMENT:: note
+An Integer describing midinote
+
+returns:: A Boolean
+
+METHOD:: noteIsPressedOnView
+Answers whether a specific note currently is pressed in visible keyboard area.
+
+ARGUMENT:: note
+An Integer describing midinote
+
+returns:: A Boolean
+
+METHOD:: noteIsReleasedOnView
+Answers whether a specific note currently is released in visible keyboard area.
+
+ARGUMENT:: note
+An Integer describing midinote
+
+returns:: A Boolean
+
+
+METHOD:: toggleNote
+Toggles pressed state of a note
+
+ARGUMENT:: note
+An Integer describing midinote
+
+METHOD:: setNotePressed
+Sets a note as pressed
+
+ARGUMENT:: note
+An Integer describing midinote
+
+METHOD:: setNoteReleased
+Sets a note as released
+
+ARGUMENT:: note
+An Integer describing midinote
 
 METHOD:: setNote
-(describe method here)
+Sets pressed state of a note
 
 ARGUMENT:: note
-(describe argument here)
+An Integer describing midinote
 
 ARGUMENT:: pressed
-(describe argument here)
+A Boolean
 
-returns:: (describe returnvalue here)
+METHOD:: toggleNoteAction
+METHOD:: setNotePressedAction
+METHOD:: setNoteReleasedAction
+METHOD:: setNoteAction
 
-METHOD:: handleNotShownNoteStateChange
-(describe method here)
+As above but with side effect of triggering actions.
 
-ARGUMENT:: note
-(describe argument here)
 
-ARGUMENT:: pressed
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: getPointOfNote
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: noteIsShown
-(describe method here)
-
-ARGUMENT:: note
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: getRightEdgePoints
-(describe method here)
-
-returns:: (describe returnvalue here)
+SUBSECTION:: Actions
 
 METHOD:: notePressedAction
-(describe method here)
+Sets or returns the GRKeyboard's action triggered when a note is pressed.
 
-returns:: (describe returnvalue here)
+returns:: A Function
 
-METHOD:: minNoteShown
-(describe method here)
+METHOD:: noteReleasedAction
+Sets or returns the GRKeyboard's action triggered when a note is released.
 
-returns:: (describe returnvalue here)
+returns:: A Function
 
 METHOD:: notePressedOnViewAction
-(describe method here)
+Sets or returns the GRKeyboard's action triggered when a note is pressed on the view. Used for decoupled GRKeyboard instances.
 
-returns:: (describe returnvalue here)
+returns:: A Function
 
-METHOD:: prRecalculateMidiNoteLookup
-(describe method here)
+METHOD:: noteReleasedOnViewAction
+Sets or returns the GRKeyboard's action triggered when a note is released on the view. Used for decoupled GRKeyboard instances.
 
-returns:: (describe returnvalue here)
+returns:: A Function
 
-METHOD:: setNotePressedAction
-(describe method here)
+METHOD:: notShownNoteStateChangedAction
+Action triggered when a note that is not visible on the keyboard is changed.
+
+This can be either a Function - in which the Function is executed - or Symbol \flashEdgeOnPress or Symbol \flashEdgeOnPressAndRelease, the former causing the edge of the keyboard to flash on note presses or both presses and releases.
+
+returns:: A Function or Symbol
+
+
+SUBSECTION:: Flash support
+
+METHOD:: flashNote
+Flashes the led of a specified note in the visible keyboard area.
 
 ARGUMENT:: note
-(describe argument here)
+An Integer describing midinote
 
-returns:: (describe returnvalue here)
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelay is used.
+
+METHOD:: flashNotes
+Flashes leds of specified notes in the visible keyboard area.
+
+ARGUMENT:: notes
+An Integer describing midinote
+
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelay is used.
+
+METHOD:: flashLeftEdge
+Flashes the right edge of the visible keyboard area.
+
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelay is used.
+
+METHOD:: flashRightEdge
+Flashes the right edge of the visible keyboard area.
+
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelay is used.
 
 
 EXAMPLES::

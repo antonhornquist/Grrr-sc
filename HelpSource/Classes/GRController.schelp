@@ -1,0 +1,286 @@
+TITLE:: GRController
+summary:: Abstract superclass. Represents a grid based controller device that may attach to and control part of or an entire view.
+categories:: External Control
+related:: Classes/GRTopView, Overviews/Grrr
+
+DESCRIPTION::
+Abstract superclass. Represents a grid based controller device that may attach to and control part of or an entire link::Classes/GRView::.
+
+This class defines the internal Grrr event system and exposes a number of helper methods useful when subclassing.
+
+A view can have multiple GRControllers attached. If multiple controllers are attached to a link::Classes/GRTopView:: (the default) Grrr will coordinate button state for all GRControllers attached.
+
+NOTE::
+Refer to link::Reference/Grrr/Extending-Grrr:: for details on how to write custom controllers.
+::
+
+CLASSMETHODS::
+
+METHOD:: new
+Creates a new instance of GRController and, if supplied, attaches it to a link::Classes/GRView:: at the supplied origin.
+
+NOTE::
+If view and origin arguments are omitted by default a GRTopView having same size as the GRController will be created and attached to the GRController. The default can be overriden by setting argument createTopViewIfNoneIsSupplied to false, which creates a detached GRController. A detached GRController may be attached to a view at a later stage.
+::
+
+ARGUMENT:: numCols
+An Integer describing the width of the new GRView.
+
+ARGUMENT:: numRows
+An Integer describing the height of the new GRView.
+
+ARGUMENT:: view
+A subclass of link::Classes/GRView:: to which the new GRController will attach.
+
+ARGUMENT:: origin
+A Point describing the position on the supplied view to which the GRController will be placed. Position is measured relative to the view's top-left corner.
+
+ARGUMENT:: createTopViewIfNoneIsSupplied
+A Boolean that determine whether a GRTopView by default is created if view and origin arguments are omitted. Default is true.
+
+returns:: A new instance of GRController
+
+METHOD:: newDetached
+Convenience method used for creating a controller without a view. The same as invoking link::#*new:: with view, origin arguments set to nil and createTopViewIfNoneIsSupplied set to false.
+
+returns:: A new instance of GRController
+
+METHOD:: all
+All added controllers.
+
+returns:: An Array of GRController instances.
+
+METHOD:: initAction
+The default action object to be evaluated whenever a new GRController is instantiated.
+
+returns:: A Function
+
+
+INSTANCEMETHODS::
+
+
+SUBSECTION::Bounds and size
+
+METHOD:: numRows
+
+returns:: An Integer describing the width of the controller.
+
+METHOD:: numCols
+
+returns:: An Integer describing the height of the controller.
+
+METHOD:: numButtons
+
+returns:: An Integer describing the number of buttons on the controller.
+
+METHOD:: containsPoint
+Answers whether given point is within this controller's bounds.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid.
+
+returns:: A Boolean
+
+METHOD:: asPoints
+Returns all points of this controller's 2D grid.
+
+returns:: An Array of Points
+
+
+SUBSECTION::Attaching and detaching views
+
+METHOD:: attach
+Attach the GRController to a view at the specified origin.
+
+ARGUMENT:: argView
+A GRView.
+
+ARGUMENT:: argOrigin
+A Point describing a location on the container 2D grid.
+
+METHOD:: detach
+Detach the GRController from the attached view, if any.
+
+METHOD:: isAttached
+Answers whether the GRController is attached to a view.
+
+returns:: A Boolean
+
+METHOD:: isDetached
+Answers whether the GRController is not attached to a view.
+
+returns:: A Boolean
+
+METHOD:: view
+Returns attached view, if any.
+
+returns:: A GRView
+
+METHOD:: origin
+Returns position on attached view at which the controller is placed.
+
+returns:: A Point
+
+
+SUBSECTION::Button state
+
+METHOD:: isPressedAt
+Answers whether the view the controller is attached to is pressed by any attached controller at the specified position.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+METHOD:: isReleasedAt
+Answers whether the view the controller is attached to not pressed by any attached controller at the specified position.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+METHOD:: isPressedByThisControllerAt
+Answers whether the view the controller is attached to is pressed by this controller at the specified position.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+METHOD:: isReleasedByThisControllerAt
+Answers whether the view the controller is attached to is released by this controller at the specified position.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+
+SUBSECTION::Led state
+
+METHOD:: refresh
+Refreshes led state and button state indications of all buttons in the controller.
+
+METHOD:: isLitAt
+Answers whether the led of the button at point is lit on the controller.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+returns:: A Boolean
+
+
+SUBSECTION::Removal
+
+METHOD:: remove
+Removes a GRController and disposes its resources.
+
+METHOD:: isRemoved
+Answers whether a GRController is removed or not.
+
+returns:: true if removed, otherwise false
+
+METHOD:: onRemove
+An action object to be evaluated when the GRController is removed.
+
+returns:: A Function
+
+
+SUBSECTION:: Indication support
+
+METHOD:: indicateController
+Flashes points of the view that this controller covers continuously a given number of times.
+
+ARGUMENT:: repeat
+Number of times to flash
+
+ARGUMENT:: interval
+Flash interval in milliseconds
+
+
+SUBSECTION:: String representation
+
+METHOD:: plot
+Plots information on button and led state of the view the controller is attached to, to the Post Window.
+
+See link::Classes/GRView#plot::
+
+METHOD:: plotTree
+Plots information on button and led state of the view the controller is attached to and all its children, to the Post Window.
+
+See link::Classes/GRView#plotTree::
+
+METHOD:: postTree
+Plots information of the view the controller is attached to and, optionally, all its children, to the Post Window
+
+See link::Classes/GRView#postTree::
+
+
+SUBSECTION::Convenience methods for adding/removing child views
+
+These methods are delegated to the attached view, assumed to be a link::Classes/GRContainerView::.
+
+METHOD:: addChild
+See link::Classes/GRContainerView#addChild::
+
+METHOD:: removeChild
+See link::Classes/GRContainerView#removeChild::
+
+
+SUBSECTION::Button event methods for subclass use
+
+Refer to link::Reference/Grrr/Extending-Grrr:: for details on subclassing GRController.
+
+METHOD:: emitPress
+Method used by subclasses to propagate button press events in the Grrr button event system.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+METHOD:: emitRelease
+Method used by subclasses to propagate button release events in the Grrr button event system.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+METHOD:: emitButtonEvent
+Method used by subclasses to propagate button events in the Grrr button event system.
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+ARGUMENT:: pressed
+A Boolean describing whether the event is a button press. If false, it is a button release.
+
+
+SUBSECTION::Abstract methods for subclassing
+
+METHOD:: handleViewButtonStateChangedEvent
+Method invoked upon pressed state change of button occuring on the attached view within the controller's bounds. This method is typically implemented in a subclass if pressed/released state of buttons are to be visualized (ie. see link::Classes/GRScreenGrid::).
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+ARGUMENT:: pressed
+A Boolean describing whether the event is a button press. If false, it is a button release.
+
+METHOD:: handleViewLedRefreshedEvent
+Method invoked upon led state change of button occuring on the attached view within the controller's bounds. This method is typically implemented in a subclass to visualize led state (for concrete examples see link::Classes/GRMonome:: and link::Classes/GRScreenGrid::).
+
+ARGUMENT:: point
+A Point describing a location on a 2D grid
+
+ARGUMENT:: on
+A Boolean describing whether the led is set lit or unlit.
+
+METHOD:: cleanup
+Method invoked prior to removal of GRController typically implemented by subclasses to dispose resources.
+
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

@@ -1,115 +1,54 @@
 TITLE:: GRHToggle
 summary:: Horizontally oriented toggle
 categories:: External Control
-related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+related:: Classes/GRVToggle
 
 DESCRIPTION::
-(put long description here)
+A horizontally oriented toggle
 
 
 CLASSMETHODS::
 
-METHOD:: defaultNumCols
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: defaultNumRows
-(describe method here)
-
-returns:: (describe returnvalue here)
-
 METHOD:: new
-(describe method here)
+Creates a new instance of GRHToggle and makes it a child of a link::Classes/GRContainerView:: or link::Classes/GRController::, effectively placing it within the parent's visual space.
 
 ARGUMENT:: parent
-(describe argument here)
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRHToggle will become a child of.
 
 ARGUMENT:: origin
-(describe argument here)
+A Point describing the position of the new GRHToggle. Position is measured relative to the parent's top-left corner.
 
 ARGUMENT:: numCols
-(describe argument here)
+An Integer describing the width of the new GRHToggle.
 
 ARGUMENT:: numRows
-(describe argument here)
+An Integer describing the height of the new GRHToggle.
 
 ARGUMENT:: enabled
-(describe argument here)
+A Boolean that determine whether the new GRHToggle is enabled upon creation.
 
 ARGUMENT:: coupled
-(describe argument here)
+A Boolean that determine whether the new GRHToggles's value automatically changes values when it is pressed. The default is true.
 
 ARGUMENT:: nillable
-(describe argument here)
+A Boolean that determine whether the new GRHToggles's value is possible to set to nil. The default is false.
 
-returns:: (describe returnvalue here)
+returns:: An instance of GRHToggle
 
 METHOD:: newDecoupled
-(describe method here)
+Convenience method used when creating a decoupled GRVToggle. Refer to link::#*new:: for description of arguments.
 
-ARGUMENT:: parent
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: enabled
-(describe argument here)
-
-ARGUMENT:: nillable
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: An instance of GRHToggle
 
 METHOD:: newDetached
-(describe method here)
+Convenience method used when creating a detached GRVToggle. Refer to link::#*new:: for description of arguments.
 
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: enabled
-(describe argument here)
-
-ARGUMENT:: coupled
-(describe argument here)
-
-ARGUMENT:: nillable
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: An instance of GRHToggle
 
 METHOD:: newNillable
-(describe method here)
+Convenience method used when creating a nillable GRVToggle. Refer to link::#*new:: for description of arguments.
 
-ARGUMENT:: parent
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: enabled
-(describe argument here)
-
-ARGUMENT:: coupled
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: An instance of GRHToggle
 
 
 INSTANCEMETHODS::

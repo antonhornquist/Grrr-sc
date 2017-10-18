@@ -1,422 +1,234 @@
 TITLE:: GRMultiButtonView
-summary:: A grid of buttons of the same size
+summary:: A grid of buttons of the same size and behavior
 categories:: External Control
-related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+related:: Classes/GRButton, Classes/GRMultiToggleView
 
 DESCRIPTION::
-(put long description here)
+A grid of buttons of the same size and behavior.
 
+A GRMultiButtonView's value is a 2 dimensional Array of Booleans determining what buttons in the grid are lit and not lit.
+
+The default behavior of a GRMultiButtonView when pressed is to toggle the led and boolean value of the corresponding button in the grid. This may be changed to momentarily to toggle the button led and boolean value when it is pressed.
 
 CLASSMETHODS::
 
-METHOD:: newDisabled
-(describe method here)
-
-ARGUMENT:: parent
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: coupled
-(describe argument here)
-
-ARGUMENT:: behavior
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: newDetached
-(describe method here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: enabled
-(describe argument here)
-
-ARGUMENT:: coupled
-(describe argument here)
-
-ARGUMENT:: behavior
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
 METHOD:: new
-(describe method here)
+Creates a new instance of GRMultiButtonView and makes it a child of a link::Classes/GRContainerView:: or link::Classes/GRController::, effectively placing it within the parent's visual space.
 
 ARGUMENT:: parent
-(describe argument here)
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRMultiButtonView will become a child of.
 
 ARGUMENT:: origin
-(describe argument here)
+A Point describing the position of the new GRMultiButtonView. Position is measured relative to the parent's top-left corner.
 
 ARGUMENT:: numCols
-(describe argument here)
+An Integer describing the width of the new GRMultiButtonView.
 
 ARGUMENT:: numRows
-(describe argument here)
+An Integer describing the height of the new GRMultiButtonView.
 
 ARGUMENT:: enabled
-(describe argument here)
+A Boolean that determine whether the new GRMultiButtonView is enabled upon creation.
 
 ARGUMENT:: coupled
-(describe argument here)
+A Boolean that determine whether the buttons of the new GRMultiButtonView's values automatically toggles on button press/release. The default is true.
 
 ARGUMENT:: behavior
-(describe argument here)
+A Boolean that determine whether the buttons of the new GRMultiButtonView's values automatically toggles on button press (\toggle) or button press and release (\momentary). The default is \toggle.
 
-returns:: (describe returnvalue here)
+returns:: An instance of GRMultiViewbutton
 
 METHOD:: newDecoupled
-(describe method here)
+Convenience method used when creating a decoupled view. Refer to link::#*new:: for description of arguments.
 
-ARGUMENT:: parent
-(describe argument here)
+returns:: An instance of GRMultiViewbutton
 
-ARGUMENT:: origin
-(describe argument here)
+METHOD:: newDisabled
+Convenience method used for creating a disabled view. See link::Reference/Grrr/Basic-Concepts#Enabling and disabling views::. Refer to link::#*new:: for description of arguments.
 
-ARGUMENT:: numCols
-(describe argument here)
+returns:: An instance of GRMultiViewbutton
 
-ARGUMENT:: numRows
-(describe argument here)
+METHOD:: newDetached
+Convenience method used when creating a view not connected to a parent. See link::Reference/Grrr/Basic-Concepts#Detached views::. Refer to link::#*new:: for description of arguments.
 
-ARGUMENT:: enabled
-(describe argument here)
-
-ARGUMENT:: behavior
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: An instance of GRMultiViewbutton
 
 
 INSTANCEMETHODS::
 
-METHOD:: validateValue
-(describe method here)
-
-ARGUMENT:: val
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: buttonIsReleased
-(describe method here)
-
-ARGUMENT:: x
-(describe argument here)
-
-ARGUMENT:: y
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: setButtonValueAction
-(describe method here)
-
-ARGUMENT:: x
-(describe argument here)
-
-ARGUMENT:: y
-(describe argument here)
-
-ARGUMENT:: val
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: fill
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: numButtonRows
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: play
-(describe method here)
-
-ARGUMENT:: clock
-(describe argument here)
-
-ARGUMENT:: protoEvent
-(describe argument here)
-
-ARGUMENT:: quant
-(describe argument here)
-
-ARGUMENT:: key
-(describe argument here)
-
-ARGUMENT:: repeats
-(describe argument here)
-
-ARGUMENT:: transform
-(describe argument here)
-
-ARGUMENT:: indicate
-(describe argument here)
-
-returns:: (describe returnvalue here)
+SUBSECTION::Behavior
 
 METHOD:: isCoupled
-(describe method here)
+Answers whether contained buttons are coupled or not.
 
-returns:: (describe returnvalue here)
-
-METHOD:: buttonHeight
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: clear
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: initGRMultiButtonView
-(describe method here)
-
-ARGUMENT:: argParent
-(describe argument here)
-
-ARGUMENT:: argOrigin
-(describe argument here)
-
-ARGUMENT:: argCoupled
-(describe argument here)
-
-ARGUMENT:: argBehavior
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: buttonValue
-(describe method here)
-
-ARGUMENT:: x
-(describe argument here)
-
-ARGUMENT:: y
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asPbind
-(describe method here)
-
-ARGUMENT:: key
-(describe argument here)
-
-ARGUMENT:: repeats
-(describe argument here)
-
-ARGUMENT:: transform
-(describe argument here)
-
-ARGUMENT:: indicate
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asSpec
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: clearAction
-(describe method here)
-
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
 METHOD:: coupled
-(describe method here)
+A Boolean that determine whether the button of the GRMultiButtonView's automatically toggles value on button press/release. The default is true.
 
-ARGUMENT:: argCoupled
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: buttonArraySize
-(describe method here)
-
-ARGUMENT:: argButtonArraySize
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: valueAction
-(describe method here)
-
-ARGUMENT:: val
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: prReconstructChildren
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: flashButton
-(describe method here)
-
-ARGUMENT:: x
-(describe argument here)
-
-ARGUMENT:: y
-(describe argument here)
-
-ARGUMENT:: delay
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: numButtons
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: validateButtonArraySize
-(describe method here)
-
-ARGUMENT:: argButtonArraySize
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: buttonReleasedAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asGRPseq
-(describe method here)
-
-ARGUMENT:: repeats
-(describe argument here)
-
-ARGUMENT:: transform
-(describe argument here)
-
-ARGUMENT:: indicate
-(describe argument here)
-
-ARGUMENT:: orientation
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
 METHOD:: behavior
-(describe method here)
+A Boolean that determine whether the GRButton's value automatically toggles on button press (\toggle) or button press and release (\momentary). The default is \toggle.
 
 ARGUMENT:: argBehavior
-(describe argument here)
+The Symbol \momentary or \toggle
 
-returns:: (describe returnvalue here)
+returns:: A Symbol
 
-METHOD:: buttonValueChangedAction
-(describe method here)
+SUBSECTION::Size
 
-returns:: (describe returnvalue here)
+METHOD:: numButtons
+Answers the number of buttons the GRMultiViewButtonView contains.
 
-METHOD:: asGRPseqs
-(describe method here)
+returns:: An Integer
 
-ARGUMENT:: repeats
-(describe argument here)
+METHOD:: numButtonRows
+Answers the number of rows of buttons the GRMultiButtonView contains.
 
-ARGUMENT:: transform
-(describe argument here)
-
-ARGUMENT:: indicate
-(describe argument here)
-
-ARGUMENT:: orientation
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: prAddActions
-(describe method here)
-
-ARGUMENT:: button
-(describe argument here)
-
-ARGUMENT:: x
-(describe argument here)
-
-ARGUMENT:: y
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: buttonPressedAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: buttonWidth
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: buttonIsPressed
-(describe method here)
-
-ARGUMENT:: x
-(describe argument here)
-
-ARGUMENT:: y
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: fillAction
-(describe method here)
-
-returns:: (describe returnvalue here)
+returns:: An Integer
 
 METHOD:: numButtonCols
-(describe method here)
+Answers the number of columns of buttons the GRMultiButtonView contains.
 
-returns:: (describe returnvalue here)
+returns:: An Integer
 
-METHOD:: value
-(describe method here)
+METHOD:: buttonWidth
+Answers the width of each button in the GRMultiButtonView.
 
-ARGUMENT:: val
-(describe argument here)
+returns:: An Integer
 
-returns:: (describe returnvalue here)
+METHOD:: buttonHeight
+Answers the height of each button in the GRMultiButtonView.
 
-METHOD:: setButtonValue
-(describe method here)
+returns:: An Integer
+
+METHOD:: buttonArraySize
+Sets how many buttons per column and row is in the GRMultiButtonView.
+
+ARGUMENT:: argButtonArraySize
+An Array containing two values representing numCols and numRows.
+
+returns:: An Array containing two values representing numCols and numRows.
+
+SUBSECTION:: Button state
+
+METHOD:: buttonIsPressed
+Answers whether a specific button in the grid is released.
 
 ARGUMENT:: x
-(describe argument here)
+Horizontal position of the button in the grid.
 
 ARGUMENT:: y
-(describe argument here)
+Vertical position of the button in the grid.
+
+returns:: A Boolean
+
+METHOD:: buttonIsReleased
+Answers whether a specific button in the GRMultiButtonView is released.
+
+ARGUMENT:: x
+Horizontal position of the button in the GRMultiButtonView.
+
+ARGUMENT:: y
+Vertical position of the button in the GRMultiButtonView.
+
+returns:: A Boolean
+
+SUBSECTION::Value
+
+METHOD:: buttonValue
+Answers the value of a specific button in the GRMultiButtonView.
+
+ARGUMENT:: x
+Horizontal position of the button in the grid.
+
+ARGUMENT:: y
+Vertical position of the button in the grid.
+
+returns:: A Boolean
+
+METHOD:: setButtonValue
+Sets the value of a specific button in the GRMultiButtonView.
+
+ARGUMENT:: x
+Horizontal position of the button in the grid.
+
+ARGUMENT:: y
+Vertical position of the button in the grid.
 
 ARGUMENT:: val
-(describe argument here)
+A Boolean
 
-returns:: (describe returnvalue here)
+METHOD:: setButtonValueAction
+Sets the value of a specific button in the GRMultiButtonView with side effect of triggering actions.
+
+ARGUMENT:: x
+Horizontal position of the button in the grid.
+
+ARGUMENT:: y
+Vertical position of the button in the grid.
+
+ARGUMENT:: val
+A Boolean
+
+METHOD:: fill
+Sets all buttons in grid with false (unlit) value to true (lit).
+
+METHOD:: fillAction
+Sets all buttons in grid with false (unlit) value to true (lit) with side effect of triggering applicable actions.
+
+METHOD:: clear
+Sets all buttons in grid with true (lit) value to false (unlit).
+
+METHOD:: clearAction
+Sets all buttons in grid with true (lit) value to false (unlit) with side effect of triggering applicable actions.
+
+METHOD:: value
+Sets or returns the values of all contained buttons by a two-dimensional Array of Booleans.
+
+ARGUMENT:: val
+A two dimensional Array of Booleans.
+
+returns:: A two dimensional Array of Booleans.
+
+METHOD:: valueAction
+Sets or returns the values of all contained buttons by a two-dimensional Array with side effect of triggering actions.
+
+ARGUMENT:: val
+A two dimensional Array of Booleans.
+
+SUBSECTION:: Actions
+
+METHOD:: buttonValueChangedAction
+Sets or returns the GRMultiButtonView's action triggered when a contained button's value is changed.
+
+returns:: A Function
+
+METHOD:: buttonPressedAction
+Sets or returns the GRMultiButtonView's action triggered when a contained button is pressed.
+
+returns:: A Function
+
+METHOD:: buttonReleasedAction
+Sets or returns the GRMultiButtonView's action triggered when a contained button is released.
+
+returns:: A Function
+
+
+SUBSECTION:: Flash support
+
+METHOD:: flashButton
+Flash a button contained in the view.
+
+ARGUMENT:: x
+Horizontal position of the button in the grid.
+
+ARGUMENT:: y
+Vertical position of the button in the grid.
+
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelayWhenLit or defaultFlashDelayWhenUnlit is used depending on whether the contained button is lit or not.
 
 
 EXAMPLES::

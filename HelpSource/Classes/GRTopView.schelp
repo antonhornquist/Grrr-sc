@@ -1,144 +1,58 @@
 TITLE:: GRTopView
 summary:: The topmost view in a view tree
 categories:: External Control
-related:: Classes/GRContainerView, Overviews/Grrr
+related:: Classes/GRContainerView, Classes/GRController, Overviews/Grrr
 
 DESCRIPTION::
-The topmost view in a view tree and typically the view to which controllers attach. This view cannot be added as a child to any other view.
+The topmost view in a view tree and typically the view to which controllers attach. This view cannot be added as a child to any other view but differs from GRContainerView in that is supports coordination of multiple controllers attaching to the same view.
 
 
 CLASSMETHODS::
 
-METHOD:: newDisabled
-(describe method here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: newDetached
-(describe method here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: enabled
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
 METHOD:: new
-(describe method here)
+Creates a new instance of GRTopView and makes it a child of a link::Classes/GRContainerView:: or link::Classes/GRController::, effectively placing it within the parent's visual space.
 
 ARGUMENT:: numCols
-(describe argument here)
+An Integer describing the width of the new GRTopView.
 
 ARGUMENT:: numRows
-(describe argument here)
+An Integer describing the height of the new GRTopView.
 
 ARGUMENT:: enabled
-(describe argument here)
+A Boolean that determine whether the new GRTopView is enabled upon creation.
 
-returns:: (describe returnvalue here)
+returns:: An instance of GRTopView
+
+METHOD:: newDisabled
+Convenience method used when creating a decoupled button. Refer to link::#*new:: for description of arguments.
+
+returns:: An instance of GRTopView
 
 
 INSTANCEMETHODS::
 
-METHOD:: release
-(describe method here)
-
-ARGUMENT:: point
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: spawnGui
-(describe method here)
-
-returns:: (describe returnvalue here)
+SUBSECTION:: Button event processing
 
 METHOD:: handleViewButtonEvent
-(describe method here)
+Programmatically press or release a button on the view. Used internally by the Grrr framework to dispatch button events to views.
+
+Unique to GRTopView is support and coordination of several possible GRControllers attached to the view. A button on a GRTopView is considered pressed once the first of possibly many GRController instances has sent a press state event. A button is only considered released at the time all GRControllers that has sent a press state has also sent a released state event.
 
 ARGUMENT:: source
-(describe argument here)
+The object emitting the event, typically a GRController or GRContainerView
 
 ARGUMENT:: point
-(describe argument here)
+A Point describing a location on a 2D grid.
 
 ARGUMENT:: pressed
-(describe argument here)
+A Boolean describing whether the event is a button press. If false, it is a button release.
 
-returns:: (describe returnvalue here)
+returns:: An Array of Events with information on all views handling the event and the location on each of the views the event pertained to.
 
-METHOD:: isReleasedBySourceAt
-(describe method here)
+SUBSECTION:: GUI support
 
-ARGUMENT:: source
-(describe argument here)
-
-ARGUMENT:: point
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: isNotPressedByAnySourceAt
-(describe method here)
-
-ARGUMENT:: point
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: setParentReference
-(describe method here)
-
-ARGUMENT:: argParent
-(describe argument here)
-
-ARGUMENT:: argOrigin
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: isPressedByOneSourceAt
-(describe method here)
-
-ARGUMENT:: point
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: press
-(describe method here)
-
-ARGUMENT:: point
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: isPressedBySourceAt
-(describe method here)
-
-ARGUMENT:: source
-(describe argument here)
-
-ARGUMENT:: point
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: initGRTopView
-(describe method here)
-
-returns:: (describe returnvalue here)
+METHOD:: spawnGui
+Presents a link::Classes/GRScreenGrid:: for the GRTopView making it possible to interact with the view. 
 
 
 EXAMPLES::

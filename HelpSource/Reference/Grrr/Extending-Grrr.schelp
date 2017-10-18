@@ -3,15 +3,13 @@ summary:: How to build your own views or controllers
 categories:: External Control
 related:: Overviews/Grrr
 
-Note: These docs are incomplete. I'm working on it /Anton
-
-It's possible to build customized Grrr views and controllers by subclassing core Grrr classes.
+It's possible to build customized Grrr views and add support for controllers by subclassing core Grrr classes.
 
 section::Writing Custom Views
 
-To build custom behavior hook functions isLitAtFunc and viewButtonStateChangedAction are typically adapted. The former is a predicate that determine whether a given point of the view is lit whereas the latter is invoked every time the state of a button on a view is changed. Both functions are invoked by the Grrr framework.
+To build custom behavior hook functions isLitAtFunc and viewButtonStateChangedAction are typically customized. The former is a predicate that determine whether a given point of a view is lit whereas the latter is invoked every time the state of a button on a view is changed. Both functions are invoked by the Grrr framework.
 
-subsection::View Subclass Example (Template?)
+subsection::View Subclass Example
 
 code::
 MyView : GRView {
@@ -36,7 +34,7 @@ MyView : GRView {
 			// handle press / release
 
 			// if press / release results should result in a new value call
-			// value_action to set value and notify any observing objects
+			// valueAction to set value and notify any observing objects
 			this.valueAction_(newValue);
 
 		};
@@ -58,9 +56,9 @@ Another way to provide custom behaviour is to use decoupled Grrr views. See exam
 
 section::Writing Custom Controllers
 
-To make a custom controller the emitButtonEvent method should be invoked when the button state on the physical controller changes. Overriding handleViewLedRefreshedEvent with custom logic facilitates led handling.
+To make a custom controller the emitButtonEvent method should be invoked when button state on the physical controller changes. Overriding handleViewLedRefreshedEvent - which is invoked everytime a led state changes - with custom logic facilitates synchronization of led state, if needed.
 
-subsection::Controller Subclass Example (Template?)
+subsection::Controller Subclass Example
 
 code::
 MyController : GRController {
@@ -78,7 +76,7 @@ MyController : GRController {
 		this.refresh;
 	}
 
-	// it is good form to override new_detached with custom arguments to ensure it is 
+	// it is good practice to override newDetached with custom arguments to ensure it is 
 	// possible to create an instance of the controller that is not attached to any view
 	*newDetached { |arg1, arg2|
 		^this.new(arg1, arg2, nil, nil, false)
@@ -96,11 +94,6 @@ MyController : GRController {
 	asString {
 		// optionally return a descriptive string representation
 		^"My Controller connected to port % (%x%)".format(arg1, numCols, numRows)
-	}
-
-	info {
-		// optionally return a description on how to setup physical device. example:
-		^"Connect My Controller by USB and configure it to send button press / release osc messages to port %".format(arg1)
 	}
 }
 ::

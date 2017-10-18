@@ -1,0 +1,126 @@
+TITLE:: GRToggle
+summary:: A toggle
+categories:: External Control
+related:: Classes/GRHToggle, Classes/GRVToggle
+
+DESCRIPTION::
+A toggle.
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Creates a new instance of GRToggle and makes it a child of a link::Classes/GRContainerView:: or link::Classes/GRController::, effectively placing it within the parent's visual space.
+
+ARGUMENT:: parent
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRToggle will become a child of.
+
+ARGUMENT:: origin
+A Point describing the position of the new GRToggle. Position is measured relative to the parent's top-left corner.
+
+ARGUMENT:: numCols
+An Integer describing the width of the new GRToggle.
+
+ARGUMENT:: numRows
+An Integer describing the height of the new GRToggle.
+
+ARGUMENT:: enabled
+A Boolean that determine whether the new GRToggle is enabled upon creation.
+
+ARGUMENT:: coupled
+A Boolean that determine whether the new GRToggle's value automatically toggles on button press. The default is true.
+
+ARGUMENT:: nillable
+A Boolean that determine whether the new GRToggle's value is possible to set to nil. The default is false.
+
+ARGUMENT:: orientation
+The Symbol \vertical or \horizontal describing the orientation of the toggle - the direction in which the toggle handle moves. The default is \vertical. 
+
+returns:: An instance of GRToggle
+
+METHOD:: newDecoupled
+Convenience method used when creating a decoupled GRToggle. Refer to link::#*new:: for description of arguments.
+
+returns:: An instance of GRToggle
+
+METHOD:: newDetached
+Convenience method used when creating a detached GRToggle. Refer to link::#*new:: for description of arguments.
+
+returns:: An instance of GRToggle
+
+METHOD:: newNillable
+Convenience method used when creating a nillable GRToggle. Refer to link::#*new:: for description of arguments.
+
+returns:: An instance of GRToggle
+
+
+INSTANCEMETHODS::
+
+SUBSECTION::Behavior
+
+METHOD:: nillable
+Sets or gets the nillable state of a GRToggle.
+
+ARGUMENT:: argNillable
+A Boolean
+
+returns:: A Boolean
+
+METHOD:: isFilled
+Answers whether a toggle is filled or not.
+
+returns:: A Boolean
+
+METHOD:: filled
+Sets or gets the filled state of a GRToggle. A filled toggle will display the leds of all toggle values up to the current toggle point as lit.
+
+ARGUMENT:: argFilled
+A Boolean
+
+returns:: A Boolean
+
+SUBSECTION::Flash support
+
+METHOD:: flash
+Flashes the toggle.
+
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelay is used.
+
+METHOD:: flashToggleValue
+Flashes a specific toggle value.
+
+ARGUMENT:: value
+What value to flash.
+
+ARGUMENT:: delay
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelay is used.
+
+SUBSECTION::Actions
+
+METHOD:: togglePressedAction
+Sets or returns the GRToggle's action triggered when the toggle is pressed anywhere.
+
+returns:: A Function
+
+METHOD:: toggleReleasedAction
+Sets or returns the GRToggle's action triggered when the toggle is released.
+
+returns:: A Function
+
+METHOD:: toggleRangePressedAction
+Sets or returns the GRToggle's action triggered when the button is pressed.
+
+returns:: A Function
+
+METHOD:: toggleValuePressedAction
+Sets or returns the GRToggle's action triggered when the toggle is pressed on a specific value.
+
+returns:: A Function
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::

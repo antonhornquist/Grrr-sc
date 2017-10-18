@@ -1,431 +1,244 @@
 TITLE:: GRMultiToggleView
 summary:: An array of vertical or horizontal toggles of the same size.
 categories:: External Control
-related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+related:: Classes/GRVToggle, Classes/GRHToggle
 
 DESCRIPTION::
-(put long description here)
+An array of vertical or horizontal toggles of the same size.
 
+A GRMultiToggleView's value is an Array of Booleans determining the value of the contained toggles.
 
 CLASSMETHODS::
 
-METHOD:: newDisabled
-(describe method here)
+METHOD:: new
+Creates a new instance of GRMultiToggleView and makes it a child of a link::Classes/GRContainerView:: or link::Classes/GRController::, effectively placing it within the parent's visual space.
 
 ARGUMENT:: parent
-(describe argument here)
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRMultiButtonView will become a child of.
 
 ARGUMENT:: origin
-(describe argument here)
+A Point describing the position of the new GRMultiButtonView. Position is measured relative to the parent's top-left corner.
 
 ARGUMENT:: numCols
-(describe argument here)
+An Integer describing the width of the new GRMultiButtonView.
 
 ARGUMENT:: numRows
-(describe argument here)
+An Integer describing the height of the new GRMultiButtonView.
 
 ARGUMENT:: orientation
 (describe argument here)
 
+ARGUMENT:: enabled
+A Boolean that determine whether the new GRMultiButtonView is enabled upon creation.
+
 ARGUMENT:: coupled
-(describe argument here)
+A Boolean that determine whether the buttons of the new GRMultiButtonView's values automatically toggles on button press/release. The default is true.
 
 ARGUMENT:: nillable
-(describe argument here)
+A Boolean that determine whether contained toggles are possible to set to nil. The default is false.
 
-returns:: (describe returnvalue here)
+returns:: An instance of GRMultiToggleView
+
+METHOD:: newDisabled
+Convenience method used for creating a disabled view. See link::Reference/Grrr/Basic-Concepts#Enabling and disabling views::. Refer to link::#*new:: for description of arguments.
+
+returns:: An instance of GRMultiToggleView
 
 METHOD:: newDetached
-(describe method here)
+Convenience method used when creating a view not connected to a parent. See link::Reference/Grrr/Basic-Concepts#Detached views::. Refer to link::#*new:: for description of arguments.
 
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: orientation
-(describe argument here)
-
-ARGUMENT:: enabled
-(describe argument here)
-
-ARGUMENT:: coupled
-(describe argument here)
-
-ARGUMENT:: nillable
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: new
-(describe method here)
-
-ARGUMENT:: parent
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: orientation
-(describe argument here)
-
-ARGUMENT:: enabled
-(describe argument here)
-
-ARGUMENT:: coupled
-(describe argument here)
-
-ARGUMENT:: nillable
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: An instance of GRMultiToggleView
 
 METHOD:: newDecoupled
-(describe method here)
+Convenience method used when creating a decoupled view. Refer to link::#*new:: for description of arguments.
 
-ARGUMENT:: parent
-(describe argument here)
-
-ARGUMENT:: origin
-(describe argument here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-ARGUMENT:: orientation
-(describe argument here)
-
-ARGUMENT:: enabled
-(describe argument here)
-
-ARGUMENT:: nillable
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: An instance of GRMultiToggleView
 
 
 INSTANCEMETHODS::
 
-METHOD:: thumbWidth
-(describe method here)
-
-ARGUMENT:: argThumbWidth
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: numToggles
-(describe method here)
-
-ARGUMENT:: argNumToggles
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: isCoupled
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: isNillable
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: prAddActions
-(describe method here)
-
-ARGUMENT:: toggle
-(describe argument here)
-
-ARGUMENT:: index
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asPbind
-(describe method here)
-
-ARGUMENT:: key
-(describe argument here)
-
-ARGUMENT:: repeats
-(describe argument here)
-
-ARGUMENT:: transform
-(describe argument here)
-
-ARGUMENT:: indicate
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: asGRPseq
-(describe method here)
-
-ARGUMENT:: repeats
-(describe argument here)
-
-ARGUMENT:: transform
-(describe argument here)
-
-ARGUMENT:: indicate
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: play
-(describe method here)
-
-ARGUMENT:: clock
-(describe argument here)
-
-ARGUMENT:: protoEvent
-(describe argument here)
-
-ARGUMENT:: quant
-(describe argument here)
-
-ARGUMENT:: key
-(describe argument here)
-
-ARGUMENT:: repeats
-(describe argument here)
-
-ARGUMENT:: transform
-(describe argument here)
-
-ARGUMENT:: indicate
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: orientation
-(describe method here)
-
-ARGUMENT:: argOrientation
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: toggleRangePressedAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: value
-(describe method here)
-
-ARGUMENT:: val
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: setToggleValueAction
-(describe method here)
-
-ARGUMENT:: i
-(describe argument here)
-
-ARGUMENT:: val
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: thumbSize
-(describe method here)
-
-ARGUMENT:: argThumbSize
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: toggleWidth
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: validateNumToggles
-(describe method here)
-
-ARGUMENT:: argNumToggles
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: validateValue
-(describe method here)
-
-ARGUMENT:: val
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: toggleValueChangedAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: toggleValuePressedAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: toggleReleasedAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: toggleHeight
-(describe method here)
-
-returns:: (describe returnvalue here)
+SUBSECTION::Behavior
 
 METHOD:: isFilled
-(describe method here)
+Answers whether contained toggles are filled or not.
 
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
-METHOD:: setToggleValue
-(describe method here)
+METHOD:: isCoupled
+Answers whether contained toggles are coupled or not.
 
-ARGUMENT:: i
-(describe argument here)
-
-ARGUMENT:: val
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: toggleValue
-(describe method here)
-
-ARGUMENT:: i
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
 METHOD:: coupled
-(describe method here)
+Sets whether the contained toggles automatically toggles value when pressed. The default is true.
 
 ARGUMENT:: argCoupled
-(describe argument here)
+A Boolean
 
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
-METHOD:: initGRMultiToggleView
-(describe method here)
+METHOD:: isNillable
+Answers whether contained toggles are nillable.
 
-ARGUMENT:: argParent
-(describe argument here)
-
-ARGUMENT:: argOrigin
-(describe argument here)
-
-ARGUMENT:: argOrientation
-(describe argument here)
-
-ARGUMENT:: argCoupled
-(describe argument here)
-
-ARGUMENT:: argNillable
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: prReconstructChildren
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: togglePressedAction
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: isValidNumToggles
-(describe method here)
-
-ARGUMENT:: argNumToggles
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: thumbHeight
-(describe method here)
-
-ARGUMENT:: argThumbHeight
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: valueAction
-(describe method here)
-
-ARGUMENT:: val
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: prSetNumTogglesDefaults
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: filled
-(describe method here)
-
-ARGUMENT:: argFilled
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: valuesAreInverted
-(describe method here)
-
-ARGUMENT:: argValuesAreInverted
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
 METHOD:: nillable
-(describe method here)
+Sets or gets the nillable state of contained toggles.
 
 ARGUMENT:: argNillable
-(describe argument here)
+A Boolean
 
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
-METHOD:: flashToggle
-(describe method here)
+METHOD:: orientation
+Sets or gets the orientation of contained toggles.
+
+ARGUMENT:: argOrientation
+The Symbol \vertical or \horizontal
+
+returns:: The Symbol \vertical or \horizontal
+
+METHOD:: filled
+Sets wheter contained toggles are displayed as filled - that is, display the leds of all toggle values up to the current toggle point as lit.
+
+ARGUMENT:: argFilled
+A Boolean
+
+returns:: A Boolean
+
+METHOD:: valuesAreInverted
+A Boolean describing whether values of contained toggles are inverted.
+
+ARGUMENT:: argValuesAreInverted
+true if inverted, false if not
+
+returns:: An Integer
+
+SUBSECTION::Size
+
+METHOD:: numToggles
+Sets or gets the number of toggles contained.
+
+ARGUMENT:: argNumToggles
+An Integer
+
+returns:: An Integer
+
+SUBSECTION::Appearance
+
+METHOD:: toggleWidth
+The width of each contained toggle, specified in columns.
+
+returns:: An Integer
+
+METHOD:: toggleHeight
+The height of each contained toggle, specified in rows.
+
+returns:: An Integer
+
+METHOD:: thumbWidth
+The width of the handle of contained toggles, specified in columns.
+
+ARGUMENT:: argThumbWidth
+An Integer
+
+returns:: An Integer
+
+METHOD:: thumbHeight
+The height of the handle of contained toggles, specified in rows.
+
+ARGUMENT:: argThumbHeight
+An Integer
+
+returns:: An Integer
+
+METHOD:: thumbSize
+The size of the handle of contained toggles - width and height.
+
+ARGUMENT:: argThumbSize
+An Array of two values describing width and height.
+
+returns:: An Array of two Integers describing width and height.
+
+SUBSECTION::Value
+
+METHOD:: toggleValue
+Answers the value of a specific toggle in the view.
 
 ARGUMENT:: i
-(describe argument here)
+Toggle index
+
+returns:: An Integer describing toggle value
+
+METHOD:: setToggleValue
+Sets the value of a specific toggle in the view.
+
+ARGUMENT:: i
+Toggle index
+
+ARGUMENT:: val
+An Integer describing toggle value
+
+METHOD:: setToggleValueAction
+Sets the value of a specific toggle in the view.
+
+ARGUMENT:: i
+Toggle index
+
+ARGUMENT:: val
+An Integer describing toggle value
+
+METHOD:: value
+Sets or returns the values of all contained toggles by an Array of Integers.
+
+ARGUMENT:: val
+An Array of Integers.
+
+returns:: An Array of Integers.
+
+METHOD:: valueAction
+Sets or returns the values of all contained toggles by an Array of Integers with side effect of triggering actions.
+
+ARGUMENT:: val
+An Array of Integers.
+
+SUBSECTION::Flash support
+
+METHOD:: flashToggle
+Flash a contained toggle
+
+ARGUMENT:: i
+Toggle index
 
 ARGUMENT:: delay
-(describe argument here)
+A delay to use when flashing specified in milliseconds. If omitted defaultFlashDelay is used.
 
-returns:: (describe returnvalue here)
+SUBSECTION::Actions
 
-METHOD:: asSpec
-(describe method here)
+METHOD:: togglePressedAction
+Sets or returns the view's action triggered when a contained toggle is pressed.
 
-returns:: (describe returnvalue here)
+returns:: A Function
 
-METHOD:: maximumToggleValue
-(describe method here)
+METHOD:: toggleReleasedAction
+Sets or returns the view's action triggered when a contained toggle is released.
 
-returns:: (describe returnvalue here)
+returns:: A Function
+
+METHOD:: toggleValuePressedAction
+Sets or returns the view's action triggered when a contained toggle's value is pressed.
+
+returns:: A Function
+
+METHOD:: toggleRangePressedAction
+Sets or returns the view's action triggered when a range of values on a contained toggle is pressed.
+
+returns:: A Function
+
+METHOD:: toggleValueChangedAction
+Sets or returns the view's action triggered when a contained toggle's value is changed.
+
+returns:: A Function
 
 
 EXAMPLES::

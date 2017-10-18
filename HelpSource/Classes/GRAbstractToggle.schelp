@@ -1,0 +1,189 @@
+TITLE:: GRAbstractToggle
+summary:: Abstract class for toggles.
+categories:: Undocumented classes
+related:: Classes/GRToggle
+
+DESCRIPTION::
+Abstract class containing logic for views that are presented as toggles. Implementation is loosely based on regular GUI link::Classes/Slider::. Subclasses implement relevant logic and actions. This class should not be used directly.
+
+CLASSMETHODS::
+
+METHOD:: new
+Creates a new instance of GRAbstractToggle and makes it a child of a link::Classes/GRContainerView:: or link::Classes/GRController::, effectively placing it within the parent's visual space.
+
+ARGUMENT:: parent
+The instance of link::Classes/GRContainerView:: or link::Classes/GRController:: that the new GRAbstractToggle will become a child of.
+
+ARGUMENT:: origin
+A Point describing the position of the new GRAbstractToggle. Position is measured relative to the parent's top-left corner.
+
+ARGUMENT:: numCols
+An Integer describing the width of the new GRAbstractToggle.
+
+ARGUMENT:: numRows
+An Integer describing the height of the new GRAbstractToggle.
+
+ARGUMENT:: enabled
+A Boolean that determine whether the new GRAbstractToggle is enabled upon creation.
+
+ARGUMENT:: coupled
+A Boolean that determine whether the new GRAbstractToggle's value automatically toggles on button press/release. The default is true.
+
+ARGUMENT:: nillable
+A Boolean that determine whether the new GRAbstractToggle's value is possible to set to nil. The default is false.
+
+ARGUMENT:: orientation
+The Symbol \vertical or \horizontal describing the orientation of the toggle - the direction in which the toggle handle moves. The default is \vertical. 
+
+returns:: An instance of GRAbstractToggle
+
+
+INSTANCEMETHODS::
+
+SUBSECTION::Behavior
+
+METHOD:: isNillable
+A Boolean that determine whether the GRAbstractToggle's value is possible to set to nil.
+
+returns:: A Boolean
+
+METHOD:: isCoupled
+A Boolean that determine whether the toggle's value automatically toggles on button press. The default is true.
+
+returns:: A Boolean
+
+METHOD:: coupled
+A Boolean that determine whether the toggle's value automatically toggles on button press. The default is true.
+
+returns:: A Boolean
+
+SUBSECTION::Appearance
+
+METHOD:: orientation
+The orientation of the toggle - the direction in which the toggle handle moves. The default is \vertical. 
+
+returns:: Symbol \vertical or \horizontal
+
+METHOD:: thumbWidth
+The width of the handle in columns.
+
+ARGUMENT:: argThumbWidth
+An Integer
+
+returns:: An Integer
+
+METHOD:: thumbHeight
+The height of the handle in rows.
+
+ARGUMENT:: argThumbHeight
+An Integer
+
+returns:: An Integer
+
+METHOD:: thumbSize
+The size of the handle - its width and height.
+
+ARGUMENT:: argThumbSize
+An Array of two values describing width and height.
+
+returns:: An Array of two Integers describing width and height.
+
+METHOD:: valuesAreInverted
+A Boolean describing whether values of the toggle are inverted.
+
+ARGUMENT:: argValuesAreInverted
+true if inverted, false if not
+
+returns:: A Boolean
+
+SUBSECTION::Value
+
+METHOD:: maximumValue
+The maximum value the toggle can have
+
+returns:: An Integer
+
+METHOD:: numValues
+Answers how many values the toggle has in total
+
+returns:: An Integer
+
+METHOD:: numValuesX
+Answers how many values per row the toggle has
+
+returns:: An Integer
+
+METHOD:: numValuesY
+Answers how many values per column the toggle has
+
+returns:: An Integer
+
+SUBSECTION::Button state
+
+METHOD:: isPressed
+Answers whether toggle is pressed anywhere
+
+returns:: A Boolean
+
+METHOD:: isReleased
+Answers whether toggle is not pressed anywhere
+
+returns:: A Boolean
+
+METHOD:: anyValuePressed
+Answers whether any value on the toggle is pressed
+
+returns:: A Boolean
+
+METHOD:: noValuePressed
+Answers whether no value on the toggle is pressed
+
+returns:: A Boolean
+
+METHOD:: firstValuePressed
+Answers first value currently pressed on the toggle, if any
+
+returns:: An Integer or nil
+
+METHOD:: lastValuePressed
+Answers last value currently pressed on the toggle, if any
+
+returns:: An Integer or nil
+
+METHOD:: minValuePressed
+Answers the smallest value currently pressed by any grid button, if any
+
+returns:: An Integer or nil
+
+METHOD:: maxValuePressed
+Answers the largest value currently pressed by any grid button, if any
+
+returns:: An Integer or nil
+
+METHOD:: numValuesPressed
+Answers how many values are currently pressed on the toggle
+
+returns:: An Integer
+
+METHOD:: valueIsPressed
+Answers whether a specific value has any of its grid buttons pressed
+
+ARGUMENT:: value
+An Integer describing value to check.
+
+returns:: A Boolean
+
+METHOD:: valueIsReleased
+Answers whether a specific value does not have any of its grid buttons pressed
+
+ARGUMENT:: value
+An Integer describing value to check.
+
+returns:: A Boolean
+
+
+EXAMPLES::
+
+code::
+(some example code)
+::
