@@ -4,13 +4,7 @@ Grid controller UI toolkit for SuperCollider.
 
 ## Description
 
-Grrr-sc provides high level UI abstractions for grid based controllers such as [monome](http://monome.org) 40h, 64, 128 and 256 devices. In Grrr grid controller UIs are built the same way SuperCollider GUIs are built.
-
-Widgets, ie. buttons and toggles, can be placed on controllers. Widgets may be placed in containers. Containers may be nested for building paged UIs and modes.
-
-Widgets can be nested in containers which allows for widgets to be handled in different pages.
-
-Grrr reuses principles of the standard SuperCollider GUI class library (see link::Guides/GUI-Introduction::).
+Grrr-sc provides high level UI abstractions for grid based controllers such as [monome](http://monome.org) 40h, 64, 128 and 256 devices. Widgets, ie. buttons and toggles, are placed on controllers. Widgets can be nested in containers which allows for modes and paging. Grrr reuses principles of the standard SuperCollider GUI class library.
 
 ## Usage
 
@@ -43,19 +37,22 @@ a.spawnGui; // spawns a virtual grid
 ### A simple step sequencer
 
 ``` supercollider
+s.boot;
 a=GRMonome.new; // creates a monome
-b = GRStepView.new(a, 0@0); // create a step view for "trigs"
+b=GRStepView.new(a, 0@7, 8, 1); // the step view defines when to play notes 
+c=GRMultiToggleView.new(a, 0@0, 8, 7); // toggles representing note pitch
+c.valuesAreInverted=true;
 
 (
-	// sequence that plays a note for steps that are lit
-	fork {
-		b.playhead = 0
-		inf.do {
-			if (b.stepValue(index)) { (60).play };
-			0.25.wait;
-			b.playhead = b.playhead + 1;
-		}
-	}
+    // sequence that plays a note for steps that are lit
+    fork {
+        b.playhead = 0;
+        inf.do {
+            if (b.stepValue(b.playhead)) { (degree: c.toggleValue(b.playhead)).play };
+            0.25.wait;
+            b.playhead = (b.playhead + 1) % b.numCols;
+        }
+    }
 )
 
 a.spawnGui; // spawns a virtual grid
@@ -75,13 +72,15 @@ The user-specific extension directory may be retrieved by evaluating Platform.us
 
 ## Documentation
 
-Tutorials, example apps and reference documentation in SCDoc help format is installed and available in the SuperCollider IDE once the library is installed.
+Tutorials, example apps and reference documentation in SCDoc help format is installed and available in the SuperCollider IDE once the Grrr library is installed.
+
+## Tests
+
+An automated test suite for Grrr-sc is available separately [GrrrTests-sc](http://github.com/antonhornquist/GrrrTests-sc).
 
 ## Implementation
 
 Code readability has been favored over optimizations.
-
-An extensive automated test suite for Grrr-sc is available separately [GrrrTests-sc](http://github.com/antonhornquist/GrrrTests-sc).
 
 The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port of this library. The SuperCollider and Ruby classes are generated using the [rsclass-rb](http://github.com/antonhornquist/rsclass-rb) class generator based on meta data defined in the [grrr-meta-rb](http://github.com/antonhornquist/grrr-meta-rb) repository.
 
@@ -109,7 +108,7 @@ The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port o
 
 ## Extending Grrr
 
-It's possible to create custom widgets and add support for additional grid controllers by subclassing base classes in the Grrr library. Refer to section "Extending Grrr" in documentation for details on extending Grrr.
+It's possible to create custom widgets and add support for additional grid controllers by subclassing base classes in the Grrr library. Refer to section "Extending Grrr" in the bundled documentation for details on extending Grrr.
 
 ## License
 

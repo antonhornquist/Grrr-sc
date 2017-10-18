@@ -5,7 +5,7 @@ related:: Overviews/Grrr
 
 Grrr is an UI library for grid based controllers.
 
-The Grrr class library is loosely based on the SuperCollider GUI class library. link::Classes/GRController:: is similar to link::Classes/Window::, link::Classes/GRView:: and its subclasses are similar to link::Classes/View:: and its subclasses. Working with Grrr will be familiar to those working with GUI. 
+The Grrr class library is loosely based on the SuperCollider GUI class library. link::Classes/GRController:: is similar to link::Classes/Window::, link::Classes/GRView:: and its subclasses are similar to link::Classes/View:: and its subclasses. Using Grrr will be familiar to those who has created SuperCollider GUIs.
 
 section::Adding views to a controller
 
