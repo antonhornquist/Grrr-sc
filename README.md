@@ -4,13 +4,9 @@ Grid controller UI toolkit for SuperCollider.
 
 ## Description
 
-Grrr-sc provides high level UI abstractions for grid based controllers such as [monome](http://monome.org) 40h, 64, 128 and 256 devices.
-
-Using Grrr grid controller UIs can be built in the way SuperCollider GUIs are built.
+Grrr-sc provides high level UI abstractions for grid based controllers such as [monome](http://monome.org) 40h, 64, 128 and 256 devices. In Grrr grid controller UIs are built the same way SuperCollider GUIs are built.
 
 Widgets, ie. buttons and toggles, can be placed on controllers. Widgets may be placed in containers. Containers may be nested for building paged UIs and modes.
-
-Instead of implementing a grid controller UI features by implementing "when a button in column 1 is pressed set it lit and all other buttons in column 1 to unlit" one can implement "column 1 should be a toggle".
 
 Widgets can be nested in containers which allows for widgets to be handled in different pages.
 
@@ -22,70 +18,47 @@ Grrr can be used as a framework for building [complete apps](http://github.com/a
 
 ## Examples
 
-### A Simple Step Sequencer
+### Hello World
 
 ``` supercollider
-a = GRMonome64.new;
+a=GRScreenGrid.new; // creates a virtual grid which shows up in a separate window
+b=GRButton(a, 0@0); // places a 1x1 button at top left key
+b.action = { |view, value| (value.if("Hello", "Goodbye") + "World").postln }; // sets an action to be triggered when the button is pressed
 
-b = GRStepView.new(a, 0@0);
-b.action = { |view, value| "the value of button at 0@0 was changed to %".format(value).postln };
-
-// press top-leftmost screen grid button to test the first button
-
-c = GRButton.newMomentary(a, 1@1, 2, 2);
-c.action = { |view, value| "the second button's value was changed to %".format(value).postln };
-
-// press screen grid button anywhere at 1@1 to 2@2 to test the second button
-
-a.free
+// pressing the top left grid button of the virtual grid will change led state and output to the Post Window
 ```
 
-### Monome Example
+### An example with sound
 
 ``` supercollider
-a = GRMonome64.new;
+s.boot;
+a=GRMonome.new; // creates a monome
+b=GRButton(a, 0@0); // places a 1x1 button at top left key
+b.action = { |view, value| if (value) { c = {SinOsc.ar}.play } { c.release } }; // sets an action to be triggered when the button is pressed
+a.spawnGui; // spawns a virtual grid
 
-b = GRButton.new(a, 0@0);
-b.action = { |view, value| "the value of button at 0@0 was changed to %".format(value).postln };
-
-// press top-leftmost screen grid button to test the first button
-
-c = GRButton.newMomentary(a, 1@1, 2, 2);
-c.action = { |view, value| "the second button's value was changed to %".format(value).postln };
-
-// press screen grid button anywhere at 1@1 to 2@2 to test the second button
-
-a.free
+// pressing the top left grid button of the monome or virtual grid will change led state and audition a sine oscillator
 ```
 
-### Example 1
+### A simple step sequencer
 
 ``` supercollider
-a = GRScreenGrid.new;
+a=GRMonome.new; // creates a monome
+b = GRStepView.new(a, 0@0); // create a step view for "trigs"
 
-b = GRButton.new(a, 0@0);
-b.action = { |view, value| "the first button's value was changed to %".format(value).postln };
+(
+	// sequence that plays a note for steps that are lit
+	fork {
+		b.playhead = 0
+		inf.do {
+			if (b.stepValue(index)) { (60).play };
+			0.25.wait;
+			b.playhead = b.playhead + 1;
+		}
+	}
+)
 
-// press top-leftmost screen grid button to test the first button
-
-c = GRButton.newMomentary(a, 1@1, 2, 2);
-c.action = { |view, value| "the second button's value was changed to %".format(value).postln };
-
-// press screen grid button anywhere at 1@1 to 2@2 to test the second button
-
-a.view.removeAllChildren;
-```
-
-### Example 2
-
-``` supercollider
-b = GRButton.newDecoupled(a, 0@0);
-b.buttonPressedAction = { "the first button was pressed!".postln };
-b.buttonReleasedAction = { "the first button was released!".postln };
-
-// press top-leftmost screen grid button to test the button
-
-a.view.removeAllChildren;
+a.spawnGui; // spawns a virtual grid
 ```
 
 ## Requirements

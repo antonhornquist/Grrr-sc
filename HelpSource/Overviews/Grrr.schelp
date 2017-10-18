@@ -4,9 +4,7 @@ categories:: External Control
 
 section::Introduction
 
-Grrr provides high level UI abstractions for grid based controllers. The library is inspired by early mono-bright monome devices (link::http://www.monome.org::): a bunch of buttons with lights arranged in a grid, the visual feedback being decoupled from the buttons.
-
-Grrr reuses principles of the standard SuperCollider GUI class library (see link::Guides/GUI-Introduction::).
+Grrr provides high level UI abstractions for grid based controllers. The library is inspired by early mono-bright monome devices (link::http://www.monome.org::): a bunch of buttons with lights arranged in a grid, the visual feedback being decoupled from the buttons. Grrr reuses principles of the standard SuperCollider GUI class library (see link::Guides/GUI-Introduction::).
 
 subsection::Hello World
 code::
@@ -20,11 +18,32 @@ b.action = { |view, value| (value.if("Hello", "Goodbye") + "World").postln }; //
 subsection::An example with sound
 code::
 s.boot;
-a=GRScreenGrid.new; // creates a virtual grid
+a=GRMonome.new; // creates a monome
 b=GRButton(a, 0@0); // places a 1x1 button at top left key
 b.action = { |view, value| if (value) { c = {SinOsc.ar}.play } { c.release } }; // sets an action to be triggered when the button is pressed
+a.spawnGui; // spawns a virtual grid
 
-// pressing the top left grid button of the virtual grid will change led state and audition a sine oscillator
+// pressing the top left grid button of the monome or virtual grid will change led state and audition a sine oscillator
+::
+
+subsection::An example with sound
+code::
+a=GRMonome.new; // creates a monome
+b = GRStepView.new(a, 0@0); // create a step view for "trigs"
+
+(
+	// sequence that plays a note for steps that are lit
+	fork {
+		b.playhead = 0
+		inf.do {
+			if (b.stepValue(index)) { (60).play };
+			0.25.wait;
+			b.playhead = b.playhead + 1;
+		}
+	}
+)
+
+a.spawnGui; // spawns a virtual grid
 ::
 
 section::Classes
@@ -39,17 +58,6 @@ link::Classes/GRView:: - Abstract superclass. Represents a 2D grid of backlit bu
 			## link::Classes/GRVToggle:: - Vertically oriented toggle
 			## link::Classes/GRHToggle:: - Horizontally oriented toggle
 			::
-		## (link::Classes/GRAbstractRangeToggle:: (rename to GRRangeToggleBase?))
-			tree::
-			## (link::Classes/GRVRangeToggle::)
-			## (link::Classes/GRHRangeToggle::)
-			::
-		## (link::Classes/GRSliderBase::)
-			tree::
-			## (link::Classes/GRVSlider::)
-			## (link::Classes/GRHSlider::)
-			::
-		::
 	## link::Classes/GRKeyboard:: - Keyboard representation
 	## link::Classes/GRContainerView:: - Abstract class for views that may contain other views.
 		tree::
@@ -77,15 +85,13 @@ section::In depth
 
 definitionList::
 ## Basic Concepts || link::Reference/Grrr/Basic-Concepts::
-## A tour of Grrr || link::Tutorials/Grrr/A-Tour-Of-Widgets::
-## Live Coding || link::Tutorials/Grrr/Live-Coding::
-## Internal Snooping || link::Tutorials/Grrr/Internal-Snooping::
-## Delimitations || link::Reference/Grrr/Delimitations::
 ## Extending Grrr || link::Reference/Grrr/Extending-Grrr::
+## Internal Snooping || link::Tutorials/Grrr/Internal-Snooping::
+## Delimitations, Known Issues || link::Reference/Grrr/Delimitations::
 ::
 
 section::Feedback
 
 for suggestions / comments contact me
 
-Anton Hörnquist, anton.hornquist@gmail.com.
+Anton Hörnquist, anton.hornquist@gmail.com

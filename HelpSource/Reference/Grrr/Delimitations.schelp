@@ -1,0 +1,13 @@
+title:: Delimitations of the Grrr library
+summary:: Delimitations of the Grrr library
+categories:: External Control
+related:: Overviews/Grrr
+
+section::Delimitations
+
+- Grrr is mono-bright. This may change.
+- Performance: readability of code right has so far been prioritized over speed. A lot can be improved with optimizations. Do not expect Grrr to work well with very high refresh rates right now.
+
+section::Known issues
+
+- Due to hardware/firmware constraints too quick led updates to GRMonome controllers may have unexpected result. If child views needs to be added without delay build a link::Classes/GRTopView:: before instantiation a link::Classes/GRMonome:: controller and pass the view to the code::*new:: method of GRMonome and everything will be fine.

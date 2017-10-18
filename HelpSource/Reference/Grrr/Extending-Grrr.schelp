@@ -52,11 +52,17 @@ MyView : GRView {
 
 subsection::Customization by decoupling core views
 
-Another way to provide custom behaviour is to use decoupled Grrr views. See examples in the link::Reference/Basic-Concepts:: Help file.
+Another way to provide custom behaviour is to use decoupled Grrr views. See examples in the link::Reference/Grrr/Basic-Concepts:: Help file.
 
 section::Writing Custom Controllers
 
-To make a custom controller the emitButtonEvent method should be invoked when button state on the physical controller changes. Overriding handleViewLedRefreshedEvent - which is invoked everytime a led state changes - with custom logic facilitates synchronization of led state, if needed.
+To write a custom grid controller, a button press or release on the custom grid should propagate through the Grrr button event framework. Invoking the code::emitButtonEvent:: method in GRController supports this.
+
+If needed, to synchronize leds method code::handleViewLedRefreshedEvent:: - which is invoked everytime a led state changes - should be overridden with custom logic facilitates is needed.
+
+Also, if button state changes needs to be tracked or visualized code::handleViewButtonStateChangedEvent:: can be overriden providing the necessary logic to display button state.
+
+Refer to link::Classes/GRScreenGrid:: source code for an example of a GRController subclass that utilizes all of above.
 
 subsection::Controller Subclass Example
 
