@@ -8,7 +8,7 @@ Grrr-sc provides high level UI abstractions for grid based controllers such as [
 
 ## Usage
 
-Grrr can be used as a framework for building [complete apps](http://github.com/antonhornquist/dw-sc) or in live coding.
+Grrr can be used as a framework for building full featured apps or in live coding.
 
 ## Examples
 
@@ -72,11 +72,11 @@ The user-specific extension directory may be retrieved by evaluating Platform.us
 
 ## Documentation
 
-Tutorials, example apps and reference documentation in SCDoc help format is installed and available in the SuperCollider IDE once the Grrr library is installed.
+Reference documentation in SCDoc help format is available in the SuperCollider IDE once the Grrr library is installed.
 
 ## Tests
 
-An automated test suite for Grrr-sc is available separately [GrrrTests-sc](http://github.com/antonhornquist/GrrrTests-sc).
+An automated test suite for Grrr-sc is available separately: [GrrrTests-sc](http://github.com/antonhornquist/GrrrTests-sc)
 
 ## Implementation
 
