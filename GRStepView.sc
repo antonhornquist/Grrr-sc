@@ -53,7 +53,7 @@ GRStepView : GRMultiButtonView {
 
 	value_ { |val|
 		this.validateValue(val);
-		this.numSteps.do { |index| this.setStepValue(index, val[index]) }
+		this.numSteps.do { |index| this.setStepValue(index, val[index]) }
 	}
 
 	valueAction_ { |val|

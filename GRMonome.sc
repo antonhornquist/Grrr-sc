@@ -32,7 +32,10 @@ GRMonome : GRController {
 				};
 			};
 			serialOSCClient.onFree = { this.remove };
-			serialOSCClient.onGridRouted = { |client, grid| onGridRouted.value(this, grid); };
+			serialOSCClient.onGridRouted = { |client, grid|
+				client.refreshGrid;
+				onGridRouted.value(this, grid);
+			};
 			serialOSCClient.onGridUnrouted = { |client, grid| onGridUnrouted.value(this, grid); };
 			fork {
 				0.5.wait;
