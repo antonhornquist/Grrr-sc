@@ -39,8 +39,8 @@ a.spawnGui; // spawns a virtual grid
 ``` supercollider
 s.boot;
 a=GRMonome.new; // creates a monome
-b=GRStepView.new(a, 0@7, 8, 1); // the step view defines when to play notes 
-c=GRMultiToggleView.new(a, 0@0, 8, 7); // toggles representing note pitch
+b=GRStepView.new(a, 0@7, a.numCols, 1); // the step view defines when to play notes 
+c=GRMultiToggleView.new(a, 0@0, a.numCols, 7); // toggles representing note pitch
 c.valuesAreInverted=true;
 
 (
@@ -49,13 +49,21 @@ c.valuesAreInverted=true;
         b.playhead = 0;
         inf.do {
             if (b.stepValue(b.playhead)) { (degree: c.toggleValue(b.playhead)).play };
-            0.25.wait;
+            0.15.wait;
             b.playhead = (b.playhead + 1) % b.numCols;
         }
     }
 )
 
 a.spawnGui; // spawns a virtual grid
+
+(
+// randomize pattern
+b.numCols.do { |index|
+	c.setToggleValue(index, (c.numRows).rand);
+	b.setStepValue(index, [true, false].choose);
+};
+)
 ```
 
 ## Requirements
