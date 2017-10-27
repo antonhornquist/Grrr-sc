@@ -1,304 +1,101 @@
 TITLE:: GRScreenGrid
-summary:: (put short description here)
-categories:: Undocumented classes
+summary:: An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
+categories:: External Control
 related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
 
 DESCRIPTION::
-(put long description here)
+An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
+
+Key control is limited to certain keymaps (at this point, Swedish).
 
 
 CLASSMETHODS::
 
-METHOD:: defaultNumCols
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: initClass
-(describe method here)
-
-returns:: (describe returnvalue here)
-
 METHOD:: new
-(describe method here)
+Creates a new instance of GRScreenGrid and, if supplied, attaches it to a link::Classes/GRView:: at the supplied origin.
 
 ARGUMENT:: numCols
-(describe argument here)
+An Integer describing the width of the new on-screen grid.
 
 ARGUMENT:: numRows
-(describe argument here)
+An Integer describing the width of the new on-screen grid.
 
 ARGUMENT:: view
-(describe argument here)
+A subclass of link::Classes/GRView:: to which the new GRMonome will attach.
 
 ARGUMENT:: origin
-(describe argument here)
+A Point describing the position on the supplied view to which the GRMonome will be placed. Position is measured relative to the view's top-left corner.
 
 ARGUMENT:: createTopViewIfNoneIsSupplied
-(describe argument here)
+A Boolean that determine whether a GRTopView by default is created if view and origin arguments are omitted. Default is true.
 
 ARGUMENT:: readOnly
-(describe argument here)
+A Boolean that determine whether the buttons on an on-screen grid are possible to press.
 
-returns:: (describe returnvalue here)
-
-METHOD:: setKeymap
-(describe method here)
-
-ARGUMENT:: keymapName
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: newDetached
-(describe method here)
-
-ARGUMENT:: numCols
-(describe argument here)
-
-ARGUMENT:: numRows
-(describe argument here)
-
-returns:: (describe returnvalue here)
+returns:: A new instance of GRScreenGrid
 
 METHOD:: newView
-(describe method here)
+Creates an on-screen grid given an existing view.
 
 ARGUMENT:: view
-(describe argument here)
+A subclass of link::Classes/GRView:: to which the new GRMonome will attach.
 
 ARGUMENT:: readOnly
-(describe argument here)
+A Boolean that determine whether the buttons on an on-screen grid are possible to press.
 
-returns:: (describe returnvalue here)
+returns:: A new instance of GRScreenGrid
 
 METHOD:: keyControlEnabledByDefault
-(describe method here)
+Sets or returns a Boolean that determine whether key control is enabled by default.
 
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
-METHOD:: defaultNumRows
-(describe method here)
+METHOD:: setKeymap
+Sets keymap to use.
 
-returns:: (describe returnvalue here)
+ARGUMENT:: keymapName
+A Symbol. Name of the keymap.
 
 
 INSTANCEMETHODS::
 
-METHOD:: releaseScreenGridButton
-(describe method here)
-
-ARGUMENT:: x
-(describe argument here)
-
-ARGUMENT:: y
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: releaseAllScreenGridButtonsUnlessHoldModifier
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: handleViewLedRefreshedEvent
-(describe method here)
-
-ARGUMENT:: point
-(describe argument here)
-
-ARGUMENT:: on
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: toggleKeyControl
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: lookupScreenGridButton
-(describe method here)
-
-ARGUMENT:: areaIndex
-(describe argument here)
-
-ARGUMENT:: keymapKeysIndex
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: alwaysOnTop
-(describe method here)
-
-ARGUMENT:: argAlwaysOnTop
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: handleKeyControlEvent
-(describe method here)
-
-ARGUMENT:: keycode
-(describe argument here)
-
-ARGUMENT:: pressed
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: handleViewButtonStateChangedEvent
-(describe method here)
-
-ARGUMENT:: point
-(describe argument here)
-
-ARGUMENT:: pressed
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: prConfigureKeyboardActions
-(describe method here)
-
-returns:: (describe returnvalue here)
+SUBSECTION::Behavior::
 
 METHOD:: readOnly
-(describe method here)
+Answers whether the buttons on an on-screen grid are possible to press.
 
-returns:: (describe returnvalue here)
-
-METHOD:: cleanup
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: holdModifier
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: showKeyControlArea
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: releaseAllScreenGridButtonsWithinKeyControlAreaBoundsUnlessHoldModifier
-(describe method here)
-
-ARGUMENT:: index
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: prCreateWindow
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: isArrowKeycode
-(describe method here)
-
-ARGUMENT:: keycode
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: initGRScreenGrid
-(describe method here)
-
-ARGUMENT:: argReadOnly
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: arrowKeycodeToDirection
-(describe method here)
-
-ARGUMENT:: keycode
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: nextKeyControlArea
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: releaseAllScreenGridButtonsWithinBounds
-(describe method here)
-
-ARGUMENT:: argOrigin
-(describe argument here)
-
-ARGUMENT:: argNumCols
-(describe argument here)
-
-ARGUMENT:: argNumRows
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: disableKeyControl
-(describe method here)
-
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
 METHOD:: keyControlEnabled
-(describe method here)
+Answers whether key control of buttons on an on-screen grid is enabled;
 
-returns:: (describe returnvalue here)
+returns:: A Boolean
 
-METHOD:: releaseAllScreenGridButtons
-(describe method here)
+METHOD:: toggleKeyControl
+Toggles key control.
 
-returns:: (describe returnvalue here)
-
-METHOD:: handleKeyControlArrowEvent
-(describe method here)
-
-ARGUMENT:: direction
-(describe argument here)
-
-ARGUMENT:: pressed
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: handleKeyControlKeymapEvent
-(describe method here)
-
-ARGUMENT:: keymapKeysIndex
-(describe argument here)
-
-ARGUMENT:: pressed
-(describe argument here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: hideKeyControlArea
-(describe method here)
-
-returns:: (describe returnvalue here)
-
-METHOD:: flashKeyControlArea
-(describe method here)
-
-returns:: (describe returnvalue here)
+METHOD:: disableKeyControl
+Disables key control.
 
 METHOD:: enableKeyControl
-(describe method here)
+Enables key control.
 
-returns:: (describe returnvalue here)
+
+SUBSECTION::Window::
+
+METHOD:: alwaysOnTop
+Specify whether the window containing the on-screen grid is always on top.
+
+ARGUMENT:: argAlwaysOnTop
+A Boolean
 
 METHOD:: front
-(describe method here)
-
-returns:: (describe returnvalue here)
+Bring window containing the on-screen grid to front.
 
 
 EXAMPLES::
 
 code::
-(some example code)
+a=GRScreenGrid.new(8, 8);
+b=GRMultiButtonView.new(a, 0@0, 8, 8)
 ::

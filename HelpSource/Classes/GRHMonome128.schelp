@@ -1,30 +1,30 @@
 TITLE:: GRHMonome128
-summary:: (put short description here)
-categories:: Undocumented classes
-related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+summary:: Horizontally oriented monome 128.
+categories:: External Control
+related:: Classes/GRMonome
 
 DESCRIPTION::
-(put long description here)
+Horizontally oriented monome 128.
 
 
 CLASSMETHODS::
 
 METHOD:: new
-(describe method here)
+Creates a new instance of GRHMonome128 and, if supplied, attaches it to a link::Classes/GRView:: at the supplied origin.
 
 ARGUMENT:: name
-(describe argument here)
+A String used to name the SerialOSCClient instantiated for each GRHMonome128.
 
 ARGUMENT:: view
-(describe argument here)
+A subclass of link::Classes/GRView:: to which the new GRHMonome128 will attach.
 
 ARGUMENT:: origin
-(describe argument here)
+A Point describing the position on the supplied view to which the GRHMonome128 will be placed. Position is measured relative to the view's top-left corner.
 
 ARGUMENT:: createTopViewIfNoneIsSupplied
-(describe argument here)
+A Boolean that determine whether a GRTopView by default is created if view and origin arguments are omitted. Default is true.
 
-returns:: (describe returnvalue here)
+returns:: A new instance of GRHMonome128
 
 
 INSTANCEMETHODS::

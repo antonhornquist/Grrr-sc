@@ -1,30 +1,30 @@
 TITLE:: GRMonome64
-summary:: (put short description here)
-categories:: Undocumented classes
-related:: Classes/SomeRelatedClass, Reference/SomeRelatedStuff, etc.
+summary:: Monome 64 or 40h.
+categories:: External Control
+related:: Classes/GRMonome
 
 DESCRIPTION::
-(put long description here)
+Monome 64 or 40h.
 
 
 CLASSMETHODS::
 
 METHOD:: new
-(describe method here)
+Creates a new instance of GRMonome64 and, if supplied, attaches it to a link::Classes/GRView:: at the supplied origin.
 
 ARGUMENT:: name
-(describe argument here)
+A String used to name the SerialOSCClient instantiated for each GRMonome64.
 
 ARGUMENT:: view
-(describe argument here)
+A subclass of link::Classes/GRView:: to which the new GRMonome64 will attach.
 
 ARGUMENT:: origin
-(describe argument here)
+A Point describing the position on the supplied view to which the GRMonome64 will be placed. Position is measured relative to the view's top-left corner.
 
 ARGUMENT:: createTopViewIfNoneIsSupplied
-(describe argument here)
+A Boolean that determine whether a GRTopView by default is created if view and origin arguments are omitted. Default is true.
 
-returns:: (describe returnvalue here)
+returns:: A new instance of GRMonome64
 
 
 INSTANCEMETHODS::

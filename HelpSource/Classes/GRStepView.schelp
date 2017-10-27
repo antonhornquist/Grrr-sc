@@ -72,7 +72,7 @@ SUBSECTION:: Step state
 METHOD:: stepIsPressed
 Answers whether a specific step of the view is pressed.
 
-ARGUMENT:: stepIndex
+ARGUMENT:: index
 An Integer identifying step
 
 returns:: A Boolean
@@ -80,7 +80,7 @@ returns:: A Boolean
 METHOD:: stepIsReleased
 Answers whether a specific step of the view is released.
 
-ARGUMENT:: stepIndex
+ARGUMENT:: index
 An Integer identifying step
 
 returns:: A Boolean
@@ -91,7 +91,7 @@ SUBSECTION::Value
 METHOD:: playhead
 Sets or gets the playhead index position.
 
-ARGUMENT:: stepIndex
+ARGUMENT:: index
 An Integer identifying step
 
 returns:: An Integer
@@ -99,7 +99,7 @@ returns:: An Integer
 METHOD:: stepValue
 Answers the value of a specific step in the GRStepView.
 
-ARGUMENT:: stepIndex
+ARGUMENT:: index
 An Integer identifying step
 
 returns:: A Boolean
@@ -107,7 +107,7 @@ returns:: A Boolean
 METHOD:: setStepValue
 Sets the value of a specific step in the GRStepView.
 
-ARGUMENT:: stepIndex
+ARGUMENT:: index
 An Integer identifying step
 
 ARGUMENT:: val
@@ -116,7 +116,7 @@ A Boolean: true to set, false to clear
 METHOD:: setStepValueAction
 Sets the value of a specific button in the GRStepView with side effect of triggering actions.
 
-ARGUMENT:: stepIndex
+ARGUMENT:: index
 An Integer identifying step
 
 ARGUMENT:: val

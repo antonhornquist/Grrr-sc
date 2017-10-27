@@ -51,8 +51,6 @@ returns:: An Array of GRMonome instances.
 
 INSTANCEMETHODS::
 
-SUBSECTION:: UI
-
 SUBSECTION:: GUI support
 
 METHOD:: spawnGui

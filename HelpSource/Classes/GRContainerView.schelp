@@ -189,5 +189,4 @@ b=GRView.newDetached(2, 2);
 a.addChild(b, 0@0);
 a.isParentOf(b); // true
 a.getChildrenAt(0@0) == [b]; // true
-a.getEnabledChildAt(0@0) == b; // true
 ::
