@@ -259,7 +259,7 @@ code::
 		.notePressedAction_({ |kbd, note| "note % was pressed".format(table[note]).postln })
 		.noteReleasedAction_({ |kbd, note| "note % was released".format(table[note]).postln });
 
-	screenGrid = GRScreenGrid.newView(keyboard).enableKeyControl; // FIXME: no need to make newDetached and enableKeyControl in the example
+	screenGrid = GRScreenGrid.newView(keyboard).enableKeyControl;
 
 )
 ::

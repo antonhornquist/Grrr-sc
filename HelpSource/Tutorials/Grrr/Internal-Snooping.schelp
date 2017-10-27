@@ -31,7 +31,7 @@ b.indicateView; // still flashes leds
 Using a GRCommon class variable views may automatically be indicated when added/removed to a controller. Automatic indications are nice hints when prototyping a UI or creating an ad hoc UI when live coding.
 
 code::
-GRCommon.indicateAddedRemovedAttachedDetached=true; // TODO: this should be called something better such as indicateAutomatically
+GRCommon.indicateAddedRemovedAttachedDetached=true;
 
 b=GRButton(a, 1@3);
 c=GRButton(a, 2@0);
