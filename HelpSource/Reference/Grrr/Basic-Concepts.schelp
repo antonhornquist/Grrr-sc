@@ -27,6 +27,8 @@ b.valueAction = false;
 b.toggleValue; // toggle value and trigger action, this is the action coupled GRButton presses trigger
 
 b.remove; // remove the button from the screen grid
+
+a.view.removeAllChildren; // can be used to remove all children
 ::
 
 section::Enabling and disabling views
@@ -34,6 +36,7 @@ section::Enabling and disabling views
 GRViews may be enabled or disabled individually. Disabled views do not display led state nor handle button events from it's parent.
 
 code::
+a=GRScreenGrid.new;
 b=GRButton(a, 0@0); // a 1x1 (the default size) button placed at top left key
 b.value = true;
 b.disable; // button led disappear when a view is disabled and key events are no longer handled
@@ -42,24 +45,12 @@ b.enable; // enable button again to
 b.remove; // remove the button from the screen grid
 ::
 
-Grrr differs from SuperCollider GUI classes in that views in enabled state (the default state) are not allowed to overlap. An error will be thrown for any method invocation that make two or more Grrr Views do so. At any given point in a view or controller only one view may be enabled. As such, there is no z ordering of views. The exception to this is GRContainerView which represents a view that may contain other views.
-
-code::
-b=GRButton(a, 0@0, 2, 2);
-c=GRButton(a, 0@0, 1, 1); // this will throw an error
-c=GRButton.newDisabled(a, 0@0, 1, 1); // this will work. a disabled view will not handle key events nor output led state
-c.enable; // this throws an error since b and c overlap
-b.disable; // if the large button is disabled,
-c.enable; // it's possible to enable the small button
-
-a.view.removeAllChildren; // removes all of the controllers child views
-::
-
 section::Nesting views
 
 GRContainerView may be used to group other views.
 
 code::
+a=GRScreenGrid.new;
 b=GRContainerView(a, 0@0, 4, 4);
 c=GRMultiButtonView(b, 0@0, 4, 4);
 c.action = { |view| ("i'm in" + view.getParents).postln };
@@ -70,36 +61,36 @@ e=GRContainerView(d, 0@0, 2, 2);
 f=GRButton(e, 0@0, 2, 2);
 f.action = { |view| ("i'm in" + view.getParents).postln };
 a.postTree;
-
-a.view.removeAllChildren;
 ::
 
 GRContainerView provides methods for switching between the views it contain.
 
 code::
+a=GRScreenGrid.new;
 (
 b=GRContainerView(a, 0@0, 4, 4);
 c=4.collect { GRMultiButtonView(b, 0@0, 4, 4) }; // create four 4x4 views in the GRContainerView
 )
 
-b.switchToChildByIndex(1); // switch between views
-b.switchToChildByIndex(2);
-b.switchToChildByIndex(3);
-b.switchToChildByIndex(0);
+c[0].bringToFront; // switch between views
+c[1].bringToFront;
+c[2].bringToFront;
+c[3].bringToFront;
 
 (
-b.switchToChildByIndex(0);
+c[0].bringToFront;
 d=GRHToggle(a, 0@4, 4, 1); // a toggle can be used to switch between views
-d.action = { |view, value| b.switchToChildByIndex(value) };
+d.action = { |view, value| c[value].bringToFront };
 )
-a.view.removeAllChildren;
 ::
 
 section::Coupled vs decoupled views
 
-Grrr widgets may be used in a coupled or decoupled fashion. Coupled views automatically updates a widget's value on incoming key events. This is the default, simply because that's how regular GUI views work. Decoupled views do not update a widget's value on incoming key events. A widget's value mostly correspond to the state of the leds of the widget. Decoupled views require a bit more code but is arguably more useful since key presses may be customized and not directly correspond to how a widget normally works.
+Grrr widgets may be used in a coupled or decoupled fashion. Coupled views automatically updates a widget's value on incoming key events. This is the default, and how how regular GUI views work. Decoupled views do not update a widget's value on incoming key events. A widget's value mostly correspond to the state of the leds of the widget. Decoupled views require a bit more code but is arguably more useful since key presses may be customized to not directly correspond to how a widget normally works.
 
 code::
+a=GRScreenGrid.new;
+s.boot;
 b=GRHToggle(a, 0@0, 8, 1); // a coupled toggle
 c=GRHToggle.newDecoupled(a, 0@1, 8, 1); // a decoupled one
 
@@ -132,8 +123,6 @@ c.toggleValuePressedAction = { |view, value| // toggleValuePressedAction is trig
 )
 
 r.stop; // stop the sequence
-
-a.view.removeAllChildren;
 ::
 
 In addition to using the newDecoupled constructor it's possible to set a widget coupled or decoupled using the coupled_() method.
@@ -143,6 +132,7 @@ section::Detached views
 A view is typically created as a child to another view acting as a parent view. When a view has a parent it is considered attached. It's possible to create detached views and attach them at a later stage.
 
 code::
+a=GRScreenGrid.new;
 b=GRButton(a, 0@0);
 b.hasParent; // true
 c=GRButton.newDetached;
@@ -151,8 +141,6 @@ c.isDetached; // true
 a.addChild(c, 1@1);
 c.hasParent; // true
 c.isDetached; // false
-
-a.view.removeAllChildren;
 ::
 
 It's also possible to detach a view from a parent and reattach them to another parent.
@@ -161,11 +149,11 @@ code::
 // Example code
 a=GRScreenGrid.new;
 b=GRButton(a, 0@0);
-c.hasParent; // true
+b.hasParent; // true
 b.remove;
-c.hasParent; // false
+b.hasParent; // false
 c=GRScreenGrid.new;
 c.addChild(b, 3@3);
-c.hasParent; // true
+b.hasParent; // true
 ::
 

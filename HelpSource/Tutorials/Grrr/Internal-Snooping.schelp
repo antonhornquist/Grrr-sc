@@ -8,12 +8,11 @@ section::Debugging and Internal Snooping
 Views may be indicated meaning its bounds shown with a continuous flash on the controller to which it is attached.
 
 code::
+a=GRScreenGrid.new;
 b=GRButton(a, 1@3);
 c=GRButton(a, 2@0);
 b.indicateView;
 c.indicateView;
-
-a.view.removeAllChildren;
 ::
 
 Views are indicated regardless of whether they're enabled or not.
@@ -24,7 +23,7 @@ b=GRButton.new(a, 0@0);
 b.flashView;
 b.indicateView;
 b.disable;
-b.flashPoint; // will not make any difference
+b.flashView; // will not make any difference
 b.indicateView; // still flashes leds
 ::
 
@@ -32,7 +31,7 @@ Using a GRCommon class variable views may automatically be indicated when added/
 
 code::
 GRCommon.indicateAddedRemovedAttachedDetached=true;
-
+a=GRScreenGrid.new;
 b=GRButton(a, 1@3);
 c=GRButton(a, 2@0);
 b.remove;
@@ -42,29 +41,10 @@ c.remove;
 GRCommon.indicateAddedRemovedAttachedDetached=false;
 ::
 
-With globals Grrr button and led events may be traced
-
-code::
-GRCommon.traceButtonEvents=true;
-a=GRContainerView.newDetached(4, 4);
-b=GRButton(a, 1@3);
-a.press(this, 1@3);
-a.press(this, 0@0);
-a.release(this, 1@3);
-a.release(this, 0@0);
-GRCommon.traceButtonEvents=false; // the default
-
-GRCommon.traceLedEvents=true;
-b=GRButton(a, 1@3);
-b.value = true;
-b.value = false;
-GRCommon.traceLedEvents=false; // the default
-b.remove
-::
-
 It's possible to post textual representations of views to the Post Window.
 
 code::
+a=GRScreenGrid.new;
 b=GRContainerView(a, 0@0, 4, 4);
 c=GRMultiButtonView(b, 0@0, 4, 4);
 a.postTree // post a tree of all contained views
@@ -72,6 +52,4 @@ a.postTree // post a tree of all contained views
 a.plot // plot a view or controller
 b.plot // plot container view
 a.plotTree // plot a view or controller and all its contained views recursively
-
-a.view.removeAllChildren;
 ::
