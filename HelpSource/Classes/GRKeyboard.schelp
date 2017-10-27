@@ -237,9 +237,6 @@ EXAMPLES::
 code::
 // post note names pressed
 
-// TODO: no need to make newDetached and enableKeyControl
-
-// TODO: cleanup
 (
 	var table = (), keyboard, screenGrid;
 	// build a table of note names (nicked from Literals helpfile)
@@ -262,6 +259,7 @@ code::
 		.notePressedAction_({ |kbd, note| "note % was pressed".format(table[note]).postln })
 		.noteReleasedAction_({ |kbd, note| "note % was released".format(table[note]).postln });
 
-	screenGrid = GRScreenGrid.newView(keyboard).enableKeyControl;
+	screenGrid = GRScreenGrid.newView(keyboard).enableKeyControl; // FIXME: no need to make newDetached and enableKeyControl in the example
+
 )
 ::

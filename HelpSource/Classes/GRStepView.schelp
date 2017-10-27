@@ -55,7 +55,6 @@ SUBSECTION:: Behavior
 
 METHOD:: stepViewIsCoupled
 A Boolean that determine whether pressing buttons on the view automatically toggles value of steps. The default is true.
-TODO: regular coupled property should be used
 
 returns:: A Boolean
 
