@@ -19,10 +19,9 @@ a=GRScreenGrid.new; // creates a virtual grid which shows up in a separate windo
 b=GRButton(a, 0@0); // places a 1x1 button at top left key
 b.action = { |view, value| (value.if("Hello", "Goodbye") + "World").postln }; // sets an action to be triggered when the button is pressed
 
-// pressing the top left grid button of the virtual grid will change led state and output to the Post Window
+// pressing the top left grid button of the grid will change led state and output to the Post Window
 ```
-
-### An example with sound
+### An Example With Sound
 
 ``` supercollider
 s.boot;
@@ -31,10 +30,10 @@ b=GRButton(a, 0@0); // places a 1x1 button at top left key
 b.action = { |view, value| if (value) { c = {SinOsc.ar}.play } { c.release } }; // sets an action to be triggered when the button is pressed
 a.spawnGui; // spawns a virtual grid
 
-// pressing the top left grid button of the monome or virtual grid will change led state and audition a sine oscillator
+// pressing the top left grid button of the grid will change led state and audition a sine oscillator
 ```
 
-### A simple step sequencer
+### A Simple Step Sequencer
 
 ``` supercollider
 s.boot;
