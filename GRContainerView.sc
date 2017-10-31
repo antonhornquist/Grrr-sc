@@ -140,21 +140,15 @@ GRContainerView : GRView {
 	}
 
 	bringChildToFront { |view|
-		children.move(this.prGetChildIndex(view), this.numChildren);
+		children.remove(view);
+		children = children.add(view);
 		this.refreshBounds(view.origin, view.numCols, view.numRows)
 	}
 
 	sendChildToBack { |view|
-		children.move(this.prGetChildIndex(view), 0);
+		children.remove(view);
+		children = children.insert(0, view);
 		this.refreshBounds(view.origin, view.numCols, view.numRows)
-	}
-
-	numChildren {
-		^children.size;
-	}
-
-	prGetChildIndex { |argChild|
-		^children.indexOf(argChild);
 	}
 
 	// Validations
