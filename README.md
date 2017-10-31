@@ -110,7 +110,7 @@ The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port o
 		* GRMonome64 - 8x8 monome.
 		* GRMonomeV128 - 8x16 monome.
 		* GRMonomeH128 - 16x8 monome.
-		* GRMonome256 - 8x16 monome.
+		* GRMonome256 - 16x16 monome.
 	* GRScreenGrid - An on-screen controller of user definable size. Button events may be triggered with mouse and keyboard.
 
 ## Extending Grrr
