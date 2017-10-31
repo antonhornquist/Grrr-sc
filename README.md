@@ -106,7 +106,7 @@ The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port o
 			* GRStepView - A grid of buttons of the same size referred to by index. One of the steps may be indicated as the playhead position. Suitable for step sequencing.
 		* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
 * GRController - Abstract superclass. Represents a grid based controller device that may attach to and control part of or an entire view.
-	* GRMonome - Generic [Monome](http://monome.org) controller.
+	* GRMonome - Generic [monome](http://monome.org) controller.
 		* GRMonome64 - 8x8 monome.
 		* GRMonomeV128 - 8x16 monome.
 		* GRMonomeH128 - 16x8 monome.
