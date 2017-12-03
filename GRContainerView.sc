@@ -31,6 +31,9 @@ GRContainerView : GRView {
 	// Parent - Child
 
 	validateOkToAddChild { |view, origin|
+		if (this.getParents.includes(view)) {
+			Error("[%] is parent of [%]".format(view.asString, this.asString)).throw;
+		};
 		if (origin.isNil) {
 			Error("origin is required").throw;
 		};
@@ -152,12 +155,6 @@ GRContainerView : GRView {
 	}
 
 	// Validations
-
-	validateOkToEnableChild { |child|
-	}
-
-	validateOkToDisableChild { |child|
-	}
 
 	validateWithinBounds { |view, origin|
 		if ( this.isWithinBounds(view, origin).not ) {

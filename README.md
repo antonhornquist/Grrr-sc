@@ -94,17 +94,17 @@ The [grrr-rb](http://github.com/antonhornquist/grrr-rb) library is a Ruby port o
 ## Classes
 
 * GRView - Abstract superclass. Represents a 2D grid of backlit buttons.
+	* GRContainerView - Abstract class for views that may contain other views.
+		* GRTopView - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
 	* GRButton - A button that may span over several rows and columns.
 	* GRAbstractToggle - Abstract class for toggles.
 		* GRToggle - A toggle.
 			* GRVToggle - Vertical oriented toggle.
 			* GRHToggle - Horizontal oriented toggle.
+	* GRMultiButtonView - A grid of buttons of the same size.
+	* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
+	* GRStepView - A grid of buttons of the same size referred to by index. One of the steps may be indicated as the playhead position. Suitable for step sequencing.
 	* GRKeyboard - A virtual keyboard.
-	* GRContainerView - Abstract class for views that may contain other views.
-		* GRTopView - This is the topmost view in a view tree and typically the view to which controllers attach. The view cannot be added as a child to any other view.
-		* GRMultiButtonView - A grid of buttons of the same size.
-			* GRStepView - A grid of buttons of the same size referred to by index. One of the steps may be indicated as the playhead position. Suitable for step sequencing.
-		* GRMultiToggleView - An array of vertical or horizontal toggles of the same size.
 * GRController - Abstract superclass. Represents a grid based controller device that may attach to and control part of or an entire view.
 	* GRMonome - Generic [monome](http://monome.org) controller.
 		* GRMonome64 - 8x8 monome.
