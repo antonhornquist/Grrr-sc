@@ -392,11 +392,15 @@ GRView {
 	}
 
 	prDisableLedForwardingToParent {
-		this.removeAction(parentViewLedRefreshedListener, \viewLedRefreshedAction);
+		if (parentViewLedRefreshedListener.notNil) {
+			this.removeAction(parentViewLedRefreshedListener, \viewLedRefreshedAction);
+		}
 	}
 
 	prEnableLedForwardingToParent {
-		this.addAction(parentViewLedRefreshedListener, \viewLedRefreshedAction);
+		if (parentViewLedRefreshedListener.notNil) {
+			this.addAction(parentViewLedRefreshedListener, \viewLedRefreshedAction);
+		}
 	}
 
 	prDoThenRefreshChangedLeds { |func|
