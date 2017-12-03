@@ -475,23 +475,22 @@ GRView {
 	}
 
 	flashPoints { |points, delay|
-		this.prInvertLeds(points);
+		this.prSetInvertedLedsMap(points, true);
 		this.prScheduleToResetLeds(
 			points,
 			(delay ? defaultFlashDelay)  / 1000.0
 		);
 	}
 
-	prInvertLeds { |points|
-		points.do { |point| invertedLedsMap[point.x][point.y] = true };
+	prSetInvertedLedsMap { |points, bool|
+		points.do { |point| invertedLedsMap[point.x][point.y] = bool };
 		this.isEnabled.if { this.refreshPoints(points) };
 	}
 
 	prScheduleToResetLeds { |points, delayInSeconds|
 		{
 			delayInSeconds.wait;
-			points.do { |point| invertedLedsMap[point.x][point.y] = false };
-			this.isEnabled.if { this.refreshPoints(points) }
+			this.prSetInvertedLedsMap(points, false);
 		}.fork(AppClock);
 	}
 
