@@ -86,19 +86,19 @@ GRView {
 	}
 
 	leftTopPoint {
-		^Point.new(0, 0)
+		^Point.new(this.leftmostCol, this.topmostRow)
 	}
 
 	rightTopPoint {
-		^Point.new(numCols-1, 0)
+		^Point.new(this.rightmostCol, this.topmostRow)
 	}
 
 	leftBottomPoint {
-		^Point.new(0, numRows-1)
+		^Point.new(this.leftmostCol, this.bottommostRow)
 	}
 
 	rightBottomPoint {
-		^Point.new(numCols-1, numRows-1)
+		^Point.new(this.rightmostCol, this.bottommostRow)
 	}
 
 	leftmostCol {
@@ -307,7 +307,9 @@ GRView {
 
 				[];
 			};
-		}
+		} {
+			[];
+		};
 	}
 
 	pointsPressed {
@@ -519,9 +521,6 @@ GRView {
 			this.refresh;
 			viewWasEnabledAction.value(this);
 		} {
-			if (this.hasParent) {
-				parent.validateOkToDisableChild(this);
-			};
 			this.releaseAll;
 			enabled = false;
 			if (this.hasParent) {
