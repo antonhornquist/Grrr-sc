@@ -119,10 +119,10 @@ GRController {
 
 		if (origin == Point.new(0, 0) and: (numCols == view.numCols) and: numRows == view.numRows) {
 			viewLedRefreshedListener = { |source, point, on|
-				this.handleViewLedRefreshedEvent(point-origin, on);
+				this.handleViewLedRefreshedEvent(point, on);
 			};
 			viewButtonStateChangedListener = { |point, pressed|
-				this.handleViewButtonStateChangedEvent(point-origin, pressed);
+				this.handleViewButtonStateChangedEvent(point, pressed);
 			};
 		} {
 			bottomRight = origin + Point.new(numCols-1, numRows-1);
