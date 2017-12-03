@@ -9,8 +9,8 @@ GRAbstractToggle : GRView {
 		valuesPressed
 	;
 
-	*new { |parent, origin, numCols, numRows, enabled=true, coupled=true, nillable=false, orientation=\vertical|
-		^super.new(parent, origin, numCols, numRows, enabled).initGRAbstractToggle(coupled, nillable, orientation);
+	*new { |numCols, numRows, enabled=true, coupled=true, nillable=false, orientation=\vertical|
+		^super.new(nil, nil, numCols, numRows, enabled).initGRAbstractToggle(coupled, nillable, orientation);
 	}
 
 	initGRAbstractToggle { |argCoupled, argNillable, argOrientation|

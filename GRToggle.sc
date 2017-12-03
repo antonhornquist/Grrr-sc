@@ -9,7 +9,7 @@ GRToggle : GRAbstractToggle {
 	;
 
 	*new { |parent, origin, numCols, numRows, enabled=true, coupled=true, nillable=false, orientation=\vertical|
-		^super.new(nil, nil, numCols, numRows, enabled, coupled, nillable, orientation).initGRToggle(parent, origin);
+		^super.new(numCols, numRows, enabled, coupled, nillable, orientation).initGRToggle(parent, origin);
 	}
 
 	initGRToggle { |argParent, argOrigin|
