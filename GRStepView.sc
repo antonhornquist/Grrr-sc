@@ -25,9 +25,7 @@ GRStepView : GRView {
 			};
 		}, \viewLedRefreshedAction);
 		this.addAction({ |point, pressed|
-			1.debug;
 			multiButtonView.handleViewButtonEvent(this, point, pressed);
-			2.debug;
 		}, \viewButtonStateChangedAction);
 		multiButtonView.buttonPressedAction = { |view, x, y|
 			var index = this.prXyToIndex(x, y);
@@ -165,28 +163,10 @@ GRStepView : GRView {
 			} {
 				this.prSetButtonValueByStepIndex(playhead, true);
 			};
-			if (previousPlayheadValue.notNil) { // TODO: can be moved out of outer if clause?
-				this.prRefreshStep(previousPlayheadValue);
-			}
-		} {
-			if (previousPlayheadValue.notNil) {
-				this.prRefreshStep(previousPlayheadValue);
-			}
 		};
-/*
-
- 		TODO: the two occurences of this:
-
-		if (previousPlayheadValue.notNil) {
+		if (previousPlayheadValue.notNil and: (previousPlayheadValue != playhead)) {
 			this.prRefreshStep(previousPlayheadValue);
-		}
-
-		...ought to be possible to remove, and improved by having a clause after the "if @playhead" section:
-
-		if (previous_playhead_value.notNil and: (previous_playhead_value != playhead)) {
-			this.prRefreshStep(previousPlayheadValue);
-		}
-*/
+		};
 	}
 
 	prRefreshStep { |index|
