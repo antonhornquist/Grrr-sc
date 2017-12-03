@@ -1,24 +1,35 @@
-GRMultiButtonView : GRContainerView {
+GRMultiButtonView : GRView {
 	var
 		<>buttonPressedAction,
 		<>buttonReleasedAction,
 		<>buttonValueChangedAction,
-		<buttonArraySize,
+		<numButtonCols,
+		<numButtonRows,
 		<behavior,
 		coupled,
-		buttons
+		buttons,
+		containerView
 	;
 
 	*new { |parent, origin, numCols, numRows, enabled=true, coupled=true, behavior=\toggle|
-		^super.new(nil, nil, numCols, numRows, enabled, true).initGRMultiButtonView(parent, origin, coupled, behavior);
+		^super.new(nil, nil, numCols, numRows, enabled).initGRMultiButtonView(parent, origin, coupled, behavior);
 	}
 
 	initGRMultiButtonView { |argParent, argOrigin, argCoupled, argBehavior|
 		coupled = argCoupled;
 		behavior = argBehavior;
-		buttonArraySize = [numCols, numRows];
+		numButtonCols = numCols;
+		numButtonRows = numRows;
 
-		actsAsView = true;
+		containerView = GRContainerView.newDetached(numCols, numRows);
+		containerView.addAction({ |originatingButton, point, on|
+			if (this.hasViewLedRefreshedAction) {
+				viewLedRefreshedAction.value(this, point, on);
+			};
+		}, \viewLedRefreshedAction);
+		this.addAction({ |point, pressed|
+			containerView.handleViewButtonEvent(this, point, pressed);
+		}, \viewButtonStateChangedAction);
 
 		this.prReconstructChildren;
 
@@ -31,10 +42,6 @@ GRMultiButtonView : GRContainerView {
 		^this.new(nil, nil, numCols, numRows, enabled, coupled, behavior)
 	}
 
-	*newDisabled { |parent, origin, numCols, numRows, coupled=true, behavior=\toggle|
-		^this.new(parent, origin, numCols, numRows, false, coupled, behavior)
-	}
-
 	*newDecoupled { |parent, origin, numCols, numRows, enabled=true, behavior=\toggle|
 		^this.new(parent, origin, numCols, numRows, enabled, false, behavior)
 	}
@@ -44,12 +51,12 @@ GRMultiButtonView : GRContainerView {
 	}
 
 	coupled_ { |argCoupled|
-		children.do { |child| child.coupled = argCoupled };
+		this.prButtonsDo { |button, x, y| button.coupled = argCoupled };
 		coupled = argCoupled;
 	}
 
 	behavior_ { |argBehavior|
-		children.do { |child| child.behavior = argBehavior };
+		this.prButtonsDo { |button, x, y| button.behavior = argBehavior };
 		behavior = argBehavior;
 	}
 
@@ -62,19 +69,19 @@ GRMultiButtonView : GRContainerView {
 	}
 
 	clear {
-		this.value_(Array.fill2D(this.numButtonCols, this.numButtonRows) { false })
+		this.value_(Array.fill2D(numButtonCols, numButtonRows) { false })
 	}
 
 	clearAction {
-		this.valueAction_(Array.fill2D(this.numButtonCols, this.numButtonRows) { false })
+		this.valueAction_(Array.fill2D(numButtonCols, numButtonRows) { false })
 	}
 
 	fill {
-		this.value_(Array.fill2D(this.numButtonCols, this.numButtonRows) { true })
+		this.value_(Array.fill2D(numButtonCols, numButtonRows) { true })
 	}
 
 	fillAction {
-		this.valueAction_(Array.fill2D(this.numButtonCols, this.numButtonRows) { true })
+		this.valueAction_(Array.fill2D(numButtonCols, numButtonRows) { true })
 	}
 
 	value {
@@ -83,11 +90,9 @@ GRMultiButtonView : GRContainerView {
 
 	value_ { |val|
 		this.validateValue(val);
-		this.numButtonCols.do { |x|
-			this.numButtonRows.do { |y|
-				buttons[x][y].value = val[x][y]
-			}
-		}
+		this.prButtonsDo { |button, x, y|
+			button.value = val[x][y]
+		};
 	}
 
 	valueAction_ { |val|
@@ -95,14 +100,12 @@ GRMultiButtonView : GRContainerView {
 
 		this.validateValue(val);
 		numButtonValuesChanged = 0;
-		this.numButtonCols.do { |x|
-			this.numButtonRows.do { |y|
-				var newButtonValue = val[x][y];
-				if (this.buttonValue(x, y) != newButtonValue) {
-					this.setButtonValue(x, y, newButtonValue);
-					buttonValueChangedAction !? buttonValueChangedAction.value(this, x, y, newButtonValue);
-					numButtonValuesChanged = numButtonValuesChanged + 1;
-				}
+		this.prButtonsDo { |button, x, y|
+			var newButtonValue = val[x][y];
+			if (this.buttonValue(x, y) != newButtonValue) {
+				this.setButtonValue(x, y, newButtonValue);
+				buttonValueChangedAction !? buttonValueChangedAction.value(this, x, y, newButtonValue);
+				numButtonValuesChanged = numButtonValuesChanged + 1;
 			}
 		};
 		if (numButtonValuesChanged > 0) {
@@ -111,9 +114,12 @@ GRMultiButtonView : GRContainerView {
 	}
 
 	validateValue { |val|
-		if ( ((val.size == this.numButtonCols) and: (val.every { |row| row.size == this.numButtonRows})).not ) {
-			Error("value must be a 2-dimensional array of %x% values".format(this.numButtonCols, this.numButtonRows)).throw
-		}
+		if ( ((val.size == numButtonCols) and: (val.every { |row| row.size == numButtonRows})).not ) {
+			Error("value must be a 2-dimensional array of %x% values".format(numButtonCols, numButtonRows)).throw
+		};
+		this.prButtonsDo { |button, x, y|
+			button.validateValue(val[x][y]);
+		};
 	}
 
 	buttonsPressed {
@@ -132,10 +138,6 @@ GRMultiButtonView : GRContainerView {
 		^buttons[x][y].value
 	}
 
-	flashButton { |x, y, delay|
-		buttons[x][y].flash(delay)
-	}
-
 	setButtonValue { |x, y, val|
 		buttons[x][y].value = val
 	}
@@ -144,49 +146,50 @@ GRMultiButtonView : GRContainerView {
 		buttons[x][y].valueAction = val;
 	}
 
-	buttonArraySize_ { |argButtonArraySize|
-		this.validateButtonArraySize(argButtonArraySize);
-		buttonArraySize = argButtonArraySize;
+	numButtonCols_ { |argNumButtonCols|
+		this.prSetNumButtonCols(argNumButtonCols);
 		this.prReconstructChildren;
 	}
 
-	validateButtonArraySize { |argButtonArraySize|
-		var newNumButtonCols, newNumButtonRows;
-		newNumButtonCols = argButtonArraySize[0];
-		newNumButtonRows = argButtonArraySize[1];
-		if (numCols % newNumButtonCols != 0) {
-			Error("% width (%) must be divisable by number of button columns (%)".format(this.class, numCols, newNumButtonCols)).throw
-		};
-		if (numRows % newNumButtonRows != 0) {
-			Error("% height (%) must be divisable by number of button rows (%)".format(this.class, numRows, newNumButtonRows)).throw
-		}
+	numButtonRows_ { |argNumButtonRows|
+		this.prSetNumButtonRows(argNumButtonRows);
+		this.prReconstructChildren;
 	}
 
-	numButtonCols {
-		^buttonArraySize[0]
+	buttonArraySize {
+		^Point.new(numButtonCols, numButtonRows);
 	}
 
-	numButtonRows {
-		^buttonArraySize[1]
+	buttonArraySize_ { |argButtonArraySize|
+		this.prSetNumButtonCols(argButtonArraySize.x);
+		this.prSetNumButtonRows(argButtonArraySize.y);
+		this.prReconstructChildren;
 	}
 
 	numButtons {
-		^this.numButtonCols * this.numButtonRows
+		^numButtonCols * numButtonRows
 	}
 
 	buttonWidth {
-		^numCols / this.numButtonCols
+		^numCols / numButtonCols
 	}
 
 	buttonHeight {
-		^numRows / this.numButtonRows
+		^numRows / numButtonRows
+	}
+
+	isLitAt { |point|
+		this.validateContainsPoint(point);
+		^containerView.isLitAt(point);
+	}
+
+	flashButton { |x, y, delay|
+		buttons[x][y].flash(delay)
 	}
 
 	flashView { |delay|
-		this.numButtonCols.do { |x|
-			this.numButtonRows.do { |y|
-				buttons[x][y].flash(delay);
-			}
+		this.prButtonsDo { |button, x, y|
+			button.flash(delay);
 		}
 	}
 
@@ -194,21 +197,44 @@ GRMultiButtonView : GRContainerView {
 		Error("not implemented for GRMultiButtonView").throw
 	}
 
-	flashPoint { |point, delay|
-		Error("not implemented for GRMultiButtonView").throw
+	prButtonsDo { |func|
+		numButtonCols.do { |x|
+			numButtonRows.do { |y|
+				func.value(buttons[x][y], x, y);
+			}
+		}
+	}
+
+	prSetNumButtonCols { |argNumButtonCols|
+		if (numCols % argNumButtonCols == 0) {
+			numButtonCols = argNumButtonCols;
+		} {
+			Error("% height (%) must be divisable by number of button columns (%)".format(this.class, numCols, argNumButtonCols)).throw
+		};
+	}
+
+	prSetNumButtonRows { |argNumButtonRows|
+		if (numRows % argNumButtonRows == 0) {
+			numButtonRows = argNumButtonRows;
+		} {
+			Error("% height (%) must be divisable by number of button rows (%)".format(this.class, numRows, argNumButtonRows)).throw
+		};
 	}
 
 	prReconstructChildren {
 		this.releaseAll;
-		this.prRemoveAllChildren(true);
 
-		buttons = Array.fill2D(this.numButtonCols, this.numButtonRows) { |x, y|
-			var button = GRButton.newDetached(this.buttonWidth, this.buttonHeight);
-			button.coupled = coupled;
-			this.prAddActions(button, x, y);
-			this.prAddChildNoFlash(button, Point.new(x*this.buttonWidth, y*this.buttonHeight));
-			button;
-		}
+		this.prDoThenRefreshChangedLeds {
+			containerView.prRemoveAllChildren(true);
+			buttons = Array.fill2D(numButtonCols, numButtonRows) { |x, y|
+				var button = GRButton.newDetached(this.buttonWidth, this.buttonHeight);
+				button.coupled = coupled;
+				button.behavior = behavior;
+				this.prAddActions(button, x, y);
+				containerView.prAddChildNoFlash(button, Point.new(x*this.buttonWidth, y*this.buttonHeight));
+				button;
+			};
+		};
 	}
 
 	prAddActions { |button, x, y|

@@ -1,30 +1,50 @@
-GRStepView : GRMultiButtonView {
+GRStepView : GRView {
+	classvar
+		<playheadFlashDelayWhenLit=100;
+
 	var
 		<>stepPressedAction,
 		<>stepReleasedAction,
 		<>stepValueChangedAction,
 		<playhead,
-		<stepViewIsCoupled,
-		steps
+		coupled,
+		steps,
+		multiButtonView
 	;
 
 	*new { |parent, origin, numCols, numRows, enabled=true, coupled=true|
-		^super.new(parent, origin, numCols, numRows, enabled, false, \toggle).initGRStepView(coupled);
+		^super.new(nil, nil, numCols, numRows, enabled).initGRStepView(parent, origin, coupled);
 	}
 
-	initGRStepView { |argCoupled|
-		stepViewIsCoupled = argCoupled;
-		steps = Array.fill(this.numSteps, false);
-		buttonPressedAction = { |view, x, y|
+	initGRStepView { |argParent, argOrigin, argCoupled|
+		coupled = argCoupled;
+		multiButtonView = GRMultiButtonView.newDetached(numCols, numRows, true, false, \toggle);
+		multiButtonView.addAction({ |originatingButton, point, on|
+			if (this.hasViewLedRefreshedAction) {
+				viewLedRefreshedAction.value(this, point, on);
+			};
+		}, \viewLedRefreshedAction);
+		this.addAction({ |point, pressed|
+			1.debug;
+			multiButtonView.handleViewButtonEvent(this, point, pressed);
+			2.debug;
+		}, \viewButtonStateChangedAction);
+		multiButtonView.buttonPressedAction = { |view, x, y|
 			var index = this.prXyToIndex(x, y);
-			if (stepViewIsCoupled) {
+			if (coupled) {
 				this.setStepValueAction(index, this.stepValue(index).not);
 			};
 			stepPressedAction.value(this, index);
 		};
-		buttonReleasedAction = { |view, x, y|
+		multiButtonView.buttonReleasedAction = { |view, x, y|
 			stepReleasedAction.value(this, this.prXyToIndex(x, y));
 		};
+
+		steps = Array.fill(this.numSteps, false);
+
+		// view has to be added to parent after class-specific properties
+		// have been initialized, otherwise it is not properly refreshed
+		this.validateParentOriginAndAddToParent(argParent, argOrigin);
 	}
 
 	*newDetached { |numCols, numRows, enabled=true, coupled=true|
@@ -35,16 +55,21 @@ GRStepView : GRMultiButtonView {
 		^this.new(parent, origin, numCols, numRows, enabled, false)
 	}
 
+	isLitAt { |point|
+		this.validateContainsPoint(point);
+		^multiButtonView.isLitAt(point);
+	}
+
 	stepIsPressed { |index|
-		var x, y;
-		# x, y = this.prIndexToXy(index);
-		^this.buttonIsPressed(x, y);
+		var point;
+		point = this.prIndexToXy(index);
+		^multiButtonView.buttonIsPressed(point.x, point.y);
 	}
 
 	stepIsReleased { |index|
-		var x, y;
-		# x, y = this.prIndexToXy(index);
-		^this.buttonIsReleased(x, y);
+		var point;
+		point = this.prIndexToXy(index);
+		^multiButtonView.buttonIsReleased(point.x, point.y);
 	}
 
 	value {
@@ -81,8 +106,8 @@ GRStepView : GRMultiButtonView {
 	}
 
 	stepsPressed {
-		^this.buttonsPressed.collect { |button|
-			this.prXyToIndex(button.x, button.y)
+		^multiButtonView.buttonsPressed.collect { |pos|
+			this.prXyToIndex(pos.x, pos.y)
 		}
 	}
 
@@ -91,9 +116,9 @@ GRStepView : GRMultiButtonView {
 	}
 
 	flashStep { |index, delay|
-		var x, y;
-		# x, y = this.prIndexToXy(index);
-		this.flashButton(x, y, delay);
+		var point;
+		point = this.prIndexToXy(index);
+		multiButtonView.flashButton(point.x, point.y, delay);
 	}
 
 	setStepValue { |index, val|
@@ -110,7 +135,7 @@ GRStepView : GRMultiButtonView {
 	}
 
 	numSteps {
-		^this.numButtons
+		^multiButtonView.numButtons
 	}
 
 	clear {
@@ -135,12 +160,12 @@ GRStepView : GRMultiButtonView {
 		playhead = index;
 
 		if (playhead.notNil) {
-			if (this.stepValue(playhead)) {
-				this.flashStep(playhead, 100);
+			if (this.stepValue(playhead) || (previousPlayheadValue==playhead)) {
+				this.flashStep(playhead, playheadFlashDelayWhenLit);
 			} {
 				this.prSetButtonValueByStepIndex(playhead, true);
 			};
-			if (previousPlayheadValue.notNil) {
+			if (previousPlayheadValue.notNil) { // TODO: can be moved out of outer if clause?
 				this.prRefreshStep(previousPlayheadValue);
 			}
 		} {
@@ -148,37 +173,51 @@ GRStepView : GRMultiButtonView {
 				this.prRefreshStep(previousPlayheadValue);
 			}
 		};
+/*
+
+ 		TODO: the two occurences of this:
+
+		if (previousPlayheadValue.notNil) {
+			this.prRefreshStep(previousPlayheadValue);
+		}
+
+		...ought to be possible to remove, and improved by having a clause after the "if @playhead" section:
+
+		if (previous_playhead_value.notNil and: (previous_playhead_value != playhead)) {
+			this.prRefreshStep(previousPlayheadValue);
+		}
+*/
 	}
 
 	prRefreshStep { |index|
-		var x, y;
+		var point;
 		var stepShouldBeLit;
 
-		# x, y = this.prIndexToXy(index);
+		point = this.prIndexToXy(index);
 		stepShouldBeLit = this.stepValue(index) or: (index == playhead);
 
-		if (this.buttonValue(x, y) != stepShouldBeLit) {
-			this.setButtonValue(x, y, stepShouldBeLit);
+		if (multiButtonView.buttonValue(point.x, point.y) != stepShouldBeLit) {
+			multiButtonView.setButtonValue(point.x, point.y, stepShouldBeLit);
 		};
 	}
 
 	prXyToIndex { |x, y|
-		^x + (y * this.numButtonCols)
+		^x + (y * multiButtonView.numButtonCols)
 	}
 
 	prIndexToXy { |index|
-		^[index mod: this.numButtonCols, index div: this.numButtonCols]
+		^(index mod: multiButtonView.numButtonCols)@(index div: multiButtonView.numButtonCols)
 	}
 
 	prButtonValueByStepIndex { |index|
-		var x, y;
-		# x, y = this.prIndexToXy(index);
-		^this.buttonValue(x, y);
+		var point;
+		point = this.prIndexToXy(index);
+		^multiButtonView.buttonValue(point.x, point.y);
 	}
 
 	prSetButtonValueByStepIndex { |index, val|
-		var x, y;
-		# x, y = this.prIndexToXy(index);
-		this.setButtonValue(x, y, val);
+		var point;
+		point = this.prIndexToXy(index);
+		multiButtonView.setButtonValue(point.x, point.y, val);
 	}
 }

@@ -1,8 +1,7 @@
 GRContainerView : GRView {
 	var
 		<pressThrough,
-		children,
-		actsAsView
+		children
 	;
 
 	*new { |parent, origin, numCols, numRows, enabled=true, pressThrough=false|
@@ -12,8 +11,6 @@ GRContainerView : GRView {
 	initGRContainerView { |argParent, argOrigin, argPressThrough|
 		pressThrough = argPressThrough;
 		children = Array.new;
-
-		actsAsView = false;
 
 		// view has to be added to parent after class-specific properties
 		// have been initialized, otherwise it is not properly refreshed
@@ -47,18 +44,14 @@ GRContainerView : GRView {
 	}
 
 	addChild { |view, origin|
-		if (actsAsView) {
-			Error("it is not allowed to add children to a %".format(this.class)).throw
-		} {
-			this.prAddChild(view, origin)
-		}
+		this.prAddChild(view, origin, false)
 	}
 
 	prAddChildNoFlash { |view, origin|
 		this.prAddChild(view, origin, true)
 	}
 
-	prAddChild { |view, origin, preventFlash=false|
+	prAddChild { |view, origin, preventFlash|
 		this.validateOkToAddChild(view, origin);
 
 		this.releaseAllWithinBounds(origin, view.numCols, view.numRows);
@@ -77,29 +70,19 @@ GRContainerView : GRView {
 	}
 
 	removeAllChildren {
-		if (actsAsView) {
-			Error("it is not allowed to remove children from a %".format(this.class)).throw
-		} {
-			this.prRemoveAllChildren
-		}
+		this.prRemoveAllChildren(false)
 	}
 
-	prRemoveAllChildren { |preventFlash=false|
+	prRemoveAllChildren { |preventFlash|
 		children.copy.do { |child| this.prRemoveChild(child, preventFlash) }
 	}
 
 	removeChild { |view|
-		if (actsAsView) {
-			Error("it is not allowed to remove children from a %".format(this.class)).throw
-		} {
-			this.prRemoveChild(view)
-		}
+		this.prRemoveChild(view, false)
 	}
 
-	prRemoveChild { |view, preventFlash=false|
-		if (this.isParentOf(view).not) {
-			Error("[%] not a child of [%]".format(view, this)).throw;
-		};
+	prRemoveChild { |view, preventFlash|
+		this.validateParentOf(view);
 
 		children.remove(view);
 
@@ -265,39 +248,31 @@ GRContainerView : GRView {
 			plot,
 			wrap;
 
-		if (actsAsView) {
-			^super.asPlot(indentLevel)
-		} {
-			plotPressedLines = Array.fill(numRows) { Array.new };
-			plotLedLines = Array.fill(numRows) { Array.new };
-			this.asPoints.do { |point|
-				wrap = if (this.hasAnyEnabledChildAt(point)) { [ "[", "]" ] } { [ " ", " " ] };
-				plotPressedLines[point.y] = plotPressedLines[point.y].add(
-					wrap.join(if (this.isPressedAt(point), 'P', '-'))
-				);
-				plotLedLines[point.y] = plotLedLines[point.y].add(
-					wrap.join(if (this.isLitAt(point), 'L', '-'))
-				);
-			};
-			plotPressedLines = plotPressedLines.collect { |row, i| i.asString ++ " " ++ row.join(" ") };
-			plotLedLines = plotLedLines.collect { |row, i| i.asString ++ " " ++ row.join(" ") };
-			plot = "  " ++ numCols.collect { |num| " " ++ num.asString ++ " " }.join(" ");
-			plot = Array.fill(indentLevel, { "\t" }).join ++ plot ++ delimiter ++ plot ++ "\n";
-			numRows.do { |i|
-				plot = plot ++ Array.fill(indentLevel, { "\t" }).join ++ plotPressedLines[i] ++ delimiter ++ plotLedLines[i] ++ "\n"
-			};
-			^plot;
-		}
+		plotPressedLines = Array.fill(numRows) { Array.new };
+		plotLedLines = Array.fill(numRows) { Array.new };
+		this.asPoints.do { |point|
+			wrap = if (this.hasAnyEnabledChildAt(point)) { [ "[", "]" ] } { [ " ", " " ] };
+			plotPressedLines[point.y] = plotPressedLines[point.y].add(
+				wrap.join(if (this.isPressedAt(point), 'P', '-'))
+			);
+			plotLedLines[point.y] = plotLedLines[point.y].add(
+				wrap.join(if (this.isLitAt(point), 'L', '-'))
+			);
+		};
+		plotPressedLines = plotPressedLines.collect { |row, i| i.asString ++ " " ++ row.join(" ") };
+		plotLedLines = plotLedLines.collect { |row, i| i.asString ++ " " ++ row.join(" ") };
+		plot = "  " ++ numCols.collect { |num| " " ++ num.asString ++ " " }.join(" ");
+		plot = Array.fill(indentLevel, { "\t" }).join ++ plot ++ delimiter ++ plot ++ "\n";
+		numRows.do { |i|
+			plot = plot ++ Array.fill(indentLevel, { "\t" }).join ++ plotPressedLines[i] ++ delimiter ++ plotLedLines[i] ++ "\n"
+		};
+		^plot;
 	}
 
 	asTree { |includeDetails=false, indentLevel=0|
-		if (actsAsView) {
-			^super.asTree(includeDetails, indentLevel)
-		} {
-			^super.asTree(includeDetails, indentLevel) ++
-				children.collect { |child|
-					child.asTree(includeDetails, indentLevel+1)
-				}.join("")
-		}
+		^super.asTree(includeDetails, indentLevel) ++
+			children.collect { |child|
+				child.asTree(includeDetails, indentLevel+1)
+			}.join("")
 	}
 }

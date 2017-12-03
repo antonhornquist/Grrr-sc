@@ -1,4 +1,4 @@
-GRMultiToggleView : GRContainerView {
+GRMultiToggleView : GRView {
 	var
 		<>togglePressedAction,
 		<>toggleReleasedAction,
@@ -13,11 +13,12 @@ GRMultiToggleView : GRContainerView {
 		nillable,
 		filled,
 		valuesAreInverted,
-		toggles
+		toggles,
+		containerView
 	;
 
 	*new { |parent, origin, numCols, numRows, orientation=\vertical, enabled=true, coupled=true, nillable=false|
-		^super.new(nil, nil, numCols, numRows, enabled, true).initGRMultiToggleView(parent, origin, orientation, coupled, nillable)
+		^super.new(nil, nil, numCols, numRows, enabled).initGRMultiToggleView(parent, origin, orientation, coupled, nillable)
 	}
 
 	initGRMultiToggleView { |argParent, argOrigin, argOrientation, argCoupled, argNillable|
@@ -28,7 +29,15 @@ GRMultiToggleView : GRContainerView {
 		nillable = argNillable;
 		this.prSetNumTogglesDefaults;
 
-		actsAsView = true;
+		containerView = GRContainerView.newDetached(numCols, numRows);
+		containerView.addAction({ |originatingButton, point, on|
+			if (this.hasViewLedRefreshedAction) {
+				viewLedRefreshedAction.value(this, point, on);
+			};
+		}, \viewLedRefreshedAction);
+		this.addAction({ |point, pressed|
+			containerView.handleViewButtonEvent(this, point, pressed);
+		}, \viewButtonStateChangedAction);
 
 		this.prReconstructChildren;
 
@@ -45,10 +54,6 @@ GRMultiToggleView : GRContainerView {
 
 	*newDetached { |numCols, numRows, orientation=\vertical, enabled=true, coupled=true, nillable=false|
 		^this.new(nil, nil, numCols, numRows, orientation, enabled, coupled, nillable)
-	}
-
-	*newDisabled { |parent, origin, numCols, numRows, orientation=\vertical, coupled=true, nillable=false|
-		^this.new(parent, origin, numCols, numRows, orientation, false, coupled, nillable)
 	}
 
 	*newDecoupled { |parent, origin, numCols, numRows, orientation=\vertical, enabled=true, nillable=false|
@@ -133,10 +138,10 @@ GRMultiToggleView : GRContainerView {
 		this.validateValue(val);
 		numToggleValuesChanged = 0;
 		numToggles.do { |i|
-			var toggle = toggles[i];
-			if (toggle.value != val[i]) {
-				toggle.value = val[i];
-				toggleValueChangedAction !? toggleValueChangedAction.value(this, i, toggle.value);
+			var newToggleValue = val[i];
+			if (this.toggleValue(i) != newToggleValue) {
+				this.setToggleValue(i, newToggleValue);
+				toggleValueChangedAction !? toggleValueChangedAction.value(this, i, newToggleValue);
 				numToggleValuesChanged = numToggleValuesChanged + 1;
 			}
 		};
@@ -146,7 +151,10 @@ GRMultiToggleView : GRContainerView {
 	}
 
 	validateValue { |val|
- 		if (val.size != numToggles) { Error("array must be of size %".format(numToggles)).throw }
+ 		if (val.size != numToggles) { Error("array must be of size %".format(numToggles)).throw };
+		numToggles.do { |i|
+			toggles[i].validateValue(val[i]);
+		}
 	}
 
 	maximumToggleValue {
@@ -155,10 +163,6 @@ GRMultiToggleView : GRContainerView {
 
 	toggleValue { |i|
 		^toggles[i].value
-	}
-
-	flashToggle { |i, delay|
-		toggles[i].flash(delay)
 	}
 
 	setToggleValue { |i, val|
@@ -211,6 +215,15 @@ GRMultiToggleView : GRContainerView {
 			}
 	}
 
+	isLitAt { |point|
+		this.validateContainsPoint(point);
+		^containerView.isLitAt(point);
+	}
+
+	flashToggle { |i, delay|
+		toggles[i].flash(delay)
+	}
+
 	flashView { |delay|
 		this.numToggles.do { |i|
 			toggles[i].flash(delay);
@@ -221,38 +234,39 @@ GRMultiToggleView : GRContainerView {
  		Error("not implemented for GRMultiToggleView").throw;
 	}
 
-	flashPoint {
- 		Error("not implemented for GRMultiToggleView").throw;
-	}
-
 	prReconstructChildren {
 		this.releaseAll;
-		this.prRemoveAllChildren(true);
 
-		toggles = Array.fill(numToggles) { |i|
-			var toggle, position;
-			toggle = GRToggle.newDetached(this.toggleWidth, this.toggleHeight, true, coupled, nillable, orientation);
-			if (valuesAreInverted.notNil) {
-				toggle.valuesAreInverted = valuesAreInverted
-			};
-			if (this.thumbSize != [nil, nil]) {
-				if (toggle.isValidThumbSize(this.thumbSize)) {
-					toggle.thumbSize = this.thumbSize
+		this.prDoThenRefreshChangedLeds {
+			containerView.prRemoveAllChildren(true);
+			toggles = Array.fill(numToggles) { |i|
+				var toggle, position;
+				toggle = GRToggle.newDetached(this.toggleWidth, this.toggleHeight, true, coupled, nillable, orientation);
+
+				if (valuesAreInverted.notNil) {
+					toggle.valuesAreInverted = valuesAreInverted
+				};
+
+				if (this.thumbSize != [nil, nil]) {
+					if (toggle.isValidThumbSize(this.thumbSize)) {
+						toggle.thumbSize = this.thumbSize
+					} {
+						this.thumbSize_(toggle.thumbSize)
+					}
+				};
+
+				position = if (orientation == \vertical) {
+					Point.new(i*this.toggleWidth, 0)
 				} {
-					this.thumbSize_(toggle.thumbSize)
-				}
-			};
-			this.prAddActions(toggle, i);
+					Point.new(0, i*this.toggleHeight)
+				};
 
-			position = if (orientation == \vertical) {
-				Point.new(i*this.toggleWidth, 0)
-			} {
-				Point.new(0, i*this.toggleHeight)
-			};
+				this.prAddActions(toggle, i);
 
-			this.prAddChildNoFlash(toggle, position);
-			toggle;
-		}
+				containerView.prAddChildNoFlash(toggle, position);
+				toggle;
+			};
+		};
 	}
 
 	prAddActions { |toggle, index|
