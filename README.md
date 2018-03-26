@@ -73,9 +73,9 @@ Grrr-sc requires the [SerialOSCClient-sc](http://github.com/antonhornquist/Seria
 
 Install the [SerialOSCClient-sc](http://github.com/antonhornquist/SerialOSCClient-sc) dependency.
 
-Copy the Grrr-sc folder to the user-specific or system-wide extension directory. Recompile the SuperCollider class library.
+Copy the `Grrr-sc` folder to the user-specific or system-wide extension directory. Recompile the SuperCollider class library.
 
-The user-specific extension directory may be retrieved by evaluating Platform.userExtensionDir in SuperCollider, the system-wide by evaluating Platform.systemExtensionDir.
+The user-specific extension directory may be retrieved by evaluating `Platform.userExtensionDir` in SuperCollider, the system-wide by evaluating `Platform.systemExtensionDir`.
 
 ## Documentation
 
