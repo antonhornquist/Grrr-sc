@@ -74,7 +74,7 @@ GRView {
 	}
 
 	*boundsToPoints { |origin, numCols, numRows|
-		^Array.fill( numCols * numRows, { |i| ( origin.x + (i mod: numCols) ) @ ( origin.y + (i div: numCols) ) } );
+		^Array.fill( numCols * numRows, { |i| ( origin.x + (i mod: numCols) ) @ ( origin.y + (i div: numCols) ) } );
 	}
 
 	*pointsSect { |argPoints1, argPoints2|
@@ -120,7 +120,7 @@ GRView {
 	// Validations
 
 	validateContainsPoint { |point|
-		if (this.containsPoint(point) == false) { 
+		if (this.containsPoint(point) == false) {
 			Error("point"+point+"not within bounds of"+this).throw;
 		}
 	}
@@ -130,7 +130,7 @@ GRView {
 	}
 
 	validateContainsBounds { |argOrigin, argNumCols, argNumRows|
-		if (this.containsBounds(argOrigin, argNumCols, argNumRows) == false) { 
+		if (this.containsBounds(argOrigin, argNumCols, argNumRows) == false) {
 			Error("bounds (origin:"+argOrigin++", numCols"+argNumCols++", numRows:"+argNumRows++") not within bounds of"+this).throw;
 		}
 	}
@@ -235,19 +235,19 @@ GRView {
 	rightmostColPressed {
 		var points;
 		points = this.rightmostPressed;
-		^if (points.isEmpty) { nil } { points.first.x };
+		^if (points.isEmpty) { nil } { points.first.x };
 	}
 
 	topmostRowPressed {
 		var points;
 		points = this.topmostPressed;
-		^if (points.isEmpty) { nil } { points.first.y };
+		^if (points.isEmpty) { nil } { points.first.y };
 	}
 
 	bottommostRowPressed {
 		var points;
 		points = this.bottommostPressed;
-		^if (points.isEmpty) { nil } { points.first.y };
+		^if (points.isEmpty) { nil } { points.first.y };
 	}
 
 	leftmostPressed {
@@ -276,7 +276,7 @@ GRView {
 			if (this.isPressedAtSkipValidation(point) != pressed) {
 				if (pressed) {
 					pointsPressed.add(point)
-				} {
+				} {
 					pointsPressed.removeAt(
 						pointsPressed.detectIndex(_==point)
 					)
@@ -286,7 +286,7 @@ GRView {
 				if (GRCommon.traceButtonEvents) {
 					"in % - button % at % (source: [%]) handled in [%]".format(
 						thisMethod,
-						if (pressed, "press", "release"),
+						if (pressed, "press", "release"),
 						point,
 						source,
 						this
@@ -294,11 +294,11 @@ GRView {
 				};
 
 				[ (view: this, point: point) ];
-			} {
+			} {
 				if (GRCommon.traceButtonEvents) {
 					"in % - button state is already % in [%] at % %".format(
 						thisMethod,
-						if (pressed, "pressed", "released"),
+						if (pressed, "pressed", "released"),
 						this,
 						point,
 						if (viewButtonStateChangedAction.notNil) { "- viewButtonStateChangedAction was not invoked" } { "" }
@@ -325,7 +325,7 @@ GRView {
 	refresh { |refreshChildren=true|
 		if (enabled) {
 			this.asPoints.do( this.refreshPoint(_, refreshChildren) );
-		} {
+		} {
 			Error("view is disabled").throw;
 		};
 	}
@@ -334,15 +334,15 @@ GRView {
 		if (enabled) {
 			this.validateContainsBounds(argOrigin, argNumCols, argNumRows);
 			GRView.boundsToPoints(argOrigin, argNumCols, argNumRows).do( this.refreshPoint(_, argRefreshChildren) );
-		} {
+		} {
 			Error("view is disabled").throw;
 		};
 	}
 
 	refreshPoints { |points, refreshChildren=true|
 		if (enabled) {
-			points.do { |point| this.refreshPoint(point) }
-		} {
+			points.do { |point| this.refreshPoint(point) }
+		} {
 			Error("view is disabled").throw;
 		};
 	}
@@ -350,10 +350,10 @@ GRView {
 	refreshPoint { |point, refreshChildren=true|
 		if (enabled) {
 			this.validateContainsPoint(point);
-			if (this.hasViewLedRefreshedAction) {
+			if (this.hasViewLedRefreshedAction) {
 				viewLedRefreshedAction.value(this, point, this.isLitAt(point));
 			};
-		} {
+		} {
 			Error("view is disabled").throw;
 		};
 	}
@@ -372,19 +372,19 @@ GRView {
 	}
 
 	anyLit {
-		^this.asPoints.any { |point| this.isLitAt(point) }
+		^this.asPoints.any { |point| this.isLitAt(point) }
 	}
 
 	allLit {
-		^this.asPoints.every { |point| this.isLitAt(point) }
+		^this.asPoints.every { |point| this.isLitAt(point) }
 	}
 
 	anyUnlit {
-		^this.asPoints.any { |point| this.isUnlitAt(point) }
+		^this.asPoints.any { |point| this.isUnlitAt(point) }
 	}
 
 	allUnlit {
-		^this.asPoints.every { |point| this.isUnlitAt(point) }
+		^this.asPoints.every { |point| this.isUnlitAt(point) }
 	}
 
 	getLedStateWithinBounds { |argOrigin, argNumCols, argNumRows|
@@ -406,7 +406,7 @@ GRView {
 	prDoThenRefreshChangedLeds { |func|
 		var pre, post, pointsHavingChangedState, pointsToRefresh;
 		if (this.hasParent) {
-			pre = this.getLedStateWithinBounds(origin, numCols, numRows);
+			pre = this.getLedStateWithinBounds(origin, numCols, numRows); // TODO: Point.new(0, 0) instead of origin?
 			this.prDisableLedForwardingToParent;
 		};
 
@@ -414,7 +414,7 @@ GRView {
 
 		if (this.hasParent) {
 			this.prEnableLedForwardingToParent;
-			post = this.getLedStateWithinBounds(origin, numCols, numRows);
+			post = this.getLedStateWithinBounds(origin, numCols, numRows); // TODO: Point.new(0, 0) instead of origin?
 
 			pointsHavingChangedState = post.select { |pointState1|
 				pre.any { |pointState2|
@@ -450,8 +450,8 @@ GRView {
 		{
 			(repeat ? defaultIndicateRepeat).do {
 				[true, false].do { |bool|
-					if (this.hasViewLedRefreshedAction) {
-						points.do { |point| viewLedRefreshedAction.value(this, point, bool) }
+					if (this.hasViewLedRefreshedAction) {
+						points.do { |point| viewLedRefreshedAction.value(this, point, bool) }
 					};
 					intervalInSeconds.wait;
 				};
@@ -478,7 +478,7 @@ GRView {
 		this.prSetInvertedLedsMap(points, true);
 		this.prScheduleToResetLeds(
 			points,
-			(delay ? defaultFlashDelay)  / 1000.0
+			(delay ? defaultFlashDelay)  / 1000.0
 		);
 	}
 
@@ -513,8 +513,8 @@ GRView {
 	}
 
 	enabled_ { |bool|
-		if (enabled == bool) {
-			Error("already %".format(if (enabled, "enabled", "disabled"))).throw;
+		if (enabled == bool) {
+			Error("already %".format(if (enabled, "enabled", "disabled"))).throw;
 		};
 		if (bool) {
 			if (this.hasParent) {
@@ -523,7 +523,7 @@ GRView {
 			enabled = true;
 			this.refresh;
 			viewWasEnabledAction.value(this);
-		} {
+		} {
 			this.releaseAll;
 			enabled = false;
 			if (this.hasParent) {
@@ -537,16 +537,16 @@ GRView {
 
 	addAction { |function, selector=\action|
 		switch (selector)
-			{ \viewButtonStateChangedAction } {
+			{ \viewButtonStateChangedAction } {
 				viewButtonStateChangedAction = viewButtonStateChangedAction.addFunc(function)
 			}
-			{ \viewLedRefreshedAction } {
+			{ \viewLedRefreshedAction } {
 				viewLedRefreshedAction = viewLedRefreshedAction.addFunc(function)
 			}
-			{ \viewWasEnabledAction } {
+			{ \viewWasEnabledAction } {
 				viewWasEnabledAction = viewWasEnabledAction.addFunc(function)
 			}
-			{ \viewWasDisabledAction } {
+			{ \viewWasDisabledAction } {
 				viewWasDisabledAction = viewWasDisabledAction.addFunc(function)
 			} {
 				this.perform(selector.asSetter, this.perform(selector).addFunc(function));
@@ -556,16 +556,16 @@ GRView {
 	removeAction { |function, selector=\action|
 		if ((selector == \viewButtonStateChangedAction) or: (selector == \viewLedRefreshedAction)) {
 			switch (selector)
-				{ \viewButtonStateChangedAction } {
+				{ \viewButtonStateChangedAction } {
 					viewButtonStateChangedAction = viewButtonStateChangedAction.removeFunc(function)
 				}
-				{ \viewLedRefreshedAction } {
+				{ \viewLedRefreshedAction } {
 					viewLedRefreshedAction = viewLedRefreshedAction.removeFunc(function)
 				}
-				{ \viewWasEnabledAction } {
+				{ \viewWasEnabledAction } {
 					viewWasEnabledAction = viewWasEnabledAction.removeFunc(function)
 				}
-				{ \viewWasDisabledAction } {
+				{ \viewWasDisabledAction } {
 					viewWasDisabledAction = viewWasDisabledAction.removeFunc(function)
 				}
 		} {
@@ -637,7 +637,7 @@ GRView {
 	}
 
 	setParentReference { |argParent, argOrigin|
-		if (this.hasParent) {
+		if (this.hasParent) {
 			Error("cannot set parent reference - [%] already has a parent".format(this.asString)).throw;
 		};
 		parent = argParent;
@@ -661,7 +661,7 @@ GRView {
 				if (GRCommon.traceLedEvents) {
 					reason = if (parent.hasViewLedRefreshedAction.not) {
 						"parent has no viewLedRefreshedAction"
-					} {
+					} {
 						if (parent.isEnabled.not) {
 							"parent is disabled"
 						} {
@@ -718,7 +718,7 @@ GRView {
 	// String representation
 
 	asString {
-		^super.asString + "(%%x%, %)".format(if (id.notNil) { id.asString++", " } { "" }, numCols, numRows, if (enabled) { "enabled" } { "disabled" });
+		^super.asString + "(%%x%, %)".format(if (id.notNil) { id.asString++", " } { "" }, numCols, numRows, if (enabled) { "enabled" } { "disabled" });
 	}
 
 	plot {

@@ -4,12 +4,12 @@ GRContainerView : GRView {
 		children
 	;
 
-	*new { |parent, origin, numCols, numRows, enabled=true, pressThrough=false|
+	*new { |parent, origin, numCols, numRows, enabled=true, pressThrough=false| // TODO: press through is not needed anymore, right?
 		^super.new(nil, nil, numCols, numRows, enabled).initGRContainerView(parent, origin, pressThrough);
 	}
 
 	initGRContainerView { |argParent, argOrigin, argPressThrough|
-		pressThrough = argPressThrough;
+		pressThrough = argPressThrough; // TODO: press through is not needed anymore, right?
 		children = Array.new;
 
 		// view has to be added to parent after class-specific properties
